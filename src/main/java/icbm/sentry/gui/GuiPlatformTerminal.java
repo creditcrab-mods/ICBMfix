@@ -2,7 +2,7 @@ package icbm.sentry.gui;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import icbm.sentry.terminal.TileEntityTerminal;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -18,7 +18,7 @@ public class GuiPlatformTerminal extends GuiPlatformBase {
     private GuiTextField commandLine;
 
     public GuiPlatformTerminal(
-        final EntityPlayer entityPlayer, final TTurretPlatform tileEntity
+        final EntityPlayer entityPlayer, final TileEntityTurretPlatform tileEntity
     ) {
         super(entityPlayer, tileEntity);
         this.tileEntity = tileEntity;

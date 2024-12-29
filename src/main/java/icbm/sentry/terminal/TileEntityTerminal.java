@@ -19,17 +19,18 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.vector.Vector3;
 
 public abstract class TileEntityTerminal
-    extends TileEntityUniversalRunnable implements ITerminal, IEnergyHandler {
+    extends TileEntityUniversalRunnable implements ITerminal {
     protected List<String> terminalOutput;
     private final List<UserAccess> users;
     public static final int SCROLL_SIZE = 15;
     private int scroll;
     public final Set<EntityPlayer> playersUsing;
 
-    public static final int MAX_RECIEVE = Integer.MAX_VALUE;
+
 
     public TileEntityTerminal() {
         this.terminalOutput = new ArrayList<>();
@@ -215,28 +216,5 @@ public abstract class TileEntityTerminal
 
         nbt.setTag("Users", (NBTBase) usersTag);
     }
-    @Override
-    public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b) {
-        return 0;
-    }
 
-    @Override
-    public int extractEnergy(ForgeDirection forgeDirection, int i, boolean b) {
-        return 0;
-    }
-
-    @Override
-    public int getEnergyStored(ForgeDirection forgeDirection) {
-        return 0;
-    }
-
-    @Override
-    public int getMaxEnergyStored(ForgeDirection forgeDirection) {
-        return 0;
-    }
-
-    @Override
-    public boolean canConnectEnergy(ForgeDirection forgeDirection) {
-        return true;
-    }
 }

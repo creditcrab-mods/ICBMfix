@@ -5,7 +5,7 @@ import java.util.List;
 
 import icbm.sentry.ISpecialAccess;
 import icbm.sentry.access.AccessLevel;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import icbm.sentry.terminal.ITerminal;
 import icbm.sentry.terminal.TerminalCommand;
 import icbm.sentry.turret.sentries.TAutomaticTurret;
@@ -21,8 +21,8 @@ public class CommandTarget extends TerminalCommand {
     public boolean processCommand(
         final EntityPlayer player, final ITerminal terminal, final String[] args
     ) {
-        if (terminal instanceof TTurretPlatform) {
-            final TTurretPlatform turret = (TTurretPlatform) terminal;
+        if (terminal instanceof TileEntityTurretPlatform) {
+            final TileEntityTurretPlatform turret = (TileEntityTurretPlatform) terminal;
 
             if (turret.getTurret(false) instanceof TAutomaticTurret) {
                 final TAutomaticTurret sentry
@@ -108,7 +108,7 @@ public class CommandTarget extends TerminalCommand {
 
     @Override
     public boolean canMachineUse(final ISpecialAccess mm) {
-        return mm instanceof TTurretPlatform
-            && ((TTurretPlatform) mm).getTurret(false) instanceof TAutomaticTurret;
+        return mm instanceof TileEntityTurretPlatform
+            && ((TileEntityTurretPlatform) mm).getTurret(false) instanceof TAutomaticTurret;
     }
 }

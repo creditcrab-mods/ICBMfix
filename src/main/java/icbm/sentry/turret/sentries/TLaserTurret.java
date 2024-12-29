@@ -5,7 +5,7 @@ import icbm.api.sentry.IAATarget;
 import icbm.sentry.ICBMSentry;
 import icbm.sentry.ProjectileType;
 import icbm.sentry.damage.TileDamageSource;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
@@ -108,7 +108,7 @@ public class TLaserTurret extends TAutomaticTurret {
     protected boolean onFire() {
         if (!this.worldObj.isRemote && this.getPlatform() != null) {
             if (super.target instanceof EntityLivingBase) {
-                final TTurretPlatform platform = this.getPlatform();
+                final TileEntityTurretPlatform platform = this.getPlatform();
                 platform.wattsReceived -= this.getFiringRequest();
                 super.target.attackEntityFrom(
                     (DamageSource) TileDamageSource.doLaserDamage(this), 2

@@ -4,7 +4,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import icbm.sentry.render.BlockRenderingHandler;
 import icbm.sentry.render.FXBeam;
 import icbm.sentry.render.RAATurret;
@@ -66,15 +66,15 @@ public class ClientProxy extends CommonProxy {
         if (tileEntity != null) {
             switch (ID) {
                 case 0: {
-                    return new GuiPlatformSlots(player.inventory, (TTurretPlatform) tileEntity);
+                    return new GuiPlatformSlots(player.inventory, (TileEntityTurretPlatform) tileEntity);
                 }
 
                 case 1: {
-                    return new GuiPlatformTerminal(player, (TTurretPlatform) tileEntity);
+                    return new GuiPlatformTerminal(player, (TileEntityTurretPlatform) tileEntity);
                 }
 
                 case 2: {
-                    return new GuiPlatformAccess(player, (TTurretPlatform) tileEntity);
+                    return new GuiPlatformAccess(player, (TileEntityTurretPlatform) tileEntity);
                 }
             }
         }

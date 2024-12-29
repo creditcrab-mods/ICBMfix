@@ -1,5 +1,8 @@
 package icbm.sentry.platform;
 
+import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyContainerItem;
+import cofh.api.energy.IEnergyReceiver;
 import icbm.sentry.IAmmunition;
 import icbm.sentry.ITurretUpgrade;
 import icbm.sentry.ProjectileType;
@@ -24,19 +27,25 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.electricity.ElectricityPack;
-import universalelectricity.core.item.ElectricItemHelper;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.CustomDamageSource;
 
-public class TTurretPlatform extends TileEntityTerminal implements IInventory {
+public class TileEntityTurretPlatform extends TileEntityTerminal implements IInventory, IEnergyReceiver {
     private TTurretBase turret;
     public ForgeDirection deployDirection;
     public static final int UPGRADE_START_INDEX = 12;
 
+    public static final int MAX_RECIEVE = Integer.MAX_VALUE;
+
+    public static final int MAX_BUFFER = 8000;
+
+    public int prevRF = 0;
+
+    public EnergyStorage energyStorage = new EnergyStorage(8000,MAX_RECIEVE,MAX_RECIEVE);
 
     public ItemStack[] containingItems;
 
-    public TTurretPlatform() {
+    public TileEntityTurretPlatform() {
         this.turret = null;
         this.deployDirection = ForgeDirection.UP;
         this.containingItems = new ItemStack[16];
@@ -46,21 +55,19 @@ public class TTurretPlatform extends TileEntityTerminal implements IInventory {
     public void updateEntity() {
         super.updateEntity();
 
-        if (super.prevWatts != super.wattsReceived) {
+        if (prevRF != energyStorage.getEnergyStored()) {
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+            this.markDirty();
         }
 
         if (!this.worldObj.isRemote) {
             for (int i = 0; i < 12; ++i) {
-                if (super.wattsReceived >= this.getRequest().getWatts()) {
-                    break;
+                if(containingItems[i] != null && containingItems[i].getItem() instanceof IEnergyContainerItem containerItem){
+                    int energyNeeded = energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored();
+                    energyStorage.receiveEnergy( containerItem.extractEnergy(containingItems[i],energyNeeded,false),false);
                 }
 
-                super.wattsReceived += ElectricItemHelper.dechargeItem(
-                    this.getStackInSlot(i),
-                    Math.ceil(this.getRequest().getWatts()),
-                    this.getVoltage()
-                );
+
             }
         }
     }
@@ -91,6 +98,14 @@ public class TTurretPlatform extends TileEntityTerminal implements IInventory {
         }
     }
 
+
+    public int getRFRequest(){
+        var turret = this.getTurret(false);
+        if(turret != null){
+            return (int) (turret.getFiringRequest() / UniversalElectricity.UE_RF_RATIO);
+        }
+        return 0;
+    }
     @Override
     public ElectricityPack getRequest() {
         if (this.getTurret(false) != null
@@ -192,8 +207,8 @@ public class TTurretPlatform extends TileEntityTerminal implements IInventory {
     }
 
     public boolean isRunning() {
-        return !this.isDisabled() && this.getTurret(false) != null
-            && super.wattsReceived >= this.getTurret(false).getFiringRequest();
+        return this.getTurret(false) != null
+            && energyStorage.getEnergyStored() >= getRFRequest();
     }
 
     public ItemStack hasAmmunition(final ProjectileType projectileType) {
@@ -356,6 +371,30 @@ public class TTurretPlatform extends TileEntityTerminal implements IInventory {
     }
 
     @Override
+    public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b) {
+        prevRF = energyStorage.getEnergyStored();
+        return energyStorage.receiveEnergy(i,b);
+    }
+
+
+    @Override
+    public int getEnergyStored(ForgeDirection forgeDirection) {
+        return energyStorage.getEnergyStored();
+        //return (int)(this.wattsReceived / UniversalElectricity.UE_RF_RATIO);
+    }
+
+    @Override
+    public int getMaxEnergyStored(ForgeDirection forgeDirection) {
+        return energyStorage.getMaxEnergyStored();
+        //return (int)(this.getWattBuffer() / UniversalElectricity.UE_RF_RATIO);
+    }
+
+    @Override
+    public boolean canConnectEnergy(ForgeDirection forgeDirection) {
+        return true;
+    }
+
+    @Override
     public boolean hasCustomInventoryName() {
         return true;
     }
@@ -409,6 +448,7 @@ public class TTurretPlatform extends TileEntityTerminal implements IInventory {
         NBTTagCompound nbt = new NBTTagCompound();
 
         nbt.setDouble("wattsReceived", super.wattsReceived);
+        nbt.setInteger("rf",energyStorage.getEnergyStored());
         super.writeToNBT(nbt);
 
         return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord,
@@ -420,6 +460,7 @@ public class TTurretPlatform extends TileEntityTerminal implements IInventory {
         NBTTagCompound nbt = pkt.func_148857_g();
 
         super.wattsReceived = nbt.getDouble("wattsReceived");
+        energyStorage.setEnergyStored(nbt.getInteger("rf"));
         super.readFromNBT(nbt);
     }
 

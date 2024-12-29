@@ -7,7 +7,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import icbm.sentry.access.AccessLevel;
 import icbm.sentry.access.UserAccess;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,7 +25,7 @@ public class GuiPlatformAccess extends GuiPlatformBase implements IScroll {
     private final HashMap<UserAccess, Vector2> outputMap;
 
     public GuiPlatformAccess(
-        final EntityPlayer entityPlayer, final TTurretPlatform tileEntity
+        final EntityPlayer entityPlayer, final TileEntityTurretPlatform tileEntity
     ) {
         super(entityPlayer, tileEntity);
         this.scroll = 0;

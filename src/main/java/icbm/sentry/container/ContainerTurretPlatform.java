@@ -1,23 +1,23 @@
 package icbm.sentry.container;
 
+import cofh.api.energy.IEnergyContainerItem;
 import icbm.sentry.IAmmunition;
 import icbm.sentry.ITurretUpgrade;
 import icbm.sentry.SlotTurret;
 import icbm.sentry.access.AccessLevel;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import icbm.sentry.turret.ItemAmmo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import universalelectricity.core.item.IItemElectric;
 
 public class ContainerTurretPlatform extends ContainerTerminal {
-    private TTurretPlatform tileEntity;
+    private TileEntityTurretPlatform tileEntity;
 
     public ContainerTurretPlatform(
-        final InventoryPlayer inventoryPlayer, final TTurretPlatform tileEntity
+        final InventoryPlayer inventoryPlayer, final TileEntityTurretPlatform tileEntity
     ) {
         super(inventoryPlayer, tileEntity);
         this.tileEntity = tileEntity;
@@ -29,7 +29,7 @@ public class ContainerTurretPlatform extends ContainerTerminal {
                     column + row * 4,
                     8 + column * 18,
                     40 + row * 18,
-                    new Class[] { IAmmunition.class, IItemElectric.class }
+                    new Class[] { IAmmunition.class, IEnergyContainerItem.class }
                 ));
             }
         }
@@ -76,7 +76,7 @@ public class ContainerTurretPlatform extends ContainerTerminal {
                 if (this.tileEntity.getUserAccess(entityPlayer.getDisplayName()).ordinal()
                     > AccessLevel.NONE.ordinal()) {
                     if (itemStack.getItem() instanceof ItemAmmo
-                        || itemStack.getItem() instanceof IItemElectric) {
+                        || itemStack.getItem() instanceof IEnergyContainerItem) {
                         if (!this.mergeItemStack(itemStack, 0, 12, false)) {
                             return null;
                         }

@@ -5,7 +5,7 @@ import java.util.List;
 
 import icbm.sentry.ISpecialAccess;
 import icbm.sentry.access.AccessLevel;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import icbm.sentry.terminal.ITerminal;
 import icbm.sentry.terminal.TerminalCommand;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,11 +20,11 @@ public class CommandDestroy extends TerminalCommand {
     public boolean processCommand(
         final EntityPlayer player, final ITerminal terminal, final String[] args
     ) {
-        if (!(terminal instanceof TTurretPlatform)) {
+        if (!(terminal instanceof TileEntityTurretPlatform)) {
             return false;
         }
 
-        final TTurretPlatform turret = (TTurretPlatform) terminal;
+        final TileEntityTurretPlatform turret = (TileEntityTurretPlatform) terminal;
 
         if (args.length > 1) {
             turret.destroyTurret();
@@ -57,6 +57,6 @@ public class CommandDestroy extends TerminalCommand {
 
     @Override
     public boolean canMachineUse(final ISpecialAccess mm) {
-        return mm instanceof TTurretPlatform;
+        return mm instanceof TileEntityTurretPlatform;
     }
 }

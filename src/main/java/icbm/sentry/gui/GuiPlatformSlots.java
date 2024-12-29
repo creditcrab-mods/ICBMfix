@@ -2,17 +2,18 @@ package icbm.sentry.gui;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import icbm.sentry.turret.TTurretBase;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import universalelectricity.api.energy.UnitDisplay;
+import universalelectricity.core.UniversalElectricity;
 
 @SideOnly(Side.CLIENT)
 public class GuiPlatformSlots extends GuiPlatformContainer {
     public GuiPlatformSlots(
-        final InventoryPlayer inventoryPlayer, final TTurretPlatform tileEntity
+        final InventoryPlayer inventoryPlayer, final TileEntityTurretPlatform tileEntity
     ) {
         super(inventoryPlayer, tileEntity);
     }
@@ -32,22 +33,14 @@ public class GuiPlatformSlots extends GuiPlatformContainer {
             this.fontRendererObj.drawString("Energy Per Shot", 85, 33, 4210752);
             this.fontRendererObj.drawString(
                 color
-                    + UnitDisplay.getDisplayShort(
-                        Math.min(
-                            super.tileEntity.wattsReceived, turret.getFiringRequest()
-                        ),
-                        UnitDisplay.Unit.JOULES
-                    ),
+                    + UnitDisplay.getDisplayShort(turret.getFiringRequest() / UniversalElectricity.UE_RF_RATIO,UnitDisplay.Unit.JOULES),
                 87,
                 43,
                 4210752
             );
             this.fontRendererObj.drawString(
-                color + "of "
-                    + UnitDisplay.getDisplayShort(
-                        super.tileEntity.getTurret(false).getFiringRequest(),
-                        UnitDisplay.Unit.JOULES
-                    ),
+                color + "of " + tileEntity.energyStorage.getEnergyStored() + " / "
+                + tileEntity.energyStorage.getMaxEnergyStored(),
                 87,
                 53,
                 4210752

@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import icbm.sentry.ICBMSentry;
 import icbm.sentry.container.ContainerTurretPlatform;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
@@ -17,11 +17,11 @@ import org.lwjgl.opengl.GL11;
 @SideOnly(Side.CLIENT)
 public abstract class GuiPlatformContainer extends GuiContainer {
     protected static final int MAX_BUTTON_ID = 3;
-    protected TTurretPlatform tileEntity;
+    protected TileEntityTurretPlatform tileEntity;
     protected EntityPlayer entityPlayer;
 
     public GuiPlatformContainer(
-        final InventoryPlayer inventoryPlayer, final TTurretPlatform tileEntity
+        final InventoryPlayer inventoryPlayer, final TileEntityTurretPlatform tileEntity
     ) {
         super((Container) new ContainerTurretPlatform(inventoryPlayer, tileEntity));
         this.tileEntity = tileEntity;

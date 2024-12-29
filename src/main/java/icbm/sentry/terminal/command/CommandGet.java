@@ -6,7 +6,7 @@ import java.util.List;
 import icbm.sentry.ISpecialAccess;
 import icbm.sentry.access.AccessLevel;
 import icbm.sentry.access.UserAccess;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import icbm.sentry.terminal.ITerminal;
 import icbm.sentry.terminal.TerminalCommand;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,8 +21,8 @@ public class CommandGet extends TerminalCommand {
     public boolean
     processCommand(final EntityPlayer player, final ITerminal TE, final String[] args) {
         if (args[0].equalsIgnoreCase("get") && args.length > 1 && args[1] != null
-            && TE instanceof TTurretPlatform) {
-            final TTurretPlatform turret = (TTurretPlatform) TE;
+            && TE instanceof TileEntityTurretPlatform) {
+            final TileEntityTurretPlatform turret = (TileEntityTurretPlatform) TE;
 
             if (args[1].equalsIgnoreCase("owner")) {
                 final List<UserAccess> userList
@@ -76,6 +76,6 @@ public class CommandGet extends TerminalCommand {
 
     @Override
     public boolean canMachineUse(final ISpecialAccess mm) {
-        return mm instanceof TTurretPlatform;
+        return mm instanceof TileEntityTurretPlatform;
     }
 }

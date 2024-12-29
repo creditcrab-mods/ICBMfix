@@ -9,7 +9,7 @@ import icbm.sentry.ProjectileType;
 import icbm.sentry.damage.TileDamageSource;
 import icbm.sentry.packet.PacketTurret;
 import icbm.sentry.packet.PacketTurret.Type;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import icbm.sentry.task.TaskManager;
 import icbm.sentry.task.TaskSearchTarget;
 import icbm.sentry.turret.TTurretBase;
@@ -26,6 +26,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.vector.Vector3;
 
 public abstract class TAutomaticTurret extends TTurretBase implements IAutoSentry {
@@ -170,7 +171,7 @@ public abstract class TAutomaticTurret extends TTurretBase implements IAutoSentr
         return this.isValidTarget(this.target) && this.getPlatform() != null
             && super.lookHelper.isLookingAt(this.target, 5.0f)
             && super.tickSinceFired == 0
-            && this.getPlatform().wattsReceived >= this.getFiringRequest()
+            && this.getPlatform().energyStorage.getEnergyStored() >= this.getFiringRequestRF()
             && (this.getPlatform().hasAmmunition(this.projectileType) != null
                 || this.projectileType == ProjectileType.UNKNOWN);
     }
@@ -200,9 +201,8 @@ public abstract class TAutomaticTurret extends TTurretBase implements IAutoSentr
         if (!this.worldObj.isRemote && this.onFire()) {
             this.sendShotToClient(this.getTargetPosition());
             this.playFiringSound();
-            this.getPlatform().wattsReceived = Math.max(
-                this.getPlatform().wattsReceived - this.getFiringRequest(), 0.0
-            );
+            this.getPlatform().energyStorage.extractEnergy((int)(this.getFiringRequest() / UniversalElectricity.UE_RF_RATIO),false);
+
         }
     }
 
@@ -221,7 +221,7 @@ public abstract class TAutomaticTurret extends TTurretBase implements IAutoSentr
                 final IAmmunition bullet = (IAmmunition) ammoStack.getItem();
 
                 if (this.target instanceof EntityLivingBase) {
-                    final TTurretPlatform platform = this.getPlatform();
+                    final TileEntityTurretPlatform platform = this.getPlatform();
                     platform.wattsReceived -= this.getFiringRequest();
 
                     if (bullet.getType(ammoStack) == ProjectileType.CONVENTIONAL) {

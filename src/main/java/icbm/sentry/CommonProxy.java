@@ -3,7 +3,7 @@ package icbm.sentry;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import icbm.sentry.container.ContainerTurretPlatform;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import icbm.sentry.turret.mount.TRailgunTurret;
 import icbm.sentry.turret.sentries.TAATurret;
 import icbm.sentry.turret.sentries.TLaserTurret;
@@ -24,7 +24,7 @@ public class CommonProxy implements IGuiHandler {
         GameRegistry.registerTileEntity(TAATurret.class, "ICBMAATurret");
         GameRegistry.registerTileEntity(TRailgunTurret.class, "ICBMRailgun");
         GameRegistry.registerTileEntity(TLaserTurret.class, "ICBMLeiSheF");
-        GameRegistry.registerTileEntity(TTurretPlatform.class, "ICBMPlatform");
+        GameRegistry.registerTileEntity(TileEntityTurretPlatform.class, "ICBMPlatform");
         GameRegistry.registerTileEntity(TileEntityMulti.class, "ICBMMultiblock");
     }
 
@@ -44,7 +44,7 @@ public class CommonProxy implements IGuiHandler {
             switch (ID) {
                 case 0: {
                     return new ContainerTurretPlatform(
-                        player.inventory, (TTurretPlatform) tileEntity
+                        player.inventory, (TileEntityTurretPlatform) tileEntity
                     );
                 }
             }

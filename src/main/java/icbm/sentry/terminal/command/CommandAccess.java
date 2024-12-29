@@ -5,7 +5,7 @@ import java.util.List;
 
 import icbm.sentry.ISpecialAccess;
 import icbm.sentry.access.AccessLevel;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import icbm.sentry.terminal.ITerminal;
 import icbm.sentry.terminal.TerminalCommand;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,8 +21,8 @@ public class CommandAccess extends TerminalCommand {
         final EntityPlayer player, final ITerminal terminal, final String[] args
     ) {
         if (args[0].equalsIgnoreCase("access") && args.length > 1 && args[1] != null
-            && terminal instanceof TTurretPlatform) {
-            final TTurretPlatform platform = (TTurretPlatform) terminal;
+            && terminal instanceof TileEntityTurretPlatform) {
+            final TileEntityTurretPlatform platform = (TileEntityTurretPlatform) terminal;
             final AccessLevel userAccess
                 = terminal.getUserAccess(player.getDisplayName());
 
@@ -93,6 +93,6 @@ public class CommandAccess extends TerminalCommand {
 
     @Override
     public boolean canMachineUse(final ISpecialAccess mm) {
-        return mm instanceof TTurretPlatform;
+        return mm instanceof TileEntityTurretPlatform;
     }
 }

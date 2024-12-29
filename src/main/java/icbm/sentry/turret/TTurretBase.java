@@ -10,7 +10,7 @@ import icbm.sentry.ISentry;
 import icbm.sentry.damage.EntityTileDamagable;
 import icbm.sentry.damage.IHealthTile;
 import icbm.sentry.packet.PacketTurret;
-import icbm.sentry.platform.TTurretPlatform;
+import icbm.sentry.platform.TileEntityTurretPlatform;
 import icbm.sentry.task.LookHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +24,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.util.ForgeDirection;
+import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.block.IVoltage;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
@@ -142,20 +143,24 @@ public abstract class TTurretBase
 
     public abstract double getFiringRequest();
 
+    public int getFiringRequestRF(){
+        return (int) (getFiringRequest() / UniversalElectricity.UE_RF_RATIO);
+    }
+
     public boolean isRunning() {
         return this.getPlatform() != null && this.getPlatform().isRunning()
             && this.isAlive();
     }
 
-    public TTurretPlatform getPlatform() {
+    public TileEntityTurretPlatform getPlatform() {
         final TileEntity tileEntity = this.worldObj.getTileEntity(
             this.xCoord + this.platformDirection.offsetX,
             this.yCoord + this.platformDirection.offsetY,
             this.zCoord + this.platformDirection.offsetZ
         );
 
-        if (tileEntity instanceof TTurretPlatform) {
-            return (TTurretPlatform) tileEntity;
+        if (tileEntity instanceof TileEntityTurretPlatform) {
+            return (TileEntityTurretPlatform) tileEntity;
         }
 
         return null;
