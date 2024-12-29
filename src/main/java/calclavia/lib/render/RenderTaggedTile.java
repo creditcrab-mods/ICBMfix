@@ -16,7 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 
 @SideOnly(Side.CLIENT)
-public abstract class RenderTaggedTile extends TileEntitySpecialRenderer {
+public class RenderTaggedTile extends TileEntitySpecialRenderer {
     @Override
     public void renderTileEntityAt(TileEntity t, double x, double y, double z, float f) {
         if (t != null && t instanceof ITagRender
