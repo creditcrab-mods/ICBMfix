@@ -1,4 +1,4 @@
-package icbm.explosion.jiqi;
+package icbm.explosion.launcher;
 
 import calclavia.lib.TileEntityUniversalStorable;
 import dan200.computercraft.api.lua.ILuaContext;

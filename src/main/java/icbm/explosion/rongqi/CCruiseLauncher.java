@@ -1,7 +1,7 @@
 package icbm.explosion.rongqi;
 
 import icbm.explosion.missile.ItMissile;
-import icbm.explosion.jiqi.TCruiseLauncher;
+import icbm.explosion.launcher.TCruiseLauncher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

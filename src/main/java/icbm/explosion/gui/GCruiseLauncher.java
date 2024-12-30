@@ -1,8 +1,8 @@
 package icbm.explosion.gui;
 
 import icbm.explosion.ICBMExplosion;
-import icbm.explosion.jiqi.CruiseLauncherGuiPacket;
-import icbm.explosion.jiqi.TCruiseLauncher;
+import icbm.explosion.launcher.CruiseLauncherGuiPacket;
+import icbm.explosion.launcher.TCruiseLauncher;
 import icbm.explosion.rongqi.CCruiseLauncher;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;

@@ -11,7 +11,7 @@ import icbm.api.explosion.IExplosive;
 import icbm.api.sentry.IAATarget;
 import icbm.core.MainBase;
 import icbm.explosion.ICBMExplosion;
-import icbm.explosion.jiqi.TCruiseLauncher;
+import icbm.explosion.launcher.TCruiseLauncher;
 import icbm.explosion.zhapin.ZhaPin;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;

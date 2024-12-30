@@ -1,22 +1,19 @@
-package icbm.explosion.jiqi;
+package icbm.explosion.launcher;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import io.netty.buffer.ByteBuf;
 import universalelectricity.core.vector.Vector3;
 
-public class LauncherControlPanelGuiPacket implements IMessage {
+public class CruiseLauncherGuiPacket implements IMessage {
     Vector3 pos;
     int frequency;
     Vector3 target;
-    short height;
 
-    public LauncherControlPanelGuiPacket() {}
-
-    public LauncherControlPanelGuiPacket(TLauncherControlPanel te) {
+    public CruiseLauncherGuiPacket() {}
+    public CruiseLauncherGuiPacket(TCruiseLauncher te) {
         this.pos = new Vector3(te);
         this.frequency = te.getFrequency();
         this.target = te.getTarget();
-        this.height = te.height;
     }
 
     @Override
@@ -24,7 +21,6 @@ public class LauncherControlPanelGuiPacket implements IMessage {
         this.pos = new Vector3(buf.readInt(), buf.readInt(), buf.readInt());
         this.frequency = buf.readInt();
         this.target = new Vector3(buf.readInt(), buf.readInt(), buf.readInt());
-        this.height = buf.readShort();
     }
 
     @Override
@@ -38,7 +34,5 @@ public class LauncherControlPanelGuiPacket implements IMessage {
         buf.writeInt(this.target.intX());
         buf.writeInt(this.target.intY());
         buf.writeInt(this.target.intZ());
-
-        buf.writeShort(this.height);
     }
 }

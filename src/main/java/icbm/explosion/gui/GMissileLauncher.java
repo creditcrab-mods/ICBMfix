@@ -1,8 +1,8 @@
 package icbm.explosion.gui;
 
 import icbm.explosion.ICBMExplosion;
-import icbm.explosion.jiqi.LauncherControlPanelGuiPacket;
-import icbm.explosion.jiqi.TLauncherControlPanel;
+import icbm.explosion.launcher.LauncherControlPanelGuiPacket;
+import icbm.explosion.launcher.TLauncherControlPanel;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;

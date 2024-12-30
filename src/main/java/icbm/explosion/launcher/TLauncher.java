@@ -1,4 +1,4 @@
-package icbm.explosion.jiqi;
+package icbm.explosion.launcher;
 
 import icbm.core.MainBase;
 import net.minecraft.entity.player.EntityPlayer;

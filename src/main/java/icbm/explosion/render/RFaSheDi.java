@@ -2,7 +2,7 @@ package icbm.explosion.render;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import icbm.explosion.jiqi.TLauncherPlatform;
+import icbm.explosion.launcher.TLauncherPlatform;
 import icbm.explosion.model.jiqi.MFaSheDi0;
 import icbm.explosion.model.jiqi.MFaSheDi1;
 import icbm.explosion.model.jiqi.MFaSheDi2;

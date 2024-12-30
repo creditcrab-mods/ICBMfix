@@ -1,4 +1,4 @@
-package icbm.explosion.jiqi;
+package icbm.explosion.launcher;
 
 import dan200.computercraft.api.peripheral.IPeripheral;
 import icbm.api.ILauncherContainer;

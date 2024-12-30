@@ -1,4 +1,4 @@
-package icbm.explosion.jiqi;
+package icbm.explosion.launcher;
 
 import calclavia.lib.TileEntityUniversalRunnable;
 import net.minecraft.nbt.NBTTagCompound;

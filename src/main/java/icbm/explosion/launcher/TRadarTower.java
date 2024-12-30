@@ -1,4 +1,4 @@
-package icbm.explosion.jiqi;
+package icbm.explosion.launcher;
 
 import java.util.ArrayList;
 import java.util.HashMap;

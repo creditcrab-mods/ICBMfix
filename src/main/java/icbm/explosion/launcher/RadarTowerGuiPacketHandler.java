@@ -1,4 +1,4 @@
-package icbm.explosion.jiqi;
+package icbm.explosion.launcher;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -6,17 +6,19 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class EmpTowerGuiPacketHandler
-    implements IMessageHandler<EmpTowerGuiPacket, IMessage> {
+public class RadarTowerGuiPacketHandler
+    implements IMessageHandler<RadarTowerGuiPacket, IMessage> {
     @Override
-    public IMessage onMessage(EmpTowerGuiPacket message, MessageContext ctx) {
+    public IMessage onMessage(RadarTowerGuiPacket message, MessageContext ctx) {
         World world = ctx.getServerHandler().playerEntity.worldObj;
 
         TileEntity te = message.pos.getTileEntity(world);
 
-        if (te instanceof TEmpTower) {
-            ((TEmpTower) te).radius = message.radius;
-            ((TEmpTower) te).holzOhJa = message.holzOhJa;
+        if (te instanceof TRadarTower) {
+            TRadarTower rt = (TRadarTower) te;
+
+            rt.alarmRadius = message.alarmRadius;
+            rt.safetyRadius = message.safetyRadius;
         }
 
         return null;

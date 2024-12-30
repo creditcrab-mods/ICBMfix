@@ -2,7 +2,7 @@ package icbm.explosion.render;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import icbm.explosion.jiqi.TLauncher;
+import icbm.explosion.launcher.TLauncher;
 import icbm.explosion.model.jiqi.MFaSheJia;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;

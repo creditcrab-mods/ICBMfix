@@ -1,6 +1,6 @@
 package icbm.explosion.gui;
 
-import icbm.explosion.jiqi.TLauncherPlatform;
+import icbm.explosion.launcher.TLauncherPlatform;
 import icbm.explosion.rongqi.CFaShiDi;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;

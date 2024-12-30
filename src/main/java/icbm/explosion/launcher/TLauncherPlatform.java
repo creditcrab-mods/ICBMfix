@@ -1,4 +1,4 @@
-package icbm.explosion.jiqi;
+package icbm.explosion.launcher;
 
 import icbm.api.ILauncherContainer;
 import icbm.api.ILauncherController;

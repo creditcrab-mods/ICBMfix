@@ -1,4 +1,4 @@
-package icbm.explosion.jiqi;
+package icbm.explosion.launcher;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

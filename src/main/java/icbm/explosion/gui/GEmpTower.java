@@ -1,8 +1,8 @@
 package icbm.explosion.gui;
 
 import icbm.explosion.ICBMExplosion;
-import icbm.explosion.jiqi.EmpTowerGuiPacket;
-import icbm.explosion.jiqi.TEmpTower;
+import icbm.explosion.launcher.EmpTowerGuiPacket;
+import icbm.explosion.launcher.TEmpTower;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.ResourceLocation;
