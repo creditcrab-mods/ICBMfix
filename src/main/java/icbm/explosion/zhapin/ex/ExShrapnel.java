@@ -2,7 +2,7 @@ package icbm.explosion.zhapin.ex;
 
 import icbm.core.MainBase;
 import icbm.explosion.ESuiPian;
-import icbm.explosion.zhapin.EGrenade;
+import icbm.explosion.zhapin.EntityGrenade;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -20,7 +20,7 @@ public class ExShrapnel extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
@@ -36,7 +36,7 @@ public class ExShrapnel extends ZhaPin {
                 amount = 25;
             }
 
-            if (explosionSource instanceof EGrenade) {
+            if (explosionSource instanceof EntityGrenade) {
                 amount /= 2;
                 position.y += 0.5;
             }

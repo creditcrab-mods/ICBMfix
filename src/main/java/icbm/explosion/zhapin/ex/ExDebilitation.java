@@ -4,7 +4,7 @@ import java.util.List;
 
 import icbm.core.MainBase;
 import icbm.explosion.ICBMExplosion;
-import icbm.explosion.zhapin.EGrenade;
+import icbm.explosion.zhapin.EntityGrenade;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -39,7 +39,7 @@ public class ExDebilitation extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
@@ -48,7 +48,7 @@ public class ExDebilitation extends ZhaPin {
     ) {
         float radius = this.getRadius();
 
-        if (explosionSource instanceof EGrenade) {
+        if (explosionSource instanceof EntityGrenade) {
             radius /= 2.0f;
         }
 

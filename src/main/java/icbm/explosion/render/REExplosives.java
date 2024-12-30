@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import icbm.core.di.MICBM;
 import icbm.explosion.ICBMExplosion;
-import icbm.explosion.zhapin.EExplosive;
+import icbm.explosion.zhapin.EntityExplosive;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.Render;
@@ -32,7 +32,7 @@ public class REExplosives extends Render {
         final float par8,
         final float par9
     ) {
-        final EExplosive entityExplosive = (EExplosive) par1Entity;
+        final EntityExplosive entityExplosive = (EntityExplosive) par1Entity;
         final Object[] data = ZhaPin.list[entityExplosive.haoMa].getRenderData();
 
         if (data != null) {

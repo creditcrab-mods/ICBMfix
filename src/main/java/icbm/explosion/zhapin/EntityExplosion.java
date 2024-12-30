@@ -11,7 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
-public class EExplosion extends Entity implements IEntityAdditionalSpawnData {
+public class EntityExplosion extends Entity implements IEntityAdditionalSpawnData {
     public int haoMa;
     public int jiaoShuMu;
     public int tickCallCounter;
@@ -22,7 +22,7 @@ public class EExplosion extends Entity implements IEntityAdditionalSpawnData {
     public List<Object> dataList2;
     private boolean isMobile;
 
-    public EExplosion(final World par1World) {
+    public EntityExplosion(final World par1World) {
         super(par1World);
         this.metadata = -1;
         this.endExplosion = false;
@@ -37,7 +37,7 @@ public class EExplosion extends Entity implements IEntityAdditionalSpawnData {
         super.ignoreFrustumCheck = true;
     }
 
-    public EExplosion(
+    public EntityExplosion(
         final World par1World,
         final Vector3 position,
         final int explosionID,
@@ -50,7 +50,7 @@ public class EExplosion extends Entity implements IEntityAdditionalSpawnData {
         this.setPosition(position.x, position.y, position.z);
     }
 
-    public EExplosion(
+    public EntityExplosion(
         final World par1World,
         final Vector3 position,
         final int explosionID,
@@ -116,7 +116,7 @@ public class EExplosion extends Entity implements IEntityAdditionalSpawnData {
                 super.worldObj, this.jiaoShuMu
             )) {
             if (!this.endExplosion
-                && ZhaPin.list[this.haoMa].doBaoZha(
+                && ZhaPin.list[this.haoMa].doExplosion(
                     super.worldObj,
                     new Vector3(super.posX, super.posY, super.posZ),
                     this,

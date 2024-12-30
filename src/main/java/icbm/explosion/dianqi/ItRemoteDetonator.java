@@ -5,7 +5,7 @@ import java.util.List;
 import icbm.core.di.ItElectricICBM;
 import icbm.explosion.ICBMExplosion;
 import icbm.explosion.ItemUsePacket;
-import icbm.explosion.zhapin.TExplosive;
+import icbm.explosion.zhapin.TileEntityExplosive;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -118,7 +118,7 @@ public class ItRemoteDetonator extends ItElectricICBM {
                         objectMouseOver.blockZ
                     );
 
-                    if (tile != null && tile instanceof TExplosive) {
+                    if (tile != null && tile instanceof TileEntityExplosive) {
                         if (blockID == ICBMExplosion.bMachine) {
                             return itemStack;
                         }
@@ -157,10 +157,10 @@ public class ItRemoteDetonator extends ItElectricICBM {
     }
 
     public boolean nengZha(final TileEntity tileEntity) {
-        return tileEntity != null && tileEntity instanceof TExplosive
-            && (((TExplosive) tileEntity).explosiveId == ZhaPin.condensed.getID()
-                || ((TExplosive) tileEntity).explosiveId == ZhaPin.breaching.getID()
-                || ((TExplosive) tileEntity).explosiveId == ZhaPin.sMine.getID());
+        return tileEntity != null && tileEntity instanceof TileEntityExplosive
+            && (((TileEntityExplosive) tileEntity).explosiveId == ZhaPin.condensed.getID()
+                || ((TileEntityExplosive) tileEntity).explosiveId == ZhaPin.breaching.getID()
+                || ((TileEntityExplosive) tileEntity).explosiveId == ZhaPin.sMine.getID());
     }
 
     public void setSavedCoords(final ItemStack itemStack, final Vector3 position) {

@@ -2,7 +2,7 @@ package icbm.explosion;
 
 import java.util.List;
 
-import icbm.explosion.zhapin.EExplosion;
+import icbm.explosion.zhapin.EntityExplosion;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -49,7 +49,7 @@ public class ICBMCommand extends CommandBase {
                         if (entity instanceof EGravityBlock) {
                             ((EGravityBlock) entity).setBlock();
                         } else {
-                            if (!(entity instanceof EExplosion)) {
+                            if (!(entity instanceof EntityExplosion)) {
                                 continue;
                             }
 

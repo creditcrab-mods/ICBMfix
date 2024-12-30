@@ -6,7 +6,7 @@ import java.util.List;
 import icbm.core.MainBase;
 import icbm.explosion.EGravityBlock;
 import icbm.explosion.ELightBeam;
-import icbm.explosion.zhapin.EExplosion;
+import icbm.explosion.zhapin.EntityExplosion;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -40,7 +40,7 @@ public class ExExothermic extends ZhaPin {
             final ELightBeam lightBeam
                 = new ELightBeam(worldObj, position, 400, 0.7f, 0.3f, 0.0f);
             worldObj.spawnEntityInWorld((Entity) lightBeam);
-            ((EExplosion) explosionSource).entityList.add(0, lightBeam);
+            ((EntityExplosion) explosionSource).entityList.add(0, lightBeam);
             worldObj.createExplosion(
                 (Entity) null, position.x, position.y, position.z, 4.0f, true
             );
@@ -48,7 +48,7 @@ public class ExExothermic extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
@@ -116,11 +116,11 @@ public class ExExothermic extends ZhaPin {
                         }
                     }
 
-                    ((EExplosion) explosionSource).entityList.addAll(gravityBlocks);
+                    ((EntityExplosion) explosionSource).entityList.addAll(gravityBlocks);
                 }
             }
 
-            gravityBlocks = ((EExplosion) explosionSource).entityList;
+            gravityBlocks = ((EntityExplosion) explosionSource).entityList;
 
             for (final Entity unspecifiedEntity : gravityBlocks) {
                 if (unspecifiedEntity instanceof EGravityBlock) {
@@ -182,13 +182,13 @@ public class ExExothermic extends ZhaPin {
         super.baoZhaHou(worldObj, position, explosionSource);
 
         if (!worldObj.isRemote) {
-            ((EExplosion) explosionSource).entityList.get(0).setDead();
+            ((EntityExplosion) explosionSource).entityList.get(0).setDead();
             worldObj.playSoundEffect(
                 position.x, position.y, position.z, "icbm:powerdown", 4.0f, 0.8f
             );
 
             if (this.canFocusBeam(worldObj, position)) {
-                for (final Entity entity : ((EExplosion) explosionSource).entityList) {
+                for (final Entity entity : ((EntityExplosion) explosionSource).entityList) {
                     if (!(entity instanceof ELightBeam)) {
                         final double xDifference = entity.posX - position.x;
                         final double zDifference = entity.posZ - position.z;

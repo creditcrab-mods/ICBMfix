@@ -5,8 +5,8 @@ import icbm.api.explosion.IExplosiveIgnore;
 import icbm.core.MainBase;
 import icbm.explosion.EGravityBlock;
 import icbm.explosion.ICBMExplosion;
-import icbm.explosion.zhapin.EExplosion;
-import icbm.explosion.zhapin.EExplosive;
+import icbm.explosion.zhapin.EntityExplosion;
+import icbm.explosion.zhapin.EntityExplosive;
 import icbm.explosion.zhapin.ZhaPin;
 import mffs.api.IForceFieldBlock;
 import net.minecraft.block.Block;
@@ -43,7 +43,7 @@ public class ExRedMatter extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
@@ -233,8 +233,8 @@ public class ExRedMatter extends ZhaPin {
 
             if (entity2 instanceof EntityLivingBase) {
                 entity2.fallDistance = 0.0f;
-            } else if (entity2 instanceof EExplosion) {
-                if (((EExplosion) entity2).haoMa != ZhaPin.antimatter.getID()) {
+            } else if (entity2 instanceof EntityExplosion) {
+                if (((EntityExplosion) entity2).haoMa != ZhaPin.antimatter.getID()) {
                     continue;
                 }
 
@@ -254,8 +254,8 @@ public class ExRedMatter extends ZhaPin {
                 }
 
                 continue;
-            } else if (entity2 instanceof EExplosive) {
-                ((EExplosive) entity2).explode();
+            } else if (entity2 instanceof EntityExplosive) {
+                ((EntityExplosive) entity2).explode();
             } else {
                 entity2.setDead();
             }

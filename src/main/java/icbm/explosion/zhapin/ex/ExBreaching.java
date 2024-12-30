@@ -30,7 +30,7 @@ public class ExBreaching extends ZhaPin {
 
     @Override
     public void
-    doBaoZha(final World worldObj, final Vector3 position, final Entity explosionSource) {
+    doExplosion(final World worldObj, final Vector3 position, final Entity explosionSource) {
         if (!worldObj.isRemote) {
             final Vector3 difference = new Vector3();
 
@@ -178,7 +178,7 @@ public class ExBreaching extends ZhaPin {
                         "smoke", var28, var29, var30, var31, var32, var33
                     );
 
-                    if (block != Blocks.air) {
+                    if (block != Blocks.air && block.getExplosionResistance(explosionSource) < Blocks.obsidian.getExplosionResistance(explosionSource)) {
                         block.dropBlockAsItemWithChance(
                             worldObj,
                             var25,
@@ -196,6 +196,7 @@ public class ExBreaching extends ZhaPin {
                 }
 
                 targetPosition.add(difference);
+
             }
         }
     }
@@ -217,6 +218,7 @@ public class ExBreaching extends ZhaPin {
             MainBase.CONFIGURATION,
             true
         );
+        //TODO: Stop Breaching Explosive from Breaking Bedrock
     }
 
     @Override

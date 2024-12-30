@@ -7,8 +7,8 @@ import icbm.core.MainBase;
 import icbm.explosion.EGravityBlock;
 import icbm.explosion.ELightBeam;
 import icbm.explosion.po.PDongShang;
-import icbm.explosion.zhapin.EExplosion;
-import icbm.explosion.zhapin.EGrenade;
+import icbm.explosion.zhapin.EntityExplosion;
+import icbm.explosion.zhapin.EntityGrenade;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -38,7 +38,7 @@ public class ExEndothermic extends ZhaPin {
             final ELightBeam lightBeam
                 = new ELightBeam(worldObj, position, 400, 0.0f, 0.3f, 0.7f);
             worldObj.spawnEntityInWorld((Entity) lightBeam);
-            ((EExplosion) explosionSource).entityList.add(0, lightBeam);
+            ((EntityExplosion) explosionSource).entityList.add(0, lightBeam);
             worldObj.createExplosion(
                 (Entity) null, position.x, position.y, position.z, 4.0f, true
             );
@@ -46,7 +46,7 @@ public class ExEndothermic extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
@@ -56,7 +56,7 @@ public class ExEndothermic extends ZhaPin {
         this.getClass();
         int radius = 5;
 
-        if (explosionSource instanceof EGrenade) {
+        if (explosionSource instanceof EntityGrenade) {
             radius /= 2;
         }
 
@@ -120,10 +120,10 @@ public class ExEndothermic extends ZhaPin {
                     }
                 }
 
-                ((EExplosion) explosionSource).entityList.addAll(gravityBlocks);
+                ((EntityExplosion) explosionSource).entityList.addAll(gravityBlocks);
             }
 
-            gravityBlocks = ((EExplosion) explosionSource).entityList;
+            gravityBlocks = ((EntityExplosion) explosionSource).entityList;
 
             for (final Entity unspecifiedEntity : gravityBlocks) {
                 if (unspecifiedEntity instanceof EGravityBlock) {
@@ -185,10 +185,10 @@ public class ExEndothermic extends ZhaPin {
         super.baoZhaHou(worldObj, position, explosionSource);
 
         if (!worldObj.isRemote) {
-            ((EExplosion) explosionSource).entityList.get(0).setDead();
+            ((EntityExplosion) explosionSource).entityList.get(0).setDead();
 
             if (this.canFocusBeam(worldObj, position)) {
-                for (final Entity entity : ((EExplosion) explosionSource).entityList) {
+                for (final Entity entity : ((EntityExplosion) explosionSource).entityList) {
                     if (!(entity instanceof ELightBeam)) {
                         final double xDifference = entity.posX - position.x;
                         final double zDifference = entity.posZ - position.z;
@@ -211,7 +211,7 @@ public class ExEndothermic extends ZhaPin {
                     }
                 }
 
-                ((EExplosion) explosionSource).entityList.clear();
+                ((EntityExplosion) explosionSource).entityList.clear();
                 final List<EntityLivingBase> livingEntities
                     = worldObj.getEntitiesWithinAABB(
                         EntityLivingBase.class,

@@ -1,7 +1,7 @@
 package icbm.explosion.zhapin.ex;
 
 import icbm.core.MainBase;
-import icbm.explosion.zhapin.EGrenade;
+import icbm.explosion.zhapin.EntityGrenade;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -29,10 +29,10 @@ public class ExIncendiary extends ZhaPin {
 
     @Override
     public void
-    doBaoZha(final World worldObj, final Vector3 position, final Entity explosionSource) {
+    doExplosion(final World worldObj, final Vector3 position, final Entity explosionSource) {
         int radius = (int) this.getRadius();
 
-        if (explosionSource instanceof EGrenade) {
+        if (explosionSource instanceof EntityGrenade) {
             radius /= 2;
         }
 

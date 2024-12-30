@@ -5,7 +5,7 @@ import java.util.List;
 import icbm.api.IMissile;
 import icbm.api.RadarRegistry;
 import icbm.api.explosion.IEMPItem;
-import icbm.explosion.zhapin.EExplosive;
+import icbm.explosion.zhapin.EntityExplosive;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +22,7 @@ public class ExEmpSignal extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
@@ -78,7 +78,7 @@ public class ExEmpSignal extends ZhaPin {
                     }
                 }
             } else {
-                if (!(entity2 instanceof EExplosive)) {
+                if (!(entity2 instanceof EntityExplosive)) {
                     continue;
                 }
 

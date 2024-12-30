@@ -44,10 +44,10 @@ import icbm.explosion.render.RShrapnel;
 import icbm.explosion.render.RXiaoFaSheQi;
 import icbm.explosion.render.RYinDaoQi;
 import icbm.explosion.render.RZhaPin;
-import icbm.explosion.zhapin.EExplosion;
-import icbm.explosion.zhapin.EExplosive;
-import icbm.explosion.zhapin.EGrenade;
-import icbm.explosion.zhapin.TExplosive;
+import icbm.explosion.zhapin.EntityExplosion;
+import icbm.explosion.zhapin.EntityExplosive;
+import icbm.explosion.zhapin.EntityGrenade;
+import icbm.explosion.zhapin.TileEntityExplosive;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityDiggingFX;
@@ -88,13 +88,13 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerBlockHandler((ISimpleBlockRenderingHandler) new RHJiQi()
         );
         RenderingRegistry.registerEntityRenderingHandler(
-            EExplosive.class, (Render) new REExplosives()
+            EntityExplosive.class, (Render) new REExplosives()
         );
         RenderingRegistry.registerEntityRenderingHandler(
             EMissile.class, (Render) new RMissile(0.5f)
         );
         RenderingRegistry.registerEntityRenderingHandler(
-            EExplosion.class, (Render) new RZhaPin()
+            EntityExplosion.class, (Render) new RZhaPin()
         );
         RenderingRegistry.registerEntityRenderingHandler(
             EGravityBlock.class, (Render) new RFeiBlock()
@@ -106,7 +106,7 @@ public class ClientProxy extends CommonProxy {
             ESuiPian.class, (Render) new RShrapnel()
         );
         RenderingRegistry.registerEntityRenderingHandler(
-            EGrenade.class, (Render) new RShouLiuDan()
+            EntityGrenade.class, (Render) new RShouLiuDan()
         );
         RenderingRegistry.registerEntityRenderingHandler(
             EntityCart.class, (Render) new RenderMinecart()
@@ -131,7 +131,7 @@ public class ClientProxy extends CommonProxy {
             TEmpTower.class, (TileEntitySpecialRenderer) new REmpTower()
         );
         ClientRegistry.bindTileEntitySpecialRenderer(
-            TExplosive.class, (TileEntitySpecialRenderer) new RSMine()
+            TileEntityExplosive.class, (TileEntitySpecialRenderer) new RSMine()
         );
         ClientRegistry.bindTileEntitySpecialRenderer(
             TMissileCoordinator.class, (TileEntitySpecialRenderer) new RYinDaoQi()

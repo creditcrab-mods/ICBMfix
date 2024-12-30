@@ -12,11 +12,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import universalelectricity.prefab.implement.IRotatable;
 
-public class TExplosive extends TileEntity implements IExplosiveContainer, IRotatable {
+public class TileEntityExplosive extends TileEntity implements IExplosiveContainer, IRotatable {
     public boolean exploding;
     public int explosiveId;
 
-    public TExplosive() {
+    public TileEntityExplosive() {
         this.exploding = false;
         this.explosiveId = 0;
     }

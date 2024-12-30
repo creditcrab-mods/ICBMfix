@@ -18,10 +18,10 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
-public class ItGrenade extends ItICBM {
+public class ItemGrenade extends ItICBM {
     public static final IIcon[] ICONS;
 
-    public ItGrenade() {
+    public ItemGrenade() {
         super("grenade");
         this.setMaxStackSize(16);
         this.setMaxDamage(0);
@@ -105,7 +105,7 @@ public class ItGrenade extends ItICBM {
                     0.5f,
                     0.4f / (Item.itemRand.nextFloat() * 0.4f + 0.8f)
                 );
-                world.spawnEntityInWorld(new EGrenade(
+                world.spawnEntityInWorld(new EntityGrenade(
                     world,
                     entityPlayer,
                     haoMa,
@@ -140,7 +140,7 @@ public class ItGrenade extends ItICBM {
     @SideOnly(Side.CLIENT)
     public void registerIcons(final IIconRegister iconRegister) {
         for (int i = 0; i < ZhaPin.E_YI_ID; ++i) {
-            ItGrenade.ICONS[i] = iconRegister.registerIcon(
+            ItemGrenade.ICONS[i] = iconRegister.registerIcon(
                 "icbm:grenade_" + ZhaPin.list[i].getUnlocalizedName()
             );
         }
@@ -148,7 +148,7 @@ public class ItGrenade extends ItICBM {
 
     @Override
     public IIcon getIconFromDamage(final int i) {
-        return ItGrenade.ICONS[i];
+        return ItemGrenade.ICONS[i];
     }
 
     @Override

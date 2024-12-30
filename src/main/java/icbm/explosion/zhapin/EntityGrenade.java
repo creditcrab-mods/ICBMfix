@@ -15,18 +15,18 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 
-public class EGrenade
+public class EntityGrenade
     extends Entity implements IExplosiveContainer, IEntityAdditionalSpawnData {
     protected EntityLivingBase thrower;
     public int haoMa;
 
-    public EGrenade(final World par1World) {
+    public EntityGrenade(final World par1World) {
         super(par1World);
         this.setSize(0.3f, 0.3f);
         super.renderDistanceWeight = 10.0;
     }
 
-    public EGrenade(
+    public EntityGrenade(
         final World par1World, final Vector3 position, final int explosiveID
     ) {
         this(par1World);
@@ -34,7 +34,7 @@ public class EGrenade
         this.haoMa = explosiveID;
     }
 
-    public EGrenade(
+    public EntityGrenade(
         final World par1World,
         final EntityLivingBase par2EntityLiving,
         final int explosiveID,

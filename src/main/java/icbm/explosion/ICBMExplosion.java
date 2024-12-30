@@ -45,13 +45,8 @@ import icbm.explosion.jiqi.RadarTowerGuiPacketHandler;
 import icbm.explosion.po.PChuanRanDu;
 import icbm.explosion.po.PDaDu;
 import icbm.explosion.po.PDongShang;
-import icbm.explosion.zhapin.BExplosives;
-import icbm.explosion.zhapin.EExplosion;
-import icbm.explosion.zhapin.EExplosive;
-import icbm.explosion.zhapin.EGrenade;
-import icbm.explosion.zhapin.IBExplosive;
-import icbm.explosion.zhapin.ItGrenade;
-import icbm.explosion.zhapin.ZhaPin;
+import icbm.explosion.zhapin.*;
+import icbm.explosion.zhapin.EntityGrenade;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.BlockRailBase;
@@ -126,7 +121,7 @@ public class ICBMExplosion extends MainBase {
         ICBMExplosion.USE_FUEL
             = MainBase.CONFIGURATION.get("general", "Use Fuel", ICBMExplosion.USE_FUEL)
                   .getBoolean(ICBMExplosion.USE_FUEL);
-        ICBMExplosion.bExplosives = (Block) new BExplosives();
+        ICBMExplosion.bExplosives = (Block) new BlockExplosives();
         ICBMExplosion.bMachine = (Block) new BMachine();
         ICBMExplosion.itDaoDan = new ItMissile("missile");
         ICBMExplosion.itTeBieDaoDan = new ItModuleMissile();
@@ -135,7 +130,7 @@ public class ICBMExplosion extends MainBase {
         ICBMExplosion.itYaoKong = new ItRemoteDetonator();
         ICBMExplosion.itLeiSheZhiBiao = new ItLaserDesignator();
         ICBMExplosion.itFaSheQi = new ItRocketLauncher();
-        ICBMExplosion.itShouLiuDan = new ItGrenade();
+        ICBMExplosion.itShouLiuDan = new ItemGrenade();
         ICBMExplosion.itChe = new ItemCart();
         PDaDu.INSTANCE = new PDaDu(22, true, 5149489, "toxin");
         PChuanRanDu.INSTANCE = new PChuanRanDu(23, false, 5149489, "virus");
@@ -155,7 +150,7 @@ public class ICBMExplosion extends MainBase {
                         final int z = blockSource.getZInt();
                         final EnumFacing enumFacing
                             = EnumFacing.getFront(blockSource.getBlockMetadata());
-                        final EGrenade entity = new EGrenade(
+                        final EntityGrenade entity = new EntityGrenade(
                             world, new Vector3(x, y, z), itemStack.getItemDamage()
                         );
                         entity.setThrowableHeading(
@@ -618,13 +613,13 @@ public class ICBMExplosion extends MainBase {
         }
 
         EntityRegistry.registerGlobalEntityID(
-            EExplosive.class, "ICBMExplosive", EntityRegistry.findGlobalUniqueEntityId()
+            EntityExplosive.class, "ICBMExplosive", EntityRegistry.findGlobalUniqueEntityId()
         );
         EntityRegistry.registerGlobalEntityID(
             EMissile.class, "ICBMMissile", EntityRegistry.findGlobalUniqueEntityId()
         );
         EntityRegistry.registerGlobalEntityID(
-            EExplosion.class,
+            EntityExplosion.class,
             "ICBMProceduralExplosion",
             EntityRegistry.findGlobalUniqueEntityId()
         );
@@ -640,19 +635,19 @@ public class ICBMExplosion extends MainBase {
             ESuiPian.class, "ICBMFragment", EntityRegistry.findGlobalUniqueEntityId()
         );
         EntityRegistry.registerGlobalEntityID(
-            EGrenade.class, "ICBMGrenade", EntityRegistry.findGlobalUniqueEntityId()
+            EntityGrenade.class, "ICBMGrenade", EntityRegistry.findGlobalUniqueEntityId()
         );
         EntityRegistry.registerGlobalEntityID(
             EntityCart.class, "ICBMChe", EntityRegistry.findGlobalUniqueEntityId()
         );
         EntityRegistry.registerModEntity(
-            EExplosive.class, "ICBMExplosive", 50, (Object) this, 50, 5, true
+            EntityExplosive.class, "ICBMExplosive", 50, (Object) this, 50, 5, true
         );
         EntityRegistry.registerModEntity(
             EMissile.class, "ICBMMissile", 51, (Object) this, 500, 1, true
         );
         EntityRegistry.registerModEntity(
-            EExplosion.class, "ICBMProceduralExplosion", 52, (Object) this, 100, 5, true
+            EntityExplosion.class, "ICBMProceduralExplosion", 52, (Object) this, 100, 5, true
         );
         EntityRegistry.registerModEntity(
             EGravityBlock.class, "ICBMGravityBlock", 53, (Object) this, 50, 15, true
@@ -664,7 +659,7 @@ public class ICBMExplosion extends MainBase {
             ESuiPian.class, "ICBMFragment", 55, (Object) this, 40, 8, true
         );
         EntityRegistry.registerModEntity(
-            EGrenade.class, "ICBMGrenade", 56, (Object) this, 50, 5, true
+            EntityGrenade.class, "ICBMGrenade", 56, (Object) this, 50, 5, true
         );
         EntityRegistry.registerModEntity(
             EntityCart.class, "ICBMChe", 58, (Object) this, 50, 4, true

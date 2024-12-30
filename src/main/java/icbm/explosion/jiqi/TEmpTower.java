@@ -117,7 +117,7 @@ public class TEmpTower
     public void onPowerOn() {
         if (this.getJoules() >= this.getMaxJoules()) {
             if (this.holzOhJa == 0 || this.holzOhJa == 1) {
-                ZhaPin.empSignal.doBaoZha(
+                ZhaPin.empSignal.doExplosion(
                     this.worldObj,
                     new Vector3(this.xCoord, this.yCoord, this.zCoord),
                     null,
@@ -127,7 +127,7 @@ public class TEmpTower
             }
 
             if (this.holzOhJa == 0 || this.holzOhJa == 2) {
-                ZhaPin.empWave.doBaoZha(
+                ZhaPin.empWave.doExplosion(
                     this.worldObj,
                     new Vector3(this.xCoord, this.yCoord, this.zCoord),
                     null,

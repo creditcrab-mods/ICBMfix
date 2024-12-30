@@ -4,7 +4,7 @@ import java.util.List;
 
 import icbm.core.MainBase;
 import icbm.explosion.ICBMExplosion;
-import icbm.explosion.zhapin.EGrenade;
+import icbm.explosion.zhapin.EntityGrenade;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,7 +22,7 @@ public class ExChemical extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
@@ -33,7 +33,7 @@ public class ExChemical extends ZhaPin {
         final boolean isContagious = this.getTier() == 2;
         float radius = this.getRadius();
 
-        if (explosionSource instanceof EGrenade) {
+        if (explosionSource instanceof EntityGrenade) {
             radius /= 2.0f;
         }
 
@@ -106,7 +106,7 @@ public class ExChemical extends ZhaPin {
         );
 
         if (isContagious) {
-            ZhaPin.mutateLiving.doBaoZha(worldObj, position, null, (int) radius, -1);
+            ZhaPin.mutateLiving.doExplosion(worldObj, position, null, (int) radius, -1);
         }
 
         return callCount <= duration;

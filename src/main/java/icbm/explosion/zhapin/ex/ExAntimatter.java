@@ -1,7 +1,7 @@
 package icbm.explosion.zhapin.ex;
 
 import icbm.core.MainBase;
-import icbm.explosion.zhapin.EExplosion;
+import icbm.explosion.zhapin.EntityExplosion;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -46,7 +46,7 @@ public class ExAntimatter extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
@@ -93,8 +93,8 @@ public class ExAntimatter extends ZhaPin {
 
     @Override
     protected boolean onDamageEntity(final Entity entity) {
-        if (entity instanceof EExplosion
-            && ((EExplosion) entity).haoMa == ZhaPin.redMatter.getID()) {
+        if (entity instanceof EntityExplosion
+            && ((EntityExplosion) entity).haoMa == ZhaPin.redMatter.getID()) {
             entity.setDead();
             return true;
         }

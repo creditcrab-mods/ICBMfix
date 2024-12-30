@@ -12,7 +12,7 @@ import icbm.explosion.jiqi.TMissileCoordinator;
 import icbm.explosion.jiqi.TRadarTower;
 import icbm.explosion.rongqi.CCruiseLauncher;
 import icbm.explosion.rongqi.CFaShiDi;
-import icbm.explosion.zhapin.TExplosive;
+import icbm.explosion.zhapin.TileEntityExplosive;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
@@ -34,7 +34,7 @@ public class CommonProxy implements IGuiHandler {
         GameRegistry.registerTileEntity(
             TMissileCoordinator.class, "ICBMMissileCoordinator"
         );
-        GameRegistry.registerTileEntity(TExplosive.class, "ICBMExplosive");
+        GameRegistry.registerTileEntity(TileEntityExplosive.class, "ICBMExplosive");
     }
 
     public Object getClientGuiElement(

@@ -5,7 +5,7 @@ import java.util.Random;
 import icbm.core.di.ItElectricICBM;
 import icbm.explosion.ICBMExplosion;
 import icbm.explosion.cart.EntityCart;
-import icbm.explosion.zhapin.EExplosive;
+import icbm.explosion.zhapin.EntityExplosive;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityTNTPrimed;
@@ -26,9 +26,9 @@ public class ItDefuser extends ItElectricICBM {
         final ItemStack itemStack, final EntityPlayer player, final Entity entity
     ) {
         if (this.getJoules(itemStack) > 2000.0) {
-            if (entity instanceof EExplosive) {
+            if (entity instanceof EntityExplosive) {
                 if (!entity.worldObj.isRemote) {
-                    final EExplosive entityTNT = (EExplosive) entity;
+                    final EntityExplosive entityTNT = (EntityExplosive) entity;
                     final EntityItem entityItem = new EntityItem(
                         entity.worldObj,
                         entity.posX,

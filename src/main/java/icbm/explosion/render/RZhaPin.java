@@ -6,7 +6,7 @@ import calclavia.lib.render.CalclaviaRenderHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import icbm.core.di.MICBM;
-import icbm.explosion.zhapin.EExplosion;
+import icbm.explosion.zhapin.EntityExplosion;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
@@ -33,7 +33,7 @@ public class RZhaPin extends Render {
         final float par8,
         final float par9
     ) {
-        final EExplosion eZhaPin = (EExplosion) entity;
+        final EntityExplosion eZhaPin = (EntityExplosion) entity;
 
         if (eZhaPin.haoMa == ZhaPin.redMatter.getID()) {
             final Tessellator tessellator = Tessellator.instance;

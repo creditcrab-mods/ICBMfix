@@ -8,7 +8,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import icbm.core.MainBase;
 import icbm.explosion.model.jiqi.MSMine;
-import icbm.explosion.zhapin.TExplosive;
+import icbm.explosion.zhapin.TileEntityExplosive;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -67,7 +67,7 @@ public class RHZhaPin implements ISimpleBlockRenderingHandler {
             return false;
         }
 
-        if (((TExplosive) iBlockAccess.getTileEntity(x, y, z)).explosiveId
+        if (((TileEntityExplosive) iBlockAccess.getTileEntity(x, y, z)).explosiveId
             == ZhaPin.sMine.getID()) {
             return false;
         }

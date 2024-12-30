@@ -11,13 +11,13 @@ import net.minecraftforge.common.util.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IRotatable;
 
-public class EExplosive extends Entity implements IRotatable, IEntityAdditionalSpawnData {
+public class EntityExplosive extends Entity implements IRotatable, IEntityAdditionalSpawnData {
     public int fuse;
     public int haoMa;
     private int metadata;
     private byte orientation;
 
-    public EExplosive(final World par1World) {
+    public EntityExplosive(final World par1World) {
         super(par1World);
         this.fuse = 90;
         this.haoMa = 0;
@@ -29,7 +29,7 @@ public class EExplosive extends Entity implements IRotatable, IEntityAdditionalS
         super.yOffset = super.height / 2.0f;
     }
 
-    public EExplosive(
+    public EntityExplosive(
         final World par1World,
         final Vector3 position,
         final byte orientation,
@@ -50,7 +50,7 @@ public class EExplosive extends Entity implements IRotatable, IEntityAdditionalS
         ZhaPin.list[explosiveID].yinZhaQian(par1World, this);
     }
 
-    public EExplosive(
+    public EntityExplosive(
         final World par1World,
         final Vector3 position,
         final int explosiveID,

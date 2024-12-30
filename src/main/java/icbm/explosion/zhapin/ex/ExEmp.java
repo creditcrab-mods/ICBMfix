@@ -17,7 +17,7 @@ public class ExEmp extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
@@ -28,8 +28,8 @@ public class ExEmp extends ZhaPin {
             radius = (int) this.getRadius();
         }
 
-        ZhaPin.empSignal.doBaoZha(worldObj, position, explosionSource, radius, callCount);
-        ZhaPin.empWave.doBaoZha(worldObj, position, explosionSource, radius, callCount);
+        ZhaPin.empSignal.doExplosion(worldObj, position, explosionSource, radius, callCount);
+        ZhaPin.empWave.doExplosion(worldObj, position, explosionSource, radius, callCount);
         ICBMExplosion.proxy.spawnParticle(
             "shockwave", worldObj, position, 0.0, 0.0, 0.0, 0.0f, 0.0f, 255.0f, 10.0f, 3.0
         );

@@ -6,9 +6,9 @@ import icbm.core.MainBase;
 import icbm.explosion.EGravityBlock;
 import icbm.explosion.ICBMExplosion;
 import icbm.explosion.missile.EMissile;
-import icbm.explosion.zhapin.BExplosives;
-import icbm.explosion.zhapin.EExplosion;
-import icbm.explosion.zhapin.TExplosive;
+import icbm.explosion.zhapin.BlockExplosives;
+import icbm.explosion.zhapin.EntityExplosion;
+import icbm.explosion.zhapin.TileEntityExplosive;
 import icbm.explosion.zhapin.ZhaPin;
 import mffs.api.IForceFieldBlock;
 import net.minecraft.block.Block;
@@ -33,7 +33,7 @@ public class ExHypersonic extends ZhaPin {
         final World worldObj, final Vector3 position, final Entity explosionSource
     ) {
         if (!worldObj.isRemote) {
-            final EExplosion source = (EExplosion) explosionSource;
+            final EntityExplosion source = (EntityExplosion) explosionSource;
 
             for (int x = (int) (-this.getRadius() * 2.0f); x < this.getRadius() * 2.0f;
                  ++x) {
@@ -162,14 +162,14 @@ public class ExHypersonic extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
         final int explosionMetadata,
         final int callCount
     ) {
-        final EExplosion source = (EExplosion) explosionSource;
+        final EntityExplosion source = (EntityExplosion) explosionSource;
         int r = callCount;
 
         if (!worldObj.isRemote) {
@@ -211,12 +211,12 @@ public class ExHypersonic extends ZhaPin {
                     }
 
                     if (block == ICBMExplosion.bExplosives) {
-                        BExplosives.yinZha(
+                        BlockExplosives.yinZha(
                             worldObj,
                             targetPosition.intX(),
                             targetPosition.intY(),
                             targetPosition.intZ(),
-                            ((TExplosive) worldObj.getTileEntity(
+                            ((TileEntityExplosive) worldObj.getTileEntity(
                                  targetPosition.intX(),
                                  targetPosition.intY(),
                                  targetPosition.intZ()

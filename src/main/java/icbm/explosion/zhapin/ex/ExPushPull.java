@@ -26,7 +26,7 @@ public class ExPushPull extends ZhaPin {
 
     @Override
     public void
-    doBaoZha(final World worldObj, final Vector3 position, final Entity explosionSource) {
+    doExplosion(final World worldObj, final Vector3 position, final Entity explosionSource) {
         final List<ChunkPosition> blownBlocks = new ArrayList<>();
 
         if (!worldObj.isRemote) {

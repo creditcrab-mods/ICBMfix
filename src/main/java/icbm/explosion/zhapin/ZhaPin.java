@@ -211,27 +211,27 @@ public abstract class ZhaPin implements ITier, IExplosive {
     }
 
     public void
-    doBaoZha(final World worldObj, final Vector3 position, final Entity explosionSource) {
+    doExplosion(final World worldObj, final Vector3 position, final Entity explosionSource) {
     }
 
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
         final int callCount
     ) {
-        this.doBaoZha(worldObj, position, explosionSource);
+        this.doExplosion(worldObj, position, explosionSource);
         return false;
     }
 
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
         final int metadata,
         final int callCount
     ) {
-        return this.doBaoZha(worldObj, position, explosionSource, callCount);
+        return this.doExplosion(worldObj, position, explosionSource, callCount);
     }
 
     public void
@@ -257,7 +257,7 @@ public abstract class ZhaPin implements ITier, IExplosive {
     ) {
         if (!this.isDisabled) {
             position.add(0.5);
-            final EExplosive eZhaDan = new EExplosive(
+            final EntityExplosive eZhaDan = new EntityExplosive(
                 worldObj, position, (byte) orientation.ordinal(), this.getID()
             );
 
@@ -324,7 +324,7 @@ public abstract class ZhaPin implements ITier, IExplosive {
         if (!ZhaPin.list[explosiveID].isDisabled) {
             if (ZhaPin.list[explosiveID].proceduralInterval(worldObj, -1) > 0) {
                 if (!worldObj.isRemote) {
-                    worldObj.spawnEntityInWorld((Entity) new EExplosion(
+                    worldObj.spawnEntityInWorld((Entity) new EntityExplosion(
                         worldObj,
                         position.clone(),
                         explosiveID,
@@ -333,7 +333,7 @@ public abstract class ZhaPin implements ITier, IExplosive {
                 }
             } else {
                 ZhaPin.list[explosiveID].baoZhaQian(worldObj, position.clone(), entity);
-                ZhaPin.list[explosiveID].doBaoZha(
+                ZhaPin.list[explosiveID].doExplosion(
                     worldObj, position.clone(), entity, explosiveID, -1
                 );
                 ZhaPin.list[explosiveID].baoZhaHou(worldObj, position.clone(), entity);

@@ -1,7 +1,7 @@
 package icbm.explosion.zhapin.ex;
 
 import atomicscience.AtomicScience;
-import icbm.explosion.zhapin.EExplosion;
+import icbm.explosion.zhapin.EntityExplosion;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -26,7 +26,7 @@ public class ExDecayLand extends ExThr {
                 worldObj, position, (int) ZhaPin.nuclear.getRadius(), 200, explosionSource
             );
             thread.run();
-            ((EExplosion) explosionSource).dataList1.add(thread);
+            ((EntityExplosion) explosionSource).dataList1.add(thread);
         }
     }
 
@@ -35,7 +35,7 @@ public class ExDecayLand extends ExThr {
         final World worldObj, final Vector3 position, final Entity explosionSource
     ) {
         super.baoZhaHou(worldObj, position, explosionSource);
-        final EExplosion source = (EExplosion) explosionSource;
+        final EntityExplosion source = (EntityExplosion) explosionSource;
 
         if (!worldObj.isRemote && source.dataList1.size() > 0
             && source.dataList1.get(0) instanceof ThrSheXian) {

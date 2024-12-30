@@ -31,7 +31,7 @@ public class IBExplosive extends ItemBlock {
         }
 
         if (world.getBlock(x, y, z) == this.field_150939_a) {
-            ((TExplosive) world.getTileEntity(x, y, z)).explosiveId
+            ((TileEntityExplosive) world.getTileEntity(x, y, z)).explosiveId
                 = itemStack.getItemDamage();
             this.field_150939_a.onBlockPlacedBy(world, x, y, z, player, itemStack);
             this.field_150939_a.onPostBlockPlaced(world, x, y, z, metadata);

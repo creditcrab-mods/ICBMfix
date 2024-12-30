@@ -3,7 +3,7 @@ package icbm.explosion.render;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import icbm.explosion.ICBMExplosion;
-import icbm.explosion.zhapin.EGrenade;
+import icbm.explosion.zhapin.EntityGrenade;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -24,7 +24,7 @@ public class RShouLiuDan extends Render {
         final float par9
     ) {
         final IIcon icon
-            = ICBMExplosion.itShouLiuDan.getIconFromDamage(((EGrenade) entity).haoMa);
+            = ICBMExplosion.itShouLiuDan.getIconFromDamage(((EntityGrenade) entity).haoMa);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y + 0.4f, (float) z);
         GL11.glEnable(32826);

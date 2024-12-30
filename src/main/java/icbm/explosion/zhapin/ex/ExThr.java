@@ -1,6 +1,6 @@
 package icbm.explosion.zhapin.ex;
 
-import icbm.explosion.zhapin.EExplosion;
+import icbm.explosion.zhapin.EntityExplosion;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
@@ -12,13 +12,13 @@ public abstract class ExThr extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
         final int callCount
     ) {
-        final EExplosion source = (EExplosion) explosionSource;
+        final EntityExplosion source = (EntityExplosion) explosionSource;
 
         if (!worldObj.isRemote && source.dataList1.size() > 0
             && source.dataList1.get(0) instanceof ThrSheXian) {

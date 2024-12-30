@@ -5,8 +5,8 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import icbm.explosion.dianqi.ItLaserDesignator;
 import icbm.explosion.dianqi.ItRadarGun;
-import icbm.explosion.zhapin.BExplosives;
-import icbm.explosion.zhapin.TExplosive;
+import icbm.explosion.zhapin.BlockExplosives;
+import icbm.explosion.zhapin.TileEntityExplosive;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -69,13 +69,13 @@ public class ItemUsePacketHandler implements IMessageHandler<ItemUsePacket, IMes
         } else if (message.type == ItemUsePacket.Type.REMOTE) {
             final ItemStack itemStack = player.inventory.getCurrentItem();
             TileEntity te = message.pos.getTileEntity(player.worldObj);
-            if (te instanceof TExplosive) {
-                BExplosives.yinZha(
+            if (te instanceof TileEntityExplosive) {
+                BlockExplosives.yinZha(
                     player.worldObj,
                     message.pos.intX(),
                     message.pos.intY(),
                     message.pos.intZ(),
-                    ((TExplosive) te).explosiveId,
+                    ((TileEntityExplosive) te).explosiveId,
                     0
                 );
                 ICBMExplosion.itYaoKong.onProvide(

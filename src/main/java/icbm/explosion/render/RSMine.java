@@ -3,7 +3,7 @@ package icbm.explosion.render;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import icbm.core.di.MICBM;
-import icbm.explosion.zhapin.TExplosive;
+import icbm.explosion.zhapin.TileEntityExplosive;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -20,7 +20,7 @@ public class RSMine extends TileEntitySpecialRenderer {
         final double z,
         final float var8
     ) {
-        final TExplosive tileEntity = (TExplosive) var1;
+        final TileEntityExplosive tileEntity = (TileEntityExplosive) var1;
         final Object[] data = ZhaPin.list[tileEntity.explosiveId].getRenderData();
 
         if (data != null) {

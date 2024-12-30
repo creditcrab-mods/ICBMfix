@@ -34,15 +34,15 @@ import net.minecraftforge.common.util.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.core.vector.VectorHelper;
 
-public class BExplosives extends BlockICBM implements ICamouflageMaterial {
+public class BlockExplosives extends BlockICBM implements ICamouflageMaterial {
     public static final IIcon[] ICON_TOP;
     public static final IIcon[] ICON_SIDE;
     public static final IIcon[] ICON_BOTTOM;
 
-    public BExplosives() {
+    public BlockExplosives() {
         super("explosives", Material.tnt);
         this.setHardness(0.0f);
-        this.setStepSound(BExplosives.soundTypeGrass);
+        this.setStepSound(BlockExplosives.soundTypeGrass);
         this.setCreativeTab((CreativeTabs) ICBMTab.INSTANCE);
     }
 
@@ -90,8 +90,8 @@ public class BExplosives extends BlockICBM implements ICamouflageMaterial {
     ) {
         final TileEntity tileEntity = par1IBlockAccess.getTileEntity(x, y, z);
 
-        if (tileEntity != null && tileEntity instanceof TExplosive
-            && ((TExplosive) tileEntity).explosiveId == ZhaPin.sMine.getID()) {
+        if (tileEntity != null && tileEntity instanceof TileEntityExplosive
+            && ((TileEntityExplosive) tileEntity).explosiveId == ZhaPin.sMine.getID()) {
             this.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 0.2f, 1.0f);
             return;
         }
@@ -110,8 +110,8 @@ public class BExplosives extends BlockICBM implements ICamouflageMaterial {
     ) {
         final TileEntity tileEntity = par1World.getTileEntity(x, y, z);
 
-        if (tileEntity != null && tileEntity instanceof TExplosive
-            && ((TExplosive) tileEntity).explosiveId == ZhaPin.sMine.getID()) {
+        if (tileEntity != null && tileEntity instanceof TileEntityExplosive
+            && ((TileEntityExplosive) tileEntity).explosiveId == ZhaPin.sMine.getID()) {
             return AxisAlignedBB.getBoundingBox(
                 x + this.minX,
                 y + this.minY,
@@ -134,7 +134,7 @@ public class BExplosives extends BlockICBM implements ICamouflageMaterial {
         final EntityLivingBase entityLiving,
         final ItemStack itemStack
     ) {
-        final int explosiveID = ((TExplosive) world.getTileEntity(x, y, z)).explosiveId;
+        final int explosiveID = ((TileEntityExplosive) world.getTileEntity(x, y, z)).explosiveId;
 
         if (!world.isRemote
             && ICBMExplosion.shiBaoHu(
@@ -193,37 +193,37 @@ public class BExplosives extends BlockICBM implements ICamouflageMaterial {
         final int side
     ) {
         final int explosiveID
-            = ((TExplosive) par1IBlockAccess.getTileEntity(x, y, z)).explosiveId;
+            = ((TileEntityExplosive) par1IBlockAccess.getTileEntity(x, y, z)).explosiveId;
         return this.getIcon(side, explosiveID);
     }
 
     @Override
     public IIcon getIcon(final int side, final int explosiveID) {
         if (side == 0) {
-            return BExplosives.ICON_BOTTOM[ZhaPin.list[explosiveID].getTier() - 1];
+            return BlockExplosives.ICON_BOTTOM[ZhaPin.list[explosiveID].getTier() - 1];
         }
 
         if (side == 1) {
-            return BExplosives.ICON_TOP[explosiveID];
+            return BlockExplosives.ICON_TOP[explosiveID];
         }
 
-        return BExplosives.ICON_SIDE[explosiveID];
+        return BlockExplosives.ICON_SIDE[explosiveID];
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(final IIconRegister iconRegister) {
         for (int i = 0; i < ZhaPin.E_SI_ID; ++i) {
-            BExplosives.ICON_TOP[i] = iconRegister.registerIcon(
+            BlockExplosives.ICON_TOP[i] = iconRegister.registerIcon(
                 "icbm:explosive_" + ZhaPin.list[i].getUnlocalizedName() + "_top"
             );
-            BExplosives.ICON_SIDE[i] = iconRegister.registerIcon(
+            BlockExplosives.ICON_SIDE[i] = iconRegister.registerIcon(
                 "icbm:explosive_" + ZhaPin.list[i].getUnlocalizedName() + "_side"
             );
         }
 
         for (int tier = 0; tier < 4; ++tier) {
-            BExplosives.ICON_BOTTOM[tier]
+            BlockExplosives.ICON_BOTTOM[tier]
                 = iconRegister.registerIcon("icbm:explosive_bottom_" + (tier + 1));
         }
     }
@@ -239,7 +239,7 @@ public class BExplosives extends BlockICBM implements ICamouflageMaterial {
     public void onNeighborBlockChange(
         final World world, final int x, final int y, final int z, final Block block
     ) {
-        final int explosiveID = ((TExplosive) world.getTileEntity(x, y, z)).explosiveId;
+        final int explosiveID = ((TileEntityExplosive) world.getTileEntity(x, y, z)).explosiveId;
 
         if (world.isBlockIndirectlyGettingPowered(x, y, z)) {
             yinZha(world, x, y, z, explosiveID, 0);
@@ -262,8 +262,8 @@ public class BExplosives extends BlockICBM implements ICamouflageMaterial {
             )) {
             final TileEntity tileEntity = world.getTileEntity(x, y, z);
 
-            if (tileEntity != null && tileEntity instanceof TExplosive) {
-                ((TExplosive) tileEntity).exploding = true;
+            if (tileEntity != null && tileEntity instanceof TileEntityExplosive) {
+                ((TileEntityExplosive) tileEntity).exploding = true;
                 ZhaPin.list[explosiveID].spawnZhaDan(
                     world,
                     new Vector3(x, y, z),
@@ -285,7 +285,7 @@ public class BExplosives extends BlockICBM implements ICamouflageMaterial {
     ) {
         if (par1World.getTileEntity(x, y, z) != null) {
             final int explosiveID
-                = ((TExplosive) par1World.getTileEntity(x, y, z)).explosiveId;
+                = ((TileEntityExplosive) par1World.getTileEntity(x, y, z)).explosiveId;
             yinZha(par1World, x, y, z, explosiveID, 1);
         }
     }
@@ -307,7 +307,7 @@ public class BExplosives extends BlockICBM implements ICamouflageMaterial {
         if (par5EntityPlayer.getCurrentEquippedItem() != null) {
             if (par5EntityPlayer.getCurrentEquippedItem().getItem()
                 == Items.flint_and_steel) {
-                final int explosiveID = ((TExplosive) tileEntity).explosiveId;
+                final int explosiveID = ((TileEntityExplosive) tileEntity).explosiveId;
                 yinZha(par1World, x, y, z, explosiveID, 0);
                 return true;
             }
@@ -376,7 +376,7 @@ public class BExplosives extends BlockICBM implements ICamouflageMaterial {
     ) {
         if (world.getTileEntity(x, y, z) != null) {
             final int explosiveID
-                = ((TExplosive) world.getTileEntity(x, y, z)).explosiveId;
+                = ((TileEntityExplosive) world.getTileEntity(x, y, z)).explosiveId;
             return new ItemStack(this, 1, explosiveID);
         }
 
@@ -394,9 +394,9 @@ public class BExplosives extends BlockICBM implements ICamouflageMaterial {
     ) {
         final TileEntity tileEntity = world.getTileEntity(x, y, z);
 
-        if (tileEntity != null && tileEntity instanceof TExplosive
-            && !((TExplosive) tileEntity).exploding) {
-            final int explosiveID = ((TExplosive) tileEntity).explosiveId;
+        if (tileEntity != null && tileEntity instanceof TileEntityExplosive
+            && !((TileEntityExplosive) tileEntity).exploding) {
+            final int explosiveID = ((TileEntityExplosive) tileEntity).explosiveId;
             final Item id
                 = this.getItemDropped(world.getBlockMetadata(x, y, z), world.rand, 0);
             this.dropBlockAsItem(world, x, y, z, new ItemStack(id, 1, explosiveID));
@@ -423,7 +423,7 @@ public class BExplosives extends BlockICBM implements ICamouflageMaterial {
 
     @Override
     public TileEntity createNewTileEntity(final World var1, int meta) {
-        return new TExplosive();
+        return new TileEntityExplosive();
     }
 
     @Override

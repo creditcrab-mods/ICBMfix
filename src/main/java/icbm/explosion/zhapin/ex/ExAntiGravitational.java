@@ -4,7 +4,7 @@ import java.util.List;
 
 import icbm.core.MainBase;
 import icbm.explosion.EGravityBlock;
-import icbm.explosion.zhapin.EExplosion;
+import icbm.explosion.zhapin.EntityExplosion;
 import icbm.explosion.zhapin.ZhaPin;
 import mffs.api.IForceFieldBlock;
 import net.minecraft.block.Block;
@@ -31,7 +31,7 @@ public class ExAntiGravitational extends ZhaPin {
         super.baoZhaQian(worldObj, position, explosionSource);
 
         if (!worldObj.isRemote) {
-            final EExplosion source = (EExplosion) explosionSource;
+            final EntityExplosion source = (EntityExplosion) explosionSource;
 
             for (int x = 0; x < this.getRadius(); ++x) {
                 for (int y = 0; y < this.getRadius(); ++y) {
@@ -116,14 +116,14 @@ public class ExAntiGravitational extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
         final int explosionMetadata,
         final int callCount
     ) {
-        final EExplosion source = (EExplosion) explosionSource;
+        final EntityExplosion source = (EntityExplosion) explosionSource;
         final int r = callCount;
 
         if (!worldObj.isRemote) {

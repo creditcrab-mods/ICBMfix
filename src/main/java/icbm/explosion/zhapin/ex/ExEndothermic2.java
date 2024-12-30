@@ -1,7 +1,7 @@
 package icbm.explosion.zhapin.ex;
 
 import cpw.mods.fml.common.FMLLog;
-import icbm.explosion.zhapin.EExplosion;
+import icbm.explosion.zhapin.EntityExplosion;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -23,7 +23,7 @@ public class ExEndothermic2 extends ZhaPin {
         super.baoZhaQian(worldObj, position, explosionSource);
 
         if (!worldObj.isRemote) {
-            final EExplosion source = (EExplosion) explosionSource;
+            final EntityExplosion source = (EntityExplosion) explosionSource;
 
             for (int x = 0; x < this.getRadius(); ++x) {
                 for (int y = 0; y < this.getRadius(); ++y) {
@@ -99,7 +99,7 @@ public class ExEndothermic2 extends ZhaPin {
     }
 
     @Override
-    public boolean doBaoZha(
+    public boolean doExplosion(
         final World worldObj,
         final Vector3 position,
         final Entity explosionSource,
@@ -108,7 +108,7 @@ public class ExEndothermic2 extends ZhaPin {
     ) {
         try {
             if (!worldObj.isRemote) {
-                final EExplosion source = (EExplosion) explosionSource;
+                final EntityExplosion source = (EntityExplosion) explosionSource;
                 final int radius = callCount;
 
                 for (final Object obj : source.dataList1) {

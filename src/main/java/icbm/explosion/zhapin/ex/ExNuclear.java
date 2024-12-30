@@ -2,7 +2,7 @@ package icbm.explosion.zhapin.ex;
 
 import icbm.core.MainBase;
 import icbm.explosion.ICBMExplosion;
-import icbm.explosion.zhapin.EExplosion;
+import icbm.explosion.zhapin.EntityExplosion;
 import icbm.explosion.zhapin.ZhaPin;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -35,7 +35,7 @@ public class ExNuclear extends ExThr {
             final ThrSheXian thread
                 = new ThrSheXian(worldObj, position, 45, 200, explosionSource);
             thread.run();
-            ((EExplosion) explosionSource).dataList1.add(thread);
+            ((EntityExplosion) explosionSource).dataList1.add(thread);
         } else if (ICBMExplosion.proxy.isGaoQing()) {
             for (int y = 0; y < 26; ++y) {
                 int r = 4;
@@ -92,7 +92,7 @@ public class ExNuclear extends ExThr {
         final World worldObj, final Vector3 position, final Entity explosionSource
     ) {
         super.baoZhaHou(worldObj, position, explosionSource);
-        final EExplosion source = (EExplosion) explosionSource;
+        final EntityExplosion source = (EntityExplosion) explosionSource;
 
         try {
             if (!worldObj.isRemote && source.dataList1.size() > 0
@@ -135,7 +135,7 @@ public class ExNuclear extends ExThr {
         ZhaPin.createExplosion(
             worldObj, position, explosionSource, ZhaPin.decayLand.getID()
         );
-        ZhaPin.mutateLiving.doBaoZha(worldObj, position, null, 65, -1);
+        ZhaPin.mutateLiving.doExplosion(worldObj, position, null, 65, -1);
 
         if (worldObj.rand.nextInt(3) == 0) {
             worldObj.getWorldInfo().setRaining(!worldObj.getWorldInfo().isRaining());
