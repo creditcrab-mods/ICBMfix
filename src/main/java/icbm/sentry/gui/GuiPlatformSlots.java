@@ -33,7 +33,7 @@ public class GuiPlatformSlots extends GuiPlatformContainer {
             this.fontRendererObj.drawString("Energy Per Shot", 85, 33, 4210752);
             this.fontRendererObj.drawString(
                 color
-                    + UnitDisplay.getDisplayShort(turret.getFiringRequest() / UniversalElectricity.UE_RF_RATIO,UnitDisplay.Unit.JOULES),
+                    + turret.getFiringRequestRF() + "RF",
                 87,
                 43,
                 4210752

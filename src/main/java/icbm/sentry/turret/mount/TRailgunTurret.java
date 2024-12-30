@@ -74,6 +74,7 @@ public class TRailgunTurret extends TTurretSeat implements IRedstoneReceptor {
         }
     }
 
+    //TODO: Drain Energy from all cells when Firing
     public void onFire() {
         if (!this.worldObj.isRemote) {
             while (this.explosionDepth > 0) {
@@ -211,7 +212,7 @@ public class TRailgunTurret extends TTurretSeat implements IRedstoneReceptor {
 
     @Override
     public double getFiringRequest() {
-        return 1000000.0;
+        return 100000.0;
     }
 
     @Override
@@ -255,7 +256,7 @@ public class TRailgunTurret extends TTurretSeat implements IRedstoneReceptor {
     public boolean canActivateWeapon() {
         return this.getPlatform() != null
             && this.getPlatform().hasAmmunition(ProjectileType.RAILGUN) != null
-            && this.getPlatform().energyStorage.getEnergyStored() >= this.getFiringRequestRF();
+            && this.getPlatform().getTotalRFStored() >= this.getFiringRequestRF();
     }
 
     @Override

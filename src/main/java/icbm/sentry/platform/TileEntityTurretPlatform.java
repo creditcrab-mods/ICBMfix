@@ -156,6 +156,37 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
             && energyStorage.getEnergyStored() >= getRFRequest();
     }
 
+    public int getTotalRFStored(){
+        int total = energyStorage.getEnergyStored();
+        for (int i = 0; i < 12; i++) {
+            final ItemStack itemStack = this.containingItems[i];
+
+            if (itemStack != null) {
+                final Item item = itemStack.getItem();
+
+                if (item instanceof IEnergyContainerItem containerItem){
+                    total += containerItem.getEnergyStored(itemStack);
+                }
+            }
+        }
+        return total;
+    }
+
+    public void drainTotalRF(int energy){
+
+        for (int i = 0; i < 12; i++) {
+            final ItemStack itemStack = this.containingItems[i];
+
+            if (itemStack != null) {
+                final Item item = itemStack.getItem();
+
+                if (item instanceof IEnergyContainerItem containerItem){
+
+                }
+            }
+        }
+    }
+
     public ItemStack hasAmmunition(final ProjectileType projectileType) {
         for (int i = 0; i < 12; ++i) {
             final ItemStack itemStack = this.containingItems[i];
