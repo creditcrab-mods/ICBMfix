@@ -56,7 +56,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
         super.updateEntity();
 
         if (prevRF != energyStorage.getEnergyStored()) {
-            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             this.markDirty();
         }
 
@@ -72,32 +71,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
         }
     }
 
-    @Override
-    public void onReceive(final ElectricityPack electricityPack) {
-        if (UniversalElectricity.isVoltageSensitive
-            && electricityPack.voltage > this.getVoltage()) {
-            final TTurretBase turret = this.getTurret(false);
-
-            if (turret != null && turret instanceof IHealthTile) {
-                this.turret.onDamageTaken(
-                    CustomDamageSource.electrocution, Integer.MAX_VALUE
-                );
-            }
-
-            return;
-        }
-
-        super.wattsReceived = Math.min(
-            super.wattsReceived + electricityPack.getWatts(), this.getWattBuffer()
-        );
-
-        if (super.prevWatts <= this.getRequest().getWatts()
-            && super.wattsReceived >= this.getRequest().getWatts()
-            && super.prevWatts != super.wattsReceived) {
-            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-        }
-    }
-
 
     public int getRFRequest(){
         var turret = this.getTurret(false);
@@ -106,36 +79,8 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
         }
         return 0;
     }
-    @Override
-    public ElectricityPack getRequest() {
-        if (this.getTurret(false) != null
-            && super.wattsReceived < this.getTurret(false).getFiringRequest()) {
-            return ElectricityPack.getFromWatts(
-                Math.max(this.turret.getFiringRequest(), 0.0),
-                this.getTurret(false).getVoltage()
-            );
-        }
 
-        return new ElectricityPack();
-    }
 
-    @Override
-    public double getWattBuffer() {
-        if (this.getTurret(false) != null) {
-            return new ElectricityPack(
-                       Math.max(
-                           this.turret.getFiringRequest()
-                               / this.getTurret(false).getVoltage(),
-                           0.0
-                       ),
-                       this.getTurret(false).getVoltage()
-                   )
-                       .getWatts()
-                * 2.0;
-        }
-
-        return 0.0;
-    }
 
     public TTurretBase getTurret(final boolean getNew) {
         final Vector3 position = new Vector3(this);
@@ -265,7 +210,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     @Override
     public void readFromNBT(final NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        super.wattsReceived = nbt.getDouble("wattsReceived");
         final NBTTagList var2 = nbt.getTagList("Items", 10);
         this.containingItems = new ItemStack[this.getSizeInventory()];
 
@@ -282,7 +226,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     @Override
     public void writeToNBT(final NBTTagCompound nbt) {
         super.writeToNBT(nbt);
-        nbt.setDouble("wattsReceived", super.wattsReceived);
         final NBTTagList itemTag = new NBTTagList();
 
         for (int slots = 0; slots < this.containingItems.length; ++slots) {
@@ -365,10 +308,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     @Override
     public void closeInventory() {}
 
-    @Override
-    public boolean canConnect(final ForgeDirection direction) {
-        return true;
-    }
 
     @Override
     public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b) {
@@ -404,6 +343,7 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
         return slotID < 12 && itemStack.getItem() instanceof IAmmunition;
     }
 
+    //TODO: Save RF stored on world load
     @Override
     public void markDirty() {
         super.markDirty();
@@ -447,7 +387,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
 
-        nbt.setDouble("wattsReceived", super.wattsReceived);
         nbt.setInteger("rf",energyStorage.getEnergyStored());
         super.writeToNBT(nbt);
 
@@ -459,7 +398,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound nbt = pkt.func_148857_g();
 
-        super.wattsReceived = nbt.getDouble("wattsReceived");
         energyStorage.setEnergyStored(nbt.getInteger("rf"));
         super.readFromNBT(nbt);
     }

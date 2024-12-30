@@ -222,7 +222,7 @@ public abstract class TAutomaticTurret extends TTurretBase implements IAutoSentr
 
                 if (this.target instanceof EntityLivingBase) {
                     final TileEntityTurretPlatform platform = this.getPlatform();
-                    platform.wattsReceived -= this.getFiringRequest();
+                    platform.energyStorage.extractEnergy(getFiringRequestRF(),false);
 
                     if (bullet.getType(ammoStack) == ProjectileType.CONVENTIONAL) {
                         this.target.attackEntityFrom(

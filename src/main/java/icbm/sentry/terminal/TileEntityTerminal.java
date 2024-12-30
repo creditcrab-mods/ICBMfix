@@ -18,12 +18,13 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.vector.Vector3;
 
 public abstract class TileEntityTerminal
-    extends TileEntityUniversalRunnable implements ITerminal {
+    extends TileEntity implements ITerminal {
     protected List<String> terminalOutput;
     private final List<UserAccess> users;
     public static final int SCROLL_SIZE = 15;
@@ -43,9 +44,11 @@ public abstract class TileEntityTerminal
     public void updateEntity() {
         super.updateEntity();
 
+        /*
         if (!this.worldObj.isRemote && super.ticks % 3L == 0L) {
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         }
+         */
     }
 
     public abstract String getChannel();

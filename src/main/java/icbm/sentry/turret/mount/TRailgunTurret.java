@@ -232,7 +232,7 @@ public class TRailgunTurret extends TTurretSeat implements IRedstoneReceptor {
             }
         }
 
-        this.getPlatform().wattsReceived = 0.0;
+        this.getPlatform().energyStorage.setEnergyStored(0);
         this.explosionSize = 5.0f;
         this.explosionDepth = 5;
 
@@ -255,7 +255,7 @@ public class TRailgunTurret extends TTurretSeat implements IRedstoneReceptor {
     public boolean canActivateWeapon() {
         return this.getPlatform() != null
             && this.getPlatform().hasAmmunition(ProjectileType.RAILGUN) != null
-            && this.getPlatform().wattsReceived >= this.getFiringRequest();
+            && this.getPlatform().energyStorage.getEnergyStored() >= this.getFiringRequestRF();
     }
 
     @Override

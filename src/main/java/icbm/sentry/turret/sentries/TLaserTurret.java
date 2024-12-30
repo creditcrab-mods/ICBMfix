@@ -109,7 +109,7 @@ public class TLaserTurret extends TAutomaticTurret {
         if (!this.worldObj.isRemote && this.getPlatform() != null) {
             if (super.target instanceof EntityLivingBase) {
                 final TileEntityTurretPlatform platform = this.getPlatform();
-                platform.wattsReceived -= this.getFiringRequest();
+                platform.energyStorage.receiveEnergy(this.getFiringRequestRF(),false);
                 super.target.attackEntityFrom(
                     (DamageSource) TileDamageSource.doLaserDamage(this), 2
                 );
