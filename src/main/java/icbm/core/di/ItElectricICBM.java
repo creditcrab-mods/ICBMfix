@@ -10,6 +10,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import universalelectricity.core.item.ElectricItemHelper;
 import universalelectricity.core.item.ItemElectric;
 
 import java.util.List;
@@ -22,8 +24,16 @@ public abstract class ItElectricICBM extends Item implements IEnergyContainerIte
 
     public ItElectricICBM(final String name) {
         super();
+        this.setMaxStackSize(1);
+        this.setMaxDamage(100);
+        this.setNoRepair();
         this.setUnlocalizedName("icbm:" + name);
         this.setCreativeTab((CreativeTabs) ICBMTab.INSTANCE);
+    }
+
+    @Override
+    public void onCreated(ItemStack itemStack, World par2World, EntityPlayer par3EntityPlayer) {
+        EnergyHelper.setDefaultEnergyTag(itemStack, 0);
     }
 
     @Override
@@ -96,5 +106,13 @@ public abstract class ItElectricICBM extends Item implements IEnergyContainerIte
     @Override
     public int getMaxEnergyStored(ItemStack itemStack) {
         return CAPACITY;
+    }
+
+    @Override
+    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+
+        par3List.add(EnergyHelper.setDefaultEnergyTag(new ItemStack(par1),0));
+
+        par3List.add(EnergyHelper.setDefaultEnergyTag(new ItemStack(par1),CAPACITY));
     }
 }

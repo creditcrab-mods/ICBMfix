@@ -284,8 +284,9 @@ public class ICBMExplosion extends MainBase {
     }
 
     @Mod.EventHandler
-    public void load(final FMLInitializationEvent evt) {
+    public void init(final FMLInitializationEvent evt) {
         MainBase.setModMetadata("ICBM|Explosion", ICBMExplosion.metadata);
+
     }
 
     @Mod.EventHandler
