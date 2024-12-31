@@ -21,7 +21,7 @@ public class TickHandler {
             if (currentItem != null
                 && (player != Minecraft.getMinecraft().renderViewEntity
                     || Minecraft.getMinecraft().gameSettings.thirdPersonView != 0)
-                && currentItem.getItem() == ICBMExplosion.itFaSheQi
+                && currentItem.getItem() == ICBMExplosion.itemRocketLauncher
                 && player.getItemInUseCount() <= 0) {
                 player.setItemInUse(currentItem, Integer.MAX_VALUE);
             }

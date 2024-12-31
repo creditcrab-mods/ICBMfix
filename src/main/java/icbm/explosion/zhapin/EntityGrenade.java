@@ -154,7 +154,7 @@ public class EntityGrenade
                 super.posX + var7,
                 super.posY + var8,
                 super.posZ + var9,
-                new ItemStack(ICBMExplosion.itShouLiuDan, this.haoMa, 1)
+                new ItemStack(ICBMExplosion.itemGrenade, this.haoMa, 1)
             );
             var10.delayBeforeCanPickup = 10;
             super.worldObj.spawnEntityInWorld((Entity) var10);

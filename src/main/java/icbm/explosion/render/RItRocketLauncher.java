@@ -17,7 +17,7 @@ public class RItRocketLauncher implements IItemRenderer {
 
     public boolean
     handleRenderType(final ItemStack item, final IItemRenderer.ItemRenderType type) {
-        return item.getItem() == ICBMExplosion.itFaSheQi;
+        return item.getItem() == ICBMExplosion.itemRocketLauncher;
     }
 
     public boolean shouldUseRenderHelper(
@@ -25,7 +25,7 @@ public class RItRocketLauncher implements IItemRenderer {
         final ItemStack item,
         final IItemRenderer.ItemRendererHelper helper
     ) {
-        return item.getItem() == ICBMExplosion.itFaSheQi;
+        return item.getItem() == ICBMExplosion.itemRocketLauncher;
     }
 
     public void renderItem(

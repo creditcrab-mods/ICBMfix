@@ -57,8 +57,8 @@ public class ICBMContraption extends MainBase {
     public static Block bConcrete;
     public static Block bGlassReinforced;
     public static Item itAntidote;
-    public static ItemElectric itSignalDisrupter;
-    public static ItemElectric itTracker;
+    public static Item itSignalDisrupter;
+    public static Item itTracker;
 
     public static SimpleNetworkWrapper channel;
 

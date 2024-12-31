@@ -39,7 +39,7 @@ public class ItemUsePacketHandler implements IMessageHandler<ItemUsePacket, IMes
                     instanceof ItLaserDesignator) {
                 final ItemStack itemStack = player.inventory.getCurrentItem();
                 final Vector3 position = message.pos;
-                ((ItLaserDesignator) ICBMExplosion.itLeiSheZhiBiao)
+                ((ItLaserDesignator) ICBMExplosion.itemLaserDesignator)
                     .setLauncherCountDown(itemStack, 119);
                 player.worldObj.playSoundEffect(
                     position.intX(),

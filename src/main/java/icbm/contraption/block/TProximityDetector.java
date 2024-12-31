@@ -78,11 +78,7 @@ public class TProximityDetector
 
                             for (final ItemStack inventory :
                                  ((EntityPlayer) entity).inventory.mainInventory) {
-                                if (inventory != null
-                                    && inventory.getItem() instanceof ItemSignalDisruptor
-                                    && ((ItemSignalDisruptor) inventory.getItem())
-                                            .getFrequency(inventory)
-                                        == this.frequency) {
+                                if (inventory != null && inventory.getItem() instanceof ItemSignalDisruptor && ((ItemSignalDisruptor) inventory.getItem()).getFrequency(inventory) == this.frequency) {
                                     gotDisrupter = true;
                                     break;
                                 }

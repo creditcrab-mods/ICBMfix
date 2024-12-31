@@ -56,7 +56,7 @@ public class ItemSignalDisruptor extends ItElectricICBM implements IItemFrequenc
         if (!par2World.isRemote) {
             super.onUpdate(itemStack, par2World, par3Entity, par4, par5);
 
-            if (this.getEnergyStored(itemStack) > 1) {
+            if (this.getEnergyStored(itemStack) >= 1) {
                 drainEnergy(itemStack,1);
             }
         }

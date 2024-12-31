@@ -207,7 +207,7 @@ public class BMachine extends BlockICBM {
     ) {
         if (par5EntityPlayer.inventory.getCurrentItem() != null) {
             if (par5EntityPlayer.inventory.getCurrentItem().getItem()
-                == ICBMExplosion.itLeiSheZhiBiao) {
+                == ICBMExplosion.itemLaserDesignator) {
                 return false;
             }
 

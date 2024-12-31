@@ -75,7 +75,7 @@ public class ClientProxy extends CommonProxy {
     public void init() {
         super.init();
         MinecraftForgeClient.registerItemRenderer(
-            ICBMExplosion.itFaSheQi, (IItemRenderer) new RItRocketLauncher()
+            ICBMExplosion.itemRocketLauncher, (IItemRenderer) new RItRocketLauncher()
         );
         MinecraftForgeClient.registerItemRenderer(
             ICBMExplosion.itDaoDan, (IItemRenderer) new RItDaoDan()

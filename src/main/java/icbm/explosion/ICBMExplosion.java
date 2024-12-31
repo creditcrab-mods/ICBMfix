@@ -69,7 +69,6 @@ import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import universalelectricity.core.item.ElectricItemHelper;
-import universalelectricity.core.item.ItemElectric;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.RecipeHelper;
 import universalelectricity.prefab.flag.FlagRegistry;
@@ -98,12 +97,12 @@ public class ICBMExplosion extends MainBase {
     public static Block bMachine;
     public static Item itDaoDan;
     public static Item itTeBieDaoDan;
-    public static ItemElectric itemDefuser;
-    public static ItemElectric itemRadarGun;
-    public static ItemElectric itemRemoteDetonator;
-    public static ItemElectric itLeiSheZhiBiao;
-    public static ItemElectric itFaSheQi;
-    public static Item itShouLiuDan;
+    public static Item itemDefuser;
+    public static Item itemRadarGun;
+    public static Item itemRemoteDetonator;
+    public static Item itemLaserDesignator;
+    public static Item itemRocketLauncher;
+    public static Item itemGrenade;
     public static Item itChe;
     public static final Du DU_DU;
     public static final Du DU_CHUAN_RAN;
@@ -128,16 +127,16 @@ public class ICBMExplosion extends MainBase {
         ICBMExplosion.itemDefuser = new ItemDefuser();
         ICBMExplosion.itemRadarGun = new ItRadarGun();
         ICBMExplosion.itemRemoteDetonator = new ItRemoteDetonator();
-        ICBMExplosion.itLeiSheZhiBiao = new ItLaserDesignator();
-        ICBMExplosion.itFaSheQi = new ItemRocketLauncher();
-        ICBMExplosion.itShouLiuDan = new ItemGrenade();
+        ICBMExplosion.itemLaserDesignator = new ItLaserDesignator();
+        ICBMExplosion.itemRocketLauncher = new ItemRocketLauncher();
+        ICBMExplosion.itemGrenade = new ItemGrenade();
         ICBMExplosion.itChe = new ItemCart();
         PotionToxin.INSTANCE = new PotionToxin(22, true, 5149489, "toxin");
         PotionVirus.INSTANCE = new PotionVirus(23, false, 5149489, "virus");
         PotionFrostbite.INSTANCE = new PotionFrostbite(24, false, 5149489, "frostBite");
         MainBase.CONFIGURATION.save();
         BlockDispenser.dispenseBehaviorRegistry.putObject(
-            (Object) ICBMExplosion.itShouLiuDan,
+            (Object) ICBMExplosion.itemGrenade,
             (Object) new IBehaviorDispenseItem() {
                 public ItemStack dispense(
                     final IBlockSource blockSource, final ItemStack itemStack
@@ -246,9 +245,9 @@ public class ICBMExplosion extends MainBase {
         GameRegistry.registerItem(itemDefuser, "icbm:itemDefuser");
         GameRegistry.registerItem(itemRadarGun, "icbm:itemRadarGun");
         GameRegistry.registerItem(itemRemoteDetonator, "icbm:itemRemoteDetonator");
-        GameRegistry.registerItem(itLeiSheZhiBiao, "icbm:itLeiSheZhiBiao");
-        GameRegistry.registerItem(itFaSheQi, "icbm:itFaSheQi");
-        GameRegistry.registerItem(itShouLiuDan, "icbm:itShouLiuDan");
+        GameRegistry.registerItem(itemLaserDesignator, "icbm:itemLaserDesignator");
+        GameRegistry.registerItem(itemRocketLauncher, "icbm:itemRocketLauncher");
+        GameRegistry.registerItem(itemGrenade, "icbm:itemGrenade");
         GameRegistry.registerItem(itChe, "icbm:itChe");
 
         ICBMTab.itemStack = new ItemStack(ICBMExplosion.bExplosives);
@@ -301,7 +300,7 @@ public class ICBMExplosion extends MainBase {
         }
 
         GameRegistry.addRecipe((IRecipe) new ShapedOreRecipe(
-            (Item) ICBMExplosion.itFaSheQi,
+            (Item) ICBMExplosion.itemRocketLauncher,
             new Object[] {
                 "SCR",
                 "SB ",
@@ -345,7 +344,7 @@ public class ICBMExplosion extends MainBase {
                            Blocks.stone_button }
         ));
         GameRegistry.addRecipe((IRecipe) new ShapedOreRecipe(
-            new ItemStack((Item) ICBMExplosion.itLeiSheZhiBiao),
+            new ItemStack((Item) ICBMExplosion.itemLaserDesignator),
             new Object[] { "!  ",
                            " ? ",
                            "  @",
@@ -580,7 +579,7 @@ public class ICBMExplosion extends MainBase {
             if (i < ZhaPin.E_YI_ID) {
                 RecipeHelper.addRecipe(
                     (IRecipe) new ShapedOreRecipe(
-                        new ItemStack(ICBMExplosion.itShouLiuDan, 1, i),
+                        new ItemStack(ICBMExplosion.itemGrenade, 1, i),
                         new Object[] { "?",
                                        "@",
                                        '@',

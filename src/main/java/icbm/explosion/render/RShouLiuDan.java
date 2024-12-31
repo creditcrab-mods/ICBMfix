@@ -24,7 +24,7 @@ public class RShouLiuDan extends Render {
         final float par9
     ) {
         final IIcon icon
-            = ICBMExplosion.itShouLiuDan.getIconFromDamage(((EntityGrenade) entity).haoMa);
+            = ICBMExplosion.itemGrenade.getIconFromDamage(((EntityGrenade) entity).haoMa);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y + 0.4f, (float) z);
         GL11.glEnable(32826);

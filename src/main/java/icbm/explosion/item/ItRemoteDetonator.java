@@ -183,13 +183,4 @@ public class ItRemoteDetonator extends ItElectricICBM {
         );
     }
 
-    @Override
-    public double getVoltage(final ItemStack itemStack) {
-        return 20.0;
-    }
-
-    @Override
-    public double getMaxJoules(final ItemStack itemStack) {
-        return 50000.0;
-    }
 }

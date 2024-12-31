@@ -8,12 +8,13 @@ import icbm.core.ICBMTab;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import universalelectricity.core.item.ItemElectric;
 
 import java.util.List;
 
-public abstract class ItElectricICBM extends ItemElectric implements IEnergyContainerItem {
+public abstract class ItElectricICBM extends Item implements IEnergyContainerItem {
 
     public int CAPACITY = 32000;
     public int SEND = 160;
@@ -28,6 +29,21 @@ public abstract class ItElectricICBM extends ItemElectric implements IEnergyCont
     @Override
     public void addInformation(final ItemStack itemStack, final EntityPlayer par2EntityPlayer, final List par3List, final boolean par4) {
         par3List.add(this.getEnergyStored(itemStack) + " RF");
+    }
+
+    @Override
+    public boolean isDamaged(ItemStack var1) {
+        return true;
+    }
+
+    @Override
+    public int getDisplayDamage(ItemStack item) {
+        return item.stackTagCompound == null ? CAPACITY : CAPACITY - item.stackTagCompound.getInteger("Energy");
+    }
+
+    @Override
+    public int getMaxDamage(ItemStack var1) {
+        return CAPACITY;
     }
 
     @Override
