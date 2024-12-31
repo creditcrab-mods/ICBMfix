@@ -18,9 +18,13 @@ import net.minecraft.world.World;
 import universalelectricity.core.electricity.ElectricityPack;
 
 public class ItTracker extends ItElectricICBM implements ITracker {
+
+    public static final int ENERGY_USED = 1;
     public ItTracker() {
         super("tracker");
         this.setTextureName("icbm:tracker");
+        CAPACITY = 800000;
+        SEND = 0;
     }
 
     @SideOnly(Side.CLIENT)
@@ -104,14 +108,9 @@ public class ItTracker extends ItElectricICBM implements ITracker {
                     = this.getTrackingEntity(par2World, itemStack);
 
                 if (trackingEntity != null) {
-                    this.onProvide(
-                        ElectricityPack.getFromWatts(
-                            0.10000000149011612, this.getVoltage(itemStack)
-                        ),
-                        itemStack
-                    );
+                    drainEnergy(itemStack,ENERGY_USED);
 
-                    if (this.getJoules(itemStack) < 0.10000000149011612) {
+                    if (this.getEnergyStored(itemStack) < ENERGY_USED) {
                         this.setTrackingEntity(itemStack, null);
                     }
                 }
@@ -123,7 +122,7 @@ public class ItTracker extends ItElectricICBM implements ITracker {
         final ItemStack itemStack, final EntityPlayer player, final Entity entity
     ) {
         if (!((Entity) player).worldObj.isRemote) {
-            if (this.getJoules(itemStack) > 0.10000000149011612) {
+            if (this.getEnergyStored(itemStack) > ENERGY_USED) {
                 this.setTrackingEntity(itemStack, entity);
                 player.addChatMessage(new ChatComponentText(
                     "Now tracking: " + entity.getCommandSenderName()

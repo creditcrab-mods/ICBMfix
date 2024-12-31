@@ -70,7 +70,7 @@ public class ItRemoteDetonator extends ItElectricICBM {
         if (entityPlayer.isSneaking() && tileEntity != null && this.nengZha(tileEntity)) {
             if (this.getEnergyStored(itemStack) > ENERGY_USED) {
                 this.setSavedCoords(itemStack, new Vector3(x, y, z));
-                this.extractEnergy(itemStack,ENERGY_USED,false);
+                this.drainEnergy(itemStack,ENERGY_USED);
 
                 if (world.isRemote) {
                     entityPlayer.addChatMessage(new ChatComponentText(

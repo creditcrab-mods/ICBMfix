@@ -66,7 +66,7 @@ public class ItRadarGun extends ItElectricICBM {
                                 objectMouseOver.blockZ
                             )
                         ));
-                        extractEnergy(itemStack,USED_ENERGY,false);
+                        drainEnergy(itemStack,USED_ENERGY);
                         par3EntityPlayer.addChatMessage(new ChatComponentText(
                             "Scanned Coordinates: X:" + objectMouseOver.blockX + ", Y:"
                             + objectMouseOver.blockY + ", Z:" + objectMouseOver.blockZ

@@ -73,7 +73,7 @@ public class ItemDefuser extends ItElectricICBM {
                 ((EntityCart) entity).killMinecart(DamageSource.generic);
             }
 
-            this.extractEnergy(itemStack,USED_ENERGY,false);
+            this.drainEnergy(itemStack,USED_ENERGY);
             return true;
         }
 

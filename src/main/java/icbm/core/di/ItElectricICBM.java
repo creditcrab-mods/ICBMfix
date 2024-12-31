@@ -45,6 +45,14 @@ public abstract class ItElectricICBM extends ItemElectric implements IEnergyCont
         return delta;
     }
 
+    public void drainEnergy(ItemStack itemStack, int i){
+        if (itemStack.stackTagCompound == null) {
+            EnergyHelper.setDefaultEnergyTag(itemStack, 0);
+        }
+        int energy = itemStack.stackTagCompound.getInteger("Energy");
+        itemStack.stackTagCompound.setInteger("Energy",energy - i);
+    }
+
     @Override
     public int extractEnergy(ItemStack itemStack, int i, boolean b) {
         if (itemStack.stackTagCompound == null) {

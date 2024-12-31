@@ -31,7 +31,7 @@ public class ItLaserDesignator extends ItElectricICBM implements IItemFrequency 
     public static final int BAN_JING;
     public static final int YONG_DIAN_LIANG = 6000;
 
-    public static final int USAGE_COST = 2400;
+    public static final int ENERGY_USED = 2400;
 
     public ItLaserDesignator() {
         super("laserDesignator");
@@ -271,7 +271,7 @@ public class ItLaserDesignator extends ItElectricICBM implements IItemFrequency 
                 final int airStrikeFreq = this.getFrequency(par1ItemStack);
 
                 if (airStrikeFreq > 0) {
-                    if (this.getEnergyStored(par1ItemStack) > USAGE_COST) {
+                    if (this.getEnergyStored(par1ItemStack) > ENERGY_USED) {
                         final Vector3 position = new Vector3(
                             ((Entity) par3EntityPlayer).posX,
                             ((Entity) par3EntityPlayer).posY,

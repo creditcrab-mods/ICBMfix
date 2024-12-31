@@ -13,7 +13,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector3;
 
 public class ItemUsePacketHandler implements IMessageHandler<ItemUsePacket, IMessage> {
@@ -33,7 +32,7 @@ public class ItemUsePacketHandler implements IMessageHandler<ItemUsePacket, IMes
                 itemStack.stackTagCompound.setInteger("y", message.pos.intY());
                 itemStack.stackTagCompound.setInteger("z", message.pos.intZ());
                 ItElectricICBM electricItem = (ItElectricICBM) itemStack.getItem();
-                electricItem.extractEnergy(itemStack,ItRadarGun.USED_ENERGY,false);
+                electricItem.drainEnergy(itemStack,ItRadarGun.USED_ENERGY);
             }
         } else if (message.type == ItemUsePacket.Type.LASER_DESIGNATOR) {
             if (player.inventory.getCurrentItem().getItem()
@@ -58,7 +57,7 @@ public class ItemUsePacketHandler implements IMessageHandler<ItemUsePacket, IMes
                     new ELightBeam(player.worldObj, position, 100, 0.0f, 1.0f, 0.0f)
                 );
                 ItElectricICBM electricItem = (ItElectricICBM) itemStack.getItem();
-                electricItem.extractEnergy(itemStack,ItLaserDesignator.USAGE_COST,false);
+                electricItem.drainEnergy(itemStack,ItLaserDesignator.ENERGY_USED);
             }
         } else if (message.type == ItemUsePacket.Type.REMOTE) {
             final ItemStack itemStack = player.inventory.getCurrentItem();
@@ -73,7 +72,7 @@ public class ItemUsePacketHandler implements IMessageHandler<ItemUsePacket, IMes
                     0
                 );
                 ItElectricICBM electricItem = (ItElectricICBM) itemStack.getItem();
-                electricItem.extractEnergy(itemStack, ItRemoteDetonator.ENERGY_USED,false);
+                electricItem.drainEnergy(itemStack, ItRemoteDetonator.ENERGY_USED);
             }
         }
 

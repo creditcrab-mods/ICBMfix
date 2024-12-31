@@ -31,7 +31,7 @@ import icbm.explosion.item.ItemDefuser;
 import icbm.explosion.item.ItLaserDesignator;
 import icbm.explosion.item.ItRadarGun;
 import icbm.explosion.item.ItRemoteDetonator;
-import icbm.explosion.item.ItRocketLauncher;
+import icbm.explosion.item.ItemRocketLauncher;
 import icbm.explosion.launcher.BMachine;
 import icbm.explosion.launcher.CruiseLauncherGuiPacket;
 import icbm.explosion.launcher.CruiseLauncherGuiPacketHandler;
@@ -129,7 +129,7 @@ public class ICBMExplosion extends MainBase {
         ICBMExplosion.itemRadarGun = new ItRadarGun();
         ICBMExplosion.itemRemoteDetonator = new ItRemoteDetonator();
         ICBMExplosion.itLeiSheZhiBiao = new ItLaserDesignator();
-        ICBMExplosion.itFaSheQi = new ItRocketLauncher();
+        ICBMExplosion.itFaSheQi = new ItemRocketLauncher();
         ICBMExplosion.itShouLiuDan = new ItemGrenade();
         ICBMExplosion.itChe = new ItemCart();
         PotionToxin.INSTANCE = new PotionToxin(22, true, 5149489, "toxin");

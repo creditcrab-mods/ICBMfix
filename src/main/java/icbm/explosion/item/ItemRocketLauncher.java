@@ -16,9 +16,12 @@ import net.minecraft.world.World;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector3;
 
-public class ItRocketLauncher extends ItElectricICBM {
-    public ItRocketLauncher() {
+public class ItemRocketLauncher extends ItElectricICBM {
+
+    public static final int USED_ENERGY = 4000;
+    public ItemRocketLauncher() {
         super("rocketLauncher");
+        CAPACITY = 64000;
     }
 
     public EnumAction getItemUseAction(final ItemStack par1ItemStack) {
@@ -28,7 +31,7 @@ public class ItRocketLauncher extends ItElectricICBM {
     public ItemStack onItemRightClick(
         final ItemStack itemStack, final World world, final EntityPlayer player
     ) {
-        if (!world.isRemote && this.getJoules(itemStack) >= 5000.0) {
+        if (!world.isRemote && this.getEnergyStored(itemStack) >= USED_ENERGY) {
             for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
                 final ItemStack inventoryStack = player.inventory.getStackInSlot(i);
 
@@ -74,12 +77,7 @@ public class ItRocketLauncher extends ItElectricICBM {
                                 );
                             }
 
-                            this.onProvide(
-                                ElectricityPack.getFromWatts(
-                                    5000.0, this.getJoules(itemStack)
-                                ),
-                                itemStack
-                            );
+                            drainEnergy(itemStack,USED_ENERGY);
                             return itemStack;
                         }
                     } else {
