@@ -233,7 +233,7 @@ public class TRailgunTurret extends TTurretSeat implements IRedstoneReceptor {
             }
         }
 
-        this.getPlatform().energyStorage.setEnergyStored(0);
+        this.getPlatform().drainTotalRF(getFiringRequestRF());
         this.explosionSize = 5.0f;
         this.explosionDepth = 5;
 
