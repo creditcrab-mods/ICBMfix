@@ -27,7 +27,7 @@ import icbm.explosion.missile.EMissile;
 import icbm.explosion.missile.ItMissile;
 import icbm.explosion.missile.ItModuleMissile;
 import icbm.explosion.missile.MissileBase;
-import icbm.explosion.dianqi.ItDefuser;
+import icbm.explosion.dianqi.ItemDefuser;
 import icbm.explosion.dianqi.ItLaserDesignator;
 import icbm.explosion.dianqi.ItRadarGun;
 import icbm.explosion.dianqi.ItRemoteDetonator;
@@ -42,9 +42,9 @@ import icbm.explosion.launcher.LauncherControlPanelGuiPacket;
 import icbm.explosion.launcher.LauncherControlPanelGuiPacketHandler;
 import icbm.explosion.launcher.RadarTowerGuiPacket;
 import icbm.explosion.launcher.RadarTowerGuiPacketHandler;
-import icbm.explosion.po.PChuanRanDu;
-import icbm.explosion.po.PDaDu;
-import icbm.explosion.po.PDongShang;
+import icbm.explosion.potion.PotionVirus;
+import icbm.explosion.potion.PotionToxin;
+import icbm.explosion.potion.PotionFrostbite;
 import icbm.explosion.zhapin.*;
 import icbm.explosion.zhapin.EntityGrenade;
 import net.minecraft.block.Block;
@@ -98,9 +98,9 @@ public class ICBMExplosion extends MainBase {
     public static Block bMachine;
     public static Item itDaoDan;
     public static Item itTeBieDaoDan;
-    public static ItemElectric itJieJa;
-    public static ItemElectric itLeiDaQiang;
-    public static ItemElectric itYaoKong;
+    public static ItemElectric itemDefuser;
+    public static ItemElectric itemRadarGun;
+    public static ItemElectric itemRemoteDetonator;
     public static ItemElectric itLeiSheZhiBiao;
     public static ItemElectric itFaSheQi;
     public static Item itShouLiuDan;
@@ -125,16 +125,16 @@ public class ICBMExplosion extends MainBase {
         ICBMExplosion.bMachine = (Block) new BMachine();
         ICBMExplosion.itDaoDan = new ItMissile("missile");
         ICBMExplosion.itTeBieDaoDan = new ItModuleMissile();
-        ICBMExplosion.itJieJa = new ItDefuser();
-        ICBMExplosion.itLeiDaQiang = new ItRadarGun();
-        ICBMExplosion.itYaoKong = new ItRemoteDetonator();
+        ICBMExplosion.itemDefuser = new ItemDefuser();
+        ICBMExplosion.itemRadarGun = new ItRadarGun();
+        ICBMExplosion.itemRemoteDetonator = new ItRemoteDetonator();
         ICBMExplosion.itLeiSheZhiBiao = new ItLaserDesignator();
         ICBMExplosion.itFaSheQi = new ItRocketLauncher();
         ICBMExplosion.itShouLiuDan = new ItemGrenade();
         ICBMExplosion.itChe = new ItemCart();
-        PDaDu.INSTANCE = new PDaDu(22, true, 5149489, "toxin");
-        PChuanRanDu.INSTANCE = new PChuanRanDu(23, false, 5149489, "virus");
-        PDongShang.INSTANCE = new PDongShang(24, false, 5149489, "frostBite");
+        PotionToxin.INSTANCE = new PotionToxin(22, true, 5149489, "toxin");
+        PotionVirus.INSTANCE = new PotionVirus(23, false, 5149489, "virus");
+        PotionFrostbite.INSTANCE = new PotionFrostbite(24, false, 5149489, "frostBite");
         MainBase.CONFIGURATION.save();
         BlockDispenser.dispenseBehaviorRegistry.putObject(
             (Object) ICBMExplosion.itShouLiuDan,
@@ -243,9 +243,9 @@ public class ICBMExplosion extends MainBase {
 
         GameRegistry.registerItem(itDaoDan, "icbm:itDaoDan");
         GameRegistry.registerItem(itTeBieDaoDan, "icbm:itTeBieDaoDan");
-        GameRegistry.registerItem(itJieJa, "icbm:itJieJa");
-        GameRegistry.registerItem(itLeiDaQiang, "icbm:itLeiDaQiang");
-        GameRegistry.registerItem(itYaoKong, "icbm:itYaoKong");
+        GameRegistry.registerItem(itemDefuser, "icbm:itemDefuser");
+        GameRegistry.registerItem(itemRadarGun, "icbm:itemRadarGun");
+        GameRegistry.registerItem(itemRemoteDetonator, "icbm:itemRemoteDetonator");
         GameRegistry.registerItem(itLeiSheZhiBiao, "icbm:itLeiSheZhiBiao");
         GameRegistry.registerItem(itFaSheQi, "icbm:itFaSheQi");
         GameRegistry.registerItem(itShouLiuDan, "icbm:itShouLiuDan");
@@ -306,7 +306,7 @@ public class ICBMExplosion extends MainBase {
                 "SCR",
                 "SB ",
                 'R',
-                ICBMExplosion.itLeiDaQiang,
+                ICBMExplosion.itemRadarGun,
                 'C',
                 new ItemStack(
                     ICBMExplosion.bMachine, 1, BMachine.JiQi.XiaoFaSheQi.ordinal() + 6
@@ -317,7 +317,7 @@ public class ICBMExplosion extends MainBase {
                 "ingotSteel" }
         ));
         GameRegistry.addRecipe((IRecipe) new ShapedOreRecipe(
-            new ItemStack((Item) ICBMExplosion.itLeiDaQiang),
+            new ItemStack((Item) ICBMExplosion.itemRadarGun),
             new Object[] { "@#!",
                            " $!",
                            "  !",
@@ -331,7 +331,7 @@ public class ICBMExplosion extends MainBase {
                            Blocks.stone_button }
         ));
         GameRegistry.addRecipe((IRecipe) new ShapedOreRecipe(
-            new ItemStack((Item) ICBMExplosion.itYaoKong),
+            new ItemStack((Item) ICBMExplosion.itemRemoteDetonator),
             new Object[] { "?@@",
                            "@#$",
                            "@@@",
@@ -350,14 +350,14 @@ public class ICBMExplosion extends MainBase {
                            " ? ",
                            "  @",
                            '@',
-                           ElectricItemHelper.getUncharged(ICBMExplosion.itYaoKong),
+                           ElectricItemHelper.getUncharged(ICBMExplosion.itemRemoteDetonator),
                            '?',
                            "circuitElite",
                            '!',
-                           ElectricItemHelper.getUncharged(ICBMExplosion.itLeiDaQiang) }
+                           ElectricItemHelper.getUncharged(ICBMExplosion.itemRadarGun) }
         ));
         GameRegistry.addRecipe((IRecipe) new ShapedOreRecipe(
-            new ItemStack((Item) ICBMExplosion.itJieJa),
+            new ItemStack((Item) ICBMExplosion.itemDefuser),
             new Object[] { "I  ",
                            " W ",
                            "  C",
@@ -467,7 +467,7 @@ public class ICBMExplosion extends MainBase {
                            " ! ",
                            "!#!",
                            '@',
-                           ElectricItemHelper.getUncharged(ICBMExplosion.itLeiDaQiang),
+                           ElectricItemHelper.getUncharged(ICBMExplosion.itemRadarGun),
                            '!',
                            "plateSteel",
                            '#',

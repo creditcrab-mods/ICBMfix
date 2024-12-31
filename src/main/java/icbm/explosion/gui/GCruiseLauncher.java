@@ -3,7 +3,7 @@ package icbm.explosion.gui;
 import icbm.explosion.ICBMExplosion;
 import icbm.explosion.launcher.CruiseLauncherGuiPacket;
 import icbm.explosion.launcher.TCruiseLauncher;
-import icbm.explosion.rongqi.CCruiseLauncher;
+import icbm.explosion.container.ContainerCruiseLauncher;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -11,7 +11,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
-import universalelectricity.api.energy.UnitDisplay;
 import universalelectricity.core.vector.Vector3;
 
 public class GCruiseLauncher extends GuiContainer {
@@ -26,7 +25,7 @@ public class GCruiseLauncher extends GuiContainer {
     public GCruiseLauncher(
         final InventoryPlayer par1InventoryPlayer, final TCruiseLauncher tileEntity
     ) {
-        super((Container) new CCruiseLauncher(par1InventoryPlayer, tileEntity));
+        super((Container) new ContainerCruiseLauncher(par1InventoryPlayer, tileEntity));
         this.tileEntity = tileEntity;
     }
 
@@ -112,17 +111,12 @@ public class GCruiseLauncher extends GuiContainer {
         this.textFieldZ.drawTextBox();
         this.textFieldY.drawTextBox();
         this.textFieldFreq.drawTextBox();
-        this.fontRendererObj.drawString(this.tileEntity.getStatus(), 70, 50, 4210752);
+        this.fontRendererObj.drawString(this.tileEntity.getStatus(), 70, 60, 4210752);
         this.fontRendererObj.drawString(
-            this.tileEntity.getVoltage() + "v", 70, 60, 4210752
-        );
-        this.fontRendererObj.drawString(
-            UnitDisplay.getDisplayShort(
-                this.tileEntity.getJoules(), UnitDisplay.Unit.JOULES
-            ) + "/"
-                + UnitDisplay.getDisplayShort(
-                    this.tileEntity.getMaxJoules(), UnitDisplay.Unit.JOULES
-                ),
+                this.tileEntity.energyStorage.getEnergyStored()
+             + "/" +
+                    this.tileEntity.energyStorage.getMaxEnergyStored() + "RF",
+
             70,
             70,
             4210752

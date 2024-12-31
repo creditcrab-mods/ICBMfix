@@ -1,5 +1,6 @@
 package icbm.explosion.launcher;
 
+import cofh.api.energy.IEnergyContainerItem;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import icbm.api.ILauncherContainer;
 import icbm.api.ILauncherController;
@@ -105,7 +106,7 @@ public class TCruiseLauncher extends TLauncherController
 
         if (this.isDisabled()) {
             status = "Disabled";
-        } else if (this.getJoules() < this.getMaxJoules()) {
+        } else if (this.energyStorage.getEnergyStored() < this.energyStorage.getMaxEnergyStored()) {
             status = "No Power!";
         } else if (this.missile == null) {
             status = "Silo Empty!";
@@ -129,14 +130,9 @@ public class TCruiseLauncher extends TLauncherController
         super.updateEntity();
 
         if (!this.isDisabled()) {
-            this.onReceive(ElectricityPack.getFromWatts(
-                ElectricItemHelper.dechargeItem(
-                    this.containingItems[1],
-                    this.getRequest().getWatts(),
-                    this.getVoltage()
-                ),
-                this.getVoltage()
-            ));
+            if(containingItems[1] != null && containingItems[1].getItem() instanceof IEnergyContainerItem containerItem){
+                energyStorage.receiveEnergy(containerItem.extractEnergy(containingItems[1], Integer.MAX_VALUE,false),false);
+            }
 
             if (this.getYawFromTarget() - this.rotationYaw != 0.0f) {
                 this.rotationYaw
@@ -168,10 +164,20 @@ public class TCruiseLauncher extends TLauncherController
     }
 
     @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+        NBTTagCompound nbt = pkt.func_148857_g();
+
+        this.energyStorage.setEnergyStored(nbt.getInteger("rf"));
+        super.frequency = nbt.getInteger("frequency");
+        super.disabledTicks = nbt.getInteger("disabledTicks");
+        super.target = Vector3.readFromNBT(nbt.getCompoundTag("target"));
+    }
+
+    @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
 
-        nbt.setDouble("joules", this.getJoules());
+        nbt.setInteger("rf", this.energyStorage.getEnergyStored());
         nbt.setInteger("frequency", super.frequency);
         nbt.setInteger("disabledTicks", super.disabledTicks);
         nbt.setTag("target", super.target.writeToNBT(new NBTTagCompound()));
@@ -224,15 +230,7 @@ public class TCruiseLauncher extends TLauncherController
         this.missile = null;
     }
 
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-        NBTTagCompound nbt = pkt.func_148857_g();
 
-        this.setJoules(nbt.getDouble("joules"));
-        super.frequency = nbt.getInteger("frequency");
-        super.disabledTicks = nbt.getInteger("disabledTicks");
-        super.target = Vector3.readFromNBT(nbt.getCompoundTag("target"));
-    }
 
     private float getPitchFromTarget() {
         final double distance = Math.sqrt(
@@ -261,7 +259,7 @@ public class TCruiseLauncher extends TLauncherController
             }
 
             if (missile != null && missile.getID() == haoMa && missile.isCruise()
-                && missile.getTier() <= 3 && this.getJoules() >= this.getMaxJoules()
+                && missile.getTier() <= 3 && this.energyStorage.getEnergyStored() >= this.energyStorage.getMaxEnergyStored()
                 && !this.isTooClose(super.target)) {
                 return true;
             }
@@ -274,7 +272,7 @@ public class TCruiseLauncher extends TLauncherController
     public void launch() {
         if (this.canLaunch()) {
             this.decrStackSize(0, 1);
-            this.setJoules(0.0);
+            this.energyStorage.setEnergyStored(0);
             this.missile.launch(super.target);
             this.missile = null;
         }
@@ -430,4 +428,6 @@ public class TCruiseLauncher extends TLauncherController
     public boolean equals(IPeripheral other) {
         return this == other;
     }
+
+
 }

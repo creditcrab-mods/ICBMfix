@@ -30,9 +30,9 @@ public class ItemUsePacketHandler implements IMessageHandler<ItemUsePacket, IMes
                 itemStack.stackTagCompound.setInteger("x", message.pos.intX());
                 itemStack.stackTagCompound.setInteger("y", message.pos.intY());
                 itemStack.stackTagCompound.setInteger("z", message.pos.intZ());
-                ICBMExplosion.itLeiDaQiang.onProvide(
+                ICBMExplosion.itemRadarGun.onProvide(
                     ElectricityPack.getFromWatts(
-                        1000.0, ICBMExplosion.itLeiDaQiang.getVoltage(itemStack)
+                        1000.0, ICBMExplosion.itemRadarGun.getVoltage(itemStack)
                     ),
                     itemStack
                 );
@@ -59,9 +59,9 @@ public class ItemUsePacketHandler implements IMessageHandler<ItemUsePacket, IMes
                 player.worldObj.spawnEntityInWorld(
                     new ELightBeam(player.worldObj, position, 100, 0.0f, 1.0f, 0.0f)
                 );
-                ICBMExplosion.itLeiDaQiang.onProvide(
+                ICBMExplosion.itemRadarGun.onProvide(
                     ElectricityPack.getFromWatts(
-                        6000.0, ICBMExplosion.itLeiDaQiang.getVoltage(itemStack)
+                        6000.0, ICBMExplosion.itemRadarGun.getVoltage(itemStack)
                     ),
                     itemStack
                 );
@@ -78,9 +78,9 @@ public class ItemUsePacketHandler implements IMessageHandler<ItemUsePacket, IMes
                     ((TileEntityExplosive) te).explosiveId,
                     0
                 );
-                ICBMExplosion.itYaoKong.onProvide(
+                ICBMExplosion.itemRemoteDetonator.onProvide(
                     ElectricityPack.getFromWatts(
-                        1500.0, ICBMExplosion.itYaoKong.getVoltage(itemStack)
+                        1500.0, ICBMExplosion.itemRemoteDetonator.getVoltage(itemStack)
                     ),
                     itemStack
                 );

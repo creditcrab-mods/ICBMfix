@@ -1,7 +1,7 @@
 package icbm.explosion.gui;
 
 import icbm.explosion.launcher.TLauncherPlatform;
-import icbm.explosion.rongqi.CFaShiDi;
+import icbm.explosion.container.ContainerLauncherPlatform;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -17,7 +17,7 @@ public class GLauncherPlatform extends GuiContainer {
     public GLauncherPlatform(
         final InventoryPlayer par1InventoryPlayer, final TLauncherPlatform tileEntity
     ) {
-        super((Container) new CFaShiDi(par1InventoryPlayer, tileEntity));
+        super((Container) new ContainerLauncherPlatform(par1InventoryPlayer, tileEntity));
         this.tileEntity = tileEntity;
     }
 

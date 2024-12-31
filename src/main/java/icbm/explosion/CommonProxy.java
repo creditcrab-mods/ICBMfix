@@ -10,8 +10,8 @@ import icbm.explosion.launcher.TLauncherControlPanel;
 import icbm.explosion.launcher.TLauncherPlatform;
 import icbm.explosion.launcher.TMissileCoordinator;
 import icbm.explosion.launcher.TRadarTower;
-import icbm.explosion.rongqi.CCruiseLauncher;
-import icbm.explosion.rongqi.CFaShiDi;
+import icbm.explosion.container.ContainerCruiseLauncher;
+import icbm.explosion.container.ContainerLauncherPlatform;
 import icbm.explosion.zhapin.TileEntityExplosive;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
@@ -61,13 +61,13 @@ public class CommonProxy implements IGuiHandler {
         if (tileEntity != null) {
             switch (ID) {
                 case 1: {
-                    return new CCruiseLauncher(
+                    return new ContainerCruiseLauncher(
                         player.inventory, (TCruiseLauncher) tileEntity
                     );
                 }
 
                 case 7: {
-                    return new CFaShiDi(player.inventory, (TLauncherPlatform) tileEntity);
+                    return new ContainerLauncherPlatform(player.inventory, (TLauncherPlatform) tileEntity);
                 }
             }
         }

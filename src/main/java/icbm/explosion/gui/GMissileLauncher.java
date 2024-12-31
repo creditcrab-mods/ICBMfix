@@ -148,8 +148,8 @@ public class GMissileLauncher extends GuiBase {
         this.fontRendererObj.drawString("Z-Coord:", 25, 55, 4210752);
         int inaccuracy = 30;
 
-        if (this.tileEntity.faSheDi != null && this.tileEntity.faSheDi.jiaZi != null) {
-            inaccuracy = this.tileEntity.faSheDi.jiaZi.getInaccuracy();
+        if (this.tileEntity.launcherPlatform != null && this.tileEntity.launcherPlatform.jiaZi != null) {
+            inaccuracy = this.tileEntity.launcherPlatform.jiaZi.getInaccuracy();
         }
 
         this.fontRendererObj.drawString(
@@ -159,15 +159,12 @@ public class GMissileLauncher extends GuiBase {
             "Status: " + this.tileEntity.getStatus(), 12, 125, 4210752
         );
         this.fontRendererObj.drawString(
-            "Voltage: " + this.tileEntity.getVoltage() + "v", 12, 137, 4210752
-        );
-        this.fontRendererObj.drawString(
-            UnitDisplay.getDisplayShort(
-                this.tileEntity.getJoules(), UnitDisplay.Unit.JOULES
-            ) + "/"
-                + UnitDisplay.getDisplayShort(
-                    this.tileEntity.getMaxJoules(), UnitDisplay.Unit.JOULES
-                ),
+
+                this.tileEntity.energyStorage.getEnergyStored()
+            + "/" +
+
+                    this.tileEntity.energyStorage.getMaxEnergyStored() + "RF"
+                ,
             12,
             150,
             4210752

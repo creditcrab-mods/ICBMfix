@@ -3,8 +3,8 @@ package icbm.explosion;
 import java.util.EnumSet;
 
 import atomicscience.api.poison.Poison;
-import icbm.explosion.po.PChuanRanDu;
-import icbm.explosion.po.PDaDu;
+import icbm.explosion.potion.PotionVirus;
+import icbm.explosion.potion.PotionToxin;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -28,12 +28,12 @@ public class Du extends Poison {
     ) {
         if (this.isContagious) {
             entity.addPotionEffect((PotionEffect
-            ) new CustomPotionEffect(PChuanRanDu.INSTANCE.getId(), 900, amplifier, null));
+            ) new CustomPotionEffect(PotionVirus.INSTANCE.getId(), 900, amplifier, null));
             entity.addPotionEffect((PotionEffect
             ) new CustomPotionEffect(Potion.blindness.id, 300, amplifier));
         } else {
             entity.addPotionEffect((PotionEffect
-            ) new CustomPotionEffect(PDaDu.INSTANCE.getId(), 600, amplifier, null));
+            ) new CustomPotionEffect(PotionToxin.INSTANCE.getId(), 600, amplifier, null));
             entity.addPotionEffect((PotionEffect
             ) new CustomPotionEffect(Potion.confusion.id, 600, amplifier));
         }

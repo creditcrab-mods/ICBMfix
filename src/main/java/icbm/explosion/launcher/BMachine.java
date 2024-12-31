@@ -212,7 +212,7 @@ public class BMachine extends BlockICBM {
             }
 
             if (par5EntityPlayer.inventory.getCurrentItem().getItem()
-                == ICBMExplosion.itLeiDaQiang) {
+                == ICBMExplosion.itemRadarGun) {
                 return false;
             }
         }

@@ -24,14 +24,14 @@ public class TLauncherControlPanel
     private boolean isPowered;
     private byte direction;
     private int tier;
-    public TLauncherPlatform faSheDi;
+    public TLauncherPlatform launcherPlatform;
     public short height;
 
     public TLauncherControlPanel() {
         this.isPowered = false;
         this.direction = 3;
         this.tier = 0;
-        this.faSheDi = null;
+        this.launcherPlatform = null;
         this.height = 3;
     }
 
@@ -40,7 +40,7 @@ public class TLauncherControlPanel
         super.updateEntity();
 
         if (!this.isDisabled()) {
-            if (this.faSheDi == null) {
+            if (this.launcherPlatform == null) {
                 for (byte i = 2; i < 6; ++i) {
                     final Vector3 position
                         = new Vector3(this.xCoord, this.yCoord, this.zCoord);
@@ -51,12 +51,12 @@ public class TLauncherControlPanel
                     );
 
                     if (tileEntity != null && tileEntity instanceof TLauncherPlatform) {
-                        this.faSheDi = (TLauncherPlatform) tileEntity;
+                        this.launcherPlatform = (TLauncherPlatform) tileEntity;
                         this.direction = i;
                     }
                 }
-            } else if (this.faSheDi.isInvalid()) {
-                this.faSheDi = null;
+            } else if (this.launcherPlatform.isInvalid()) {
+                this.launcherPlatform = null;
             }
 
             if (this.isPowered) {
@@ -76,7 +76,7 @@ public class TLauncherControlPanel
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
 
-        nbt.setDouble("joules", this.getJoules());
+        nbt.setInteger("rf", energyStorage.getEnergyStored());
         nbt.setByte("direction", this.direction);
         nbt.setInteger("tier", this.tier);
         nbt.setInteger("frequency", this.getFrequency());
@@ -92,8 +92,8 @@ public class TLauncherControlPanel
 
     @Override
     public void placeMissile(final ItemStack itemStack) {
-        if (this.faSheDi != null && !this.faSheDi.isInvalid()) {
-            this.faSheDi.setInventorySlotContents(0, itemStack);
+        if (this.launcherPlatform != null && !this.launcherPlatform.isInvalid()) {
+            this.launcherPlatform.setInventorySlotContents(0, itemStack);
         }
     }
 
@@ -101,7 +101,7 @@ public class TLauncherControlPanel
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound nbt = pkt.func_148857_g();
 
-        this.setJoules(nbt.getDouble("joules"));
+        this.energyStorage.setEnergyStored(nbt.getInteger("rf"));
         this.direction = nbt.getByte("direction");
         this.tier = nbt.getInteger("tier");
         this.setFrequency(nbt.getInteger("frequency"));
@@ -113,16 +113,16 @@ public class TLauncherControlPanel
 
     @Override
     public boolean canLaunch() {
-        return this.faSheDi != null && !this.isDisabled() && this.faSheDi.daoDan != null
-            && this.getJoules() >= this.getMaxJoules()
-            && this.faSheDi.isInRange(super.target);
+        return this.launcherPlatform != null && !this.isDisabled() && this.launcherPlatform.daoDan != null
+            && this.energyStorage.getEnergyStored() >= this.energyStorage.getMaxEnergyStored()
+            && this.launcherPlatform.isInRange(super.target);
     }
 
     @Override
     public void launch() {
         if (this.canLaunch()) {
-            this.setJoules(0.0);
-            this.faSheDi.launchMissile(super.target.clone(), this.height);
+            this.energyStorage.setEnergyStored(0);
+            this.launcherPlatform.launchMissile(super.target.clone(), this.height);
         }
     }
 
@@ -133,17 +133,17 @@ public class TLauncherControlPanel
 
         if (this.isDisabled()) {
             status = "Disabled";
-        } else if (this.faSheDi == null) {
+        } else if (this.launcherPlatform == null) {
             status = "Not connected!";
-        } else if (this.getJoules() < this.getMaxJoules()) {
-            status = "Insufficient electricity!";
-        } else if (this.faSheDi.daoDan == null) {
+        } else if (this.energyStorage.getMaxEnergyStored() < this.energyStorage.getMaxEnergyStored()) {
+            status = "Insufficient RF!";
+        } else if (this.launcherPlatform.daoDan == null) {
             status = "Missile silo is empty!";
         } else if (super.target == null) {
             status = "Target is invalid!";
-        } else if (this.faSheDi.shiTaiJin(super.target)) {
+        } else if (this.launcherPlatform.shiTaiJin(super.target)) {
             status = "Target too close!";
-        } else if (this.faSheDi.shiTaiYuan(super.target)) {
+        } else if (this.launcherPlatform.shiTaiYuan(super.target)) {
             status = "Target too far!";
         } else {
             color = "§2";
@@ -260,8 +260,8 @@ public class TLauncherControlPanel
 
     @Override
     public IMissile getMissile() {
-        if (this.faSheDi != null) {
-            return this.faSheDi.getContainingMissile();
+        if (this.launcherPlatform != null) {
+            return this.launcherPlatform.getContainingMissile();
         }
 
         return null;
