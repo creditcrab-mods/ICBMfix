@@ -3,8 +3,10 @@ package icbm.explosion;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import icbm.explosion.dianqi.ItLaserDesignator;
-import icbm.explosion.dianqi.ItRadarGun;
+import icbm.core.di.ItElectricICBM;
+import icbm.explosion.item.ItLaserDesignator;
+import icbm.explosion.item.ItRadarGun;
+import icbm.explosion.item.ItRemoteDetonator;
 import icbm.explosion.zhapin.BlockExplosives;
 import icbm.explosion.zhapin.TileEntityExplosive;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,12 +32,8 @@ public class ItemUsePacketHandler implements IMessageHandler<ItemUsePacket, IMes
                 itemStack.stackTagCompound.setInteger("x", message.pos.intX());
                 itemStack.stackTagCompound.setInteger("y", message.pos.intY());
                 itemStack.stackTagCompound.setInteger("z", message.pos.intZ());
-                ICBMExplosion.itemRadarGun.onProvide(
-                    ElectricityPack.getFromWatts(
-                        1000.0, ICBMExplosion.itemRadarGun.getVoltage(itemStack)
-                    ),
-                    itemStack
-                );
+                ItElectricICBM electricItem = (ItElectricICBM) itemStack.getItem();
+                electricItem.extractEnergy(itemStack,ItRadarGun.USED_ENERGY,false);
             }
         } else if (message.type == ItemUsePacket.Type.LASER_DESIGNATOR) {
             if (player.inventory.getCurrentItem().getItem()
@@ -59,12 +57,8 @@ public class ItemUsePacketHandler implements IMessageHandler<ItemUsePacket, IMes
                 player.worldObj.spawnEntityInWorld(
                     new ELightBeam(player.worldObj, position, 100, 0.0f, 1.0f, 0.0f)
                 );
-                ICBMExplosion.itemRadarGun.onProvide(
-                    ElectricityPack.getFromWatts(
-                        6000.0, ICBMExplosion.itemRadarGun.getVoltage(itemStack)
-                    ),
-                    itemStack
-                );
+                ItElectricICBM electricItem = (ItElectricICBM) itemStack.getItem();
+                electricItem.extractEnergy(itemStack,ItLaserDesignator.USAGE_COST,false);
             }
         } else if (message.type == ItemUsePacket.Type.REMOTE) {
             final ItemStack itemStack = player.inventory.getCurrentItem();
@@ -78,12 +72,8 @@ public class ItemUsePacketHandler implements IMessageHandler<ItemUsePacket, IMes
                     ((TileEntityExplosive) te).explosiveId,
                     0
                 );
-                ICBMExplosion.itemRemoteDetonator.onProvide(
-                    ElectricityPack.getFromWatts(
-                        1500.0, ICBMExplosion.itemRemoteDetonator.getVoltage(itemStack)
-                    ),
-                    itemStack
-                );
+                ItElectricICBM electricItem = (ItElectricICBM) itemStack.getItem();
+                electricItem.extractEnergy(itemStack, ItRemoteDetonator.ENERGY_USED,false);
             }
         }
 

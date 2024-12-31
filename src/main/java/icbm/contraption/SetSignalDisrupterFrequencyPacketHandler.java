@@ -13,8 +13,8 @@ public class SetSignalDisrupterFrequencyPacketHandler
         ItemStack handStack
             = ctx.getServerHandler().playerEntity.getCurrentEquippedItem();
 
-        if (handStack.getItem() instanceof ItSignalDisrupter) {
-            ((ItSignalDisrupter) handStack.getItem())
+        if (handStack.getItem() instanceof ItemSignalDisruptor) {
+            ((ItemSignalDisruptor) handStack.getItem())
                 .setFrequency(message.freq, handStack);
         }
 

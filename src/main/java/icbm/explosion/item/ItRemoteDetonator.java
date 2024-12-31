@@ -1,4 +1,4 @@
-package icbm.explosion.dianqi;
+package icbm.explosion.item;
 
 import java.util.List;
 
@@ -23,11 +23,12 @@ import universalelectricity.core.vector.Vector3;
 
 public class ItRemoteDetonator extends ItElectricICBM {
     public static final int RADIUS = 100;
-    public static final int ENERGY_USED = 1500;
+    public static final int ENERGY_USED = 1600;
 
     public ItRemoteDetonator() {
         super("remoteDetonator");
         this.setTextureName("icbm:remoteDetonator");
+        CAPACITY = 20000;
     }
 
     @Override
@@ -67,12 +68,9 @@ public class ItRemoteDetonator extends ItElectricICBM {
         final TileEntity tileEntity = world.getTileEntity(x, y, z);
 
         if (entityPlayer.isSneaking() && tileEntity != null && this.nengZha(tileEntity)) {
-            if (this.getJoules(itemStack) > 1500.0) {
+            if (this.getEnergyStored(itemStack) > ENERGY_USED) {
                 this.setSavedCoords(itemStack, new Vector3(x, y, z));
-                this.onProvide(
-                    ElectricityPack.getFromWatts(1500.0, this.getJoules(itemStack)),
-                    itemStack
-                );
+                this.extractEnergy(itemStack,ENERGY_USED,false);
 
                 if (world.isRemote) {
                     entityPlayer.addChatMessage(new ChatComponentText(
@@ -124,7 +122,7 @@ public class ItRemoteDetonator extends ItElectricICBM {
                         }
 
                         if (this.nengZha(tileEntity)) {
-                            if (this.getJoules(itemStack) > 1500.0) {
+                            if (this.getEnergyStored(itemStack) >= ENERGY_USED) {
                                 ICBMExplosion.channel.sendToServer(new ItemUsePacket(
                                     ItemUsePacket.Type.REMOTE, new Vector3(tileEntity)
                                 ));
@@ -137,7 +135,7 @@ public class ItRemoteDetonator extends ItElectricICBM {
                         }
                     }
                 }
-            } else if (this.getJoules(itemStack) > 1500.0) {
+            } else if (this.getEnergyStored(itemStack) >= ENERGY_USED) {
                 final TileEntity tileEntity2
                     = this.getSavedCoord(itemStack).getTileEntity((IBlockAccess) world);
 

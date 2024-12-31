@@ -42,6 +42,6 @@ dependencies {
     implementation files('build/libs/basiccomponents-2.0.1.jar')
     implementation( deobfCurse("cofh-core-69162:2388750"))
     runtimeOnlyNonPublishable("curse.maven:thermal-foundation-222880:2388752")
-    runtimeOnlyNonPublishable("curse.maven:thermal-expansion-69163:2388758")
+    runtimeOnlyNonPublishable (deobfCurse("thermal-expansion-69163:2388758"))
     runtimeOnlyNonPublishable("curse.maven:thermal-dynamics-227443:2388756")
 }

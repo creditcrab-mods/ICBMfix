@@ -11,8 +11,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import universalelectricity.core.electricity.ElectricityPack;
 
-public class ItSignalDisrupter extends ItElectricICBM implements IItemFrequency {
-    public ItSignalDisrupter() {
+public class ItemSignalDisruptor extends ItElectricICBM implements IItemFrequency {
+    public ItemSignalDisruptor() {
         super("signalDisrupter");
         this.setTextureName("icbm:signalDisrupter");
     }
@@ -88,4 +88,6 @@ public class ItSignalDisrupter extends ItElectricICBM implements IItemFrequency 
     public double getMaxJoules(final ItemStack itemStack) {
         return 80000.0;
     }
+
+
 }

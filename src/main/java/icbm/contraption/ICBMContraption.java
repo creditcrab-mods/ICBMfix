@@ -78,7 +78,7 @@ public class ICBMContraption extends MainBase {
         ICBMContraption.bConcrete = (Block) new BConcrete();
         ICBMContraption.bGlassReinforced = (Block) new BGlassReinforced();
         ICBMContraption.itAntidote = new ItAntidote();
-        ICBMContraption.itSignalDisrupter = new ItSignalDisrupter();
+        ICBMContraption.itSignalDisrupter = new ItemSignalDisruptor();
         ICBMContraption.itTracker = new ItTracker();
         MainBase.CONFIGURATION.save();
 

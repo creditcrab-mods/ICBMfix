@@ -3,7 +3,7 @@ package icbm.contraption.block;
 import java.util.List;
 
 import calclavia.lib.TileEntityUniversalRunnable;
-import icbm.contraption.ItSignalDisrupter;
+import icbm.contraption.ItemSignalDisruptor;
 import icbm.contraption.ProximityDetectorModePacket;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -79,8 +79,8 @@ public class TProximityDetector
                             for (final ItemStack inventory :
                                  ((EntityPlayer) entity).inventory.mainInventory) {
                                 if (inventory != null
-                                    && inventory.getItem() instanceof ItSignalDisrupter
-                                    && ((ItSignalDisrupter) inventory.getItem())
+                                    && inventory.getItem() instanceof ItemSignalDisruptor
+                                    && ((ItemSignalDisruptor) inventory.getItem())
                                             .getFrequency(inventory)
                                         == this.frequency) {
                                     gotDisrupter = true;

@@ -1,4 +1,4 @@
-package icbm.explosion.dianqi;
+package icbm.explosion.item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +31,12 @@ public class ItLaserDesignator extends ItElectricICBM implements IItemFrequency 
     public static final int BAN_JING;
     public static final int YONG_DIAN_LIANG = 6000;
 
+    public static final int USAGE_COST = 2400;
+
     public ItLaserDesignator() {
         super("laserDesignator");
         this.setTextureName("icbm:laserDesignator");
+        CAPACITY = 32000;
     }
 
     @Override
@@ -268,7 +271,7 @@ public class ItLaserDesignator extends ItElectricICBM implements IItemFrequency 
                 final int airStrikeFreq = this.getFrequency(par1ItemStack);
 
                 if (airStrikeFreq > 0) {
-                    if (this.getJoules(par1ItemStack) > 6000.0) {
+                    if (this.getEnergyStored(par1ItemStack) > USAGE_COST) {
                         final Vector3 position = new Vector3(
                             ((Entity) par3EntityPlayer).posX,
                             ((Entity) par3EntityPlayer).posY,

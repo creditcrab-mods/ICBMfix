@@ -1,4 +1,4 @@
-package icbm.explosion.dianqi;
+package icbm.explosion.item;
 
 import java.util.Random;
 
@@ -17,6 +17,8 @@ import net.minecraft.util.DamageSource;
 import universalelectricity.core.electricity.ElectricityPack;
 
 public class ItemDefuser extends ItElectricICBM {
+
+    public static final int USED_ENERGY = 2000;
     public ItemDefuser() {
         super("defuser");
         this.setTextureName("icbm:defuser");
@@ -25,7 +27,7 @@ public class ItemDefuser extends ItElectricICBM {
     public boolean onLeftClickEntity(
         final ItemStack itemStack, final EntityPlayer player, final Entity entity
     ) {
-        if (this.getJoules(itemStack) > 2000.0) {
+        if (this.getEnergyStored(itemStack) > USED_ENERGY) {
             if (entity instanceof EntityExplosive) {
                 if (!entity.worldObj.isRemote) {
                     final EntityExplosive entityTNT = (EntityExplosive) entity;
@@ -71,13 +73,11 @@ public class ItemDefuser extends ItElectricICBM {
                 ((EntityCart) entity).killMinecart(DamageSource.generic);
             }
 
-            this.onProvide(
-                ElectricityPack.getFromWatts(2000.0, this.getJoules(itemStack)), itemStack
-            );
+            this.extractEnergy(itemStack,USED_ENERGY,false);
             return true;
         }
 
-        player.addChatMessage(new ChatComponentText("Defuser out of electricity!"));
+        player.addChatMessage(new ChatComponentText("Defuser out of RF!"));
         return false;
     }
 

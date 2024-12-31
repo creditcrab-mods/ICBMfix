@@ -1,4 +1,4 @@
-package icbm.explosion.dianqi;
+package icbm.explosion.item;
 
 import java.util.List;
 
@@ -57,7 +57,7 @@ public class ItRadarGun extends ItElectricICBM {
                 );
 
                 if (!(tileEntity instanceof TLauncherController)) {
-                    if (this.getJoules(itemStack) > 1000.0) {
+                    if (this.getEnergyStored(itemStack) > USED_ENERGY) {
                         ICBMExplosion.channel.sendToServer(new ItemUsePacket(
                             ItemUsePacket.Type.RADAR_GUN,
                             new Vector3(
@@ -66,12 +66,7 @@ public class ItRadarGun extends ItElectricICBM {
                                 objectMouseOver.blockZ
                             )
                         ));
-                        this.onProvide(
-                            ElectricityPack.getFromWatts(
-                                1000.0, this.getJoules(itemStack)
-                            ),
-                            itemStack
-                        );
+                        extractEnergy(itemStack,USED_ENERGY,false);
                         par3EntityPlayer.addChatMessage(new ChatComponentText(
                             "Scanned Coordinates: X:" + objectMouseOver.blockX + ", Y:"
                             + objectMouseOver.blockY + ", Z:" + objectMouseOver.blockZ

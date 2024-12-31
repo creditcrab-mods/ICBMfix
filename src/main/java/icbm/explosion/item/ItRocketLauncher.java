@@ -1,4 +1,4 @@
-package icbm.explosion.dianqi;
+package icbm.explosion.item;
 
 import icbm.core.di.ItElectricICBM;
 import icbm.explosion.ICBMExplosion;

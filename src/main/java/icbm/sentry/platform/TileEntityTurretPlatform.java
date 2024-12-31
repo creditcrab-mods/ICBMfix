@@ -255,6 +255,7 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     @Override
     public void readFromNBT(final NBTTagCompound nbt) {
         super.readFromNBT(nbt);
+        this.energyStorage.setEnergyStored(nbt.getInteger("rf"));
         final NBTTagList var2 = nbt.getTagList("Items", 10);
         this.containingItems = new ItemStack[this.getSizeInventory()];
 
@@ -272,7 +273,7 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     public void writeToNBT(final NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         final NBTTagList itemTag = new NBTTagList();
-
+        nbt.setInteger("rf",this.energyStorage.getEnergyStored());
         for (int slots = 0; slots < this.containingItems.length; ++slots) {
             if (this.containingItems[slots] != null) {
                 final NBTTagCompound itemNbtData = new NBTTagCompound();
