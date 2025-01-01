@@ -9,18 +9,16 @@ import dan200.computercraft.api.peripheral.IComputerAccess;
 import icbm.api.ILauncherController;
 import icbm.api.LauncherType;
 import icbm.core.IICBMPeripheral;
+import icbm.core.di.TileElectricICBM;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
-import universalelectricity.prefab.tile.TileEntityDisableable;
 
-public abstract class TLauncherController
-    extends TileEntityDisableable implements ILauncherController, IICBMPeripheral, IEnergyReceiver {
+public abstract class TLauncherController extends TileElectricICBM implements ILauncherController, IICBMPeripheral {
     protected Vector3 target;
     protected int frequency;
-    public EnergyStorage energyStorage = new EnergyStorage(320000, Integer.MAX_VALUE,Integer.MAX_VALUE);
 
     public TLauncherController() {
+        super(32000,Integer.MAX_VALUE,Integer.MAX_VALUE);
         this.target = null;
         this.frequency = 0;
         LauncherManager.addLauncher(this);
@@ -53,31 +51,6 @@ public abstract class TLauncherController
     @Override
     public void setFrequency(final int frequency) {
         this.frequency = frequency;
-    }
-
-
-    @Override
-    public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b) {
-        int prevEnergy = energyStorage.getEnergyStored();
-        int receivedEnergy = energyStorage.receiveEnergy(i,b);
-        if(energyStorage.getEnergyStored() != prevEnergy) this.markDirty();
-        return receivedEnergy;
-
-    }
-
-    @Override
-    public int getEnergyStored(ForgeDirection forgeDirection) {
-        return energyStorage.getEnergyStored();
-    }
-
-    @Override
-    public int getMaxEnergyStored(ForgeDirection forgeDirection) {
-        return energyStorage.getMaxEnergyStored();
-    }
-
-    @Override
-    public boolean canConnectEnergy(ForgeDirection forgeDirection) {
-        return true;
     }
 
     @Override
@@ -177,7 +150,6 @@ public abstract class TLauncherController
     public void readFromNBT(final NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.setFrequency(nbt.getInteger("frequency"));
-        this.energyStorage.setEnergyStored(nbt.getInteger("rf"));
         this.target = Vector3.readFromNBT(nbt.getCompoundTag("target"));
     }
 
@@ -185,7 +157,6 @@ public abstract class TLauncherController
     public void writeToNBT(final NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger("frequency", this.getFrequency());
-        nbt.setInteger("rf",this.energyStorage.getEnergyStored());
         if (this.target != null) {
             nbt.setTag("target", this.target.writeToNBT(new NBTTagCompound()));
         }

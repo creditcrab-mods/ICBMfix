@@ -46,10 +46,12 @@ public class TileElectricICBM extends TileEntityDisableable implements IEnergyRe
 
     @Override
     public void writeToNBT(final NBTTagCompound nbt){
+        super.writeToNBT(nbt);
         energyStorage.writeToNBT(nbt);
     }
     @Override
     public void readFromNBT(final NBTTagCompound nbt){
+        super.readFromNBT(nbt);
         energyStorage.readFromNBT(nbt);
 
     }

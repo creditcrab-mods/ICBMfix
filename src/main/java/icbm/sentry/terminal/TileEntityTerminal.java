@@ -8,6 +8,7 @@ import java.util.Set;
 import calclavia.lib.TileEntityUniversalRunnable;
 import cofh.api.energy.IEnergyHandler;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import icbm.core.di.TileElectricICBM;
 import icbm.sentry.ICBMSentry;
 import icbm.sentry.access.AccessLevel;
 import icbm.sentry.access.UserAccess;
@@ -25,7 +26,7 @@ import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.tile.TileEntityDisableable;
 
 public abstract class TileEntityTerminal
-    extends TileEntityDisableable implements ITerminal {
+    extends TileElectricICBM implements ITerminal {
     protected List<String> terminalOutput;
     private final List<UserAccess> users;
     public static final int SCROLL_SIZE = 15;
@@ -35,6 +36,7 @@ public abstract class TileEntityTerminal
 
 
     public TileEntityTerminal() {
+        super(8000,Integer.MAX_VALUE,Integer.MAX_VALUE);
         this.terminalOutput = new ArrayList<>();
         this.users = new ArrayList<>();
         this.scroll = 0;

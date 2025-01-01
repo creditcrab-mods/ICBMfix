@@ -35,13 +35,11 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     public ForgeDirection deployDirection;
     public static final int UPGRADE_START_INDEX = 12;
 
-    public static final int MAX_RECIEVE = Integer.MAX_VALUE;
 
     public static final int MAX_BUFFER = 8000;
 
     public int prevRF = 0;
 
-    public EnergyStorage energyStorage = new EnergyStorage(8000,MAX_RECIEVE,MAX_RECIEVE);
 
     public ItemStack[] containingItems;
 
@@ -260,7 +258,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     @Override
     public void readFromNBT(final NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        this.energyStorage.setEnergyStored(nbt.getInteger("rf"));
         final NBTTagList var2 = nbt.getTagList("Items", 10);
         this.containingItems = new ItemStack[this.getSizeInventory()];
 
@@ -278,7 +275,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     public void writeToNBT(final NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         final NBTTagList itemTag = new NBTTagList();
-        nbt.setInteger("rf",this.energyStorage.getEnergyStored());
         for (int slots = 0; slots < this.containingItems.length; ++slots) {
             if (this.containingItems[slots] != null) {
                 final NBTTagCompound itemNbtData = new NBTTagCompound();
@@ -358,31 +354,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
 
     @Override
     public void closeInventory() {}
-
-
-    @Override
-    public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b) {
-        prevRF = energyStorage.getEnergyStored();
-        return energyStorage.receiveEnergy(i,b);
-    }
-
-
-    @Override
-    public int getEnergyStored(ForgeDirection forgeDirection) {
-        return energyStorage.getEnergyStored();
-        //return (int)(this.wattsReceived / UniversalElectricity.UE_RF_RATIO);
-    }
-
-    @Override
-    public int getMaxEnergyStored(ForgeDirection forgeDirection) {
-        return energyStorage.getMaxEnergyStored();
-        //return (int)(this.getWattBuffer() / UniversalElectricity.UE_RF_RATIO);
-    }
-
-    @Override
-    public boolean canConnectEnergy(ForgeDirection forgeDirection) {
-        return true;
-    }
 
     @Override
     public boolean hasCustomInventoryName() {

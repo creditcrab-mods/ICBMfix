@@ -2,6 +2,7 @@ package icbm.explosion;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
+import icbm.core.di.TileElectricICBM;
 import icbm.explosion.missile.EMissile;
 import icbm.explosion.launcher.TCruiseLauncher;
 import icbm.explosion.launcher.TEmpTower;

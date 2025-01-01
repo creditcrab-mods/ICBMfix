@@ -1,10 +1,5 @@
 package icbm.explosion.launcher;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import calclavia.lib.TileEntityUniversalRunnable;
 import dan200.computercraft.api.lua.ILuaContext;
 import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
@@ -30,12 +25,15 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.util.ForgeDirection;
-import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector2;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.block.BlockAdvanced;
 import universalelectricity.prefab.implement.IRedstoneProvider;
 import universalelectricity.prefab.multiblock.IMultiBlock;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class TRadarTower extends TileElectricICBM
     implements IRedstoneProvider, IMultiBlock, IICBMPeripheral {
