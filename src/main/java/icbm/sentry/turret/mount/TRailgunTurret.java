@@ -74,7 +74,7 @@ public class TRailgunTurret extends TTurretSeat implements IRedstoneReceptor {
         }
     }
 
-    //TODO: Drain Energy from all cells when Firing
+
     public void onFire() {
         if (!this.worldObj.isRemote) {
             while (this.explosionDepth > 0) {

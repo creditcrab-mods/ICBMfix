@@ -117,19 +117,7 @@ public class GRadarTower extends GuiBase {
         this.fontRendererObj.drawString("Alarm Range:", 155, 98, 4210752);
         this.textFieldAlarmRange.drawTextBox();
         this.fontRendererObj.drawString("Blocks", 190, 112, 4210752);
-        this.fontRendererObj.drawString(
-            UnitDisplay.getDisplay(
-                this.tileEntity.getRequest().getWatts() * 20.0,
-                UnitDisplay.Unit.WATT
-            ),
-            155,
-            128,
-            4210752
-        );
-        this.fontRendererObj.drawString(
-            UnitDisplay.getDisplay(
-                this.tileEntity.getVoltage(), UnitDisplay.Unit.VOLTAGE
-            ),
+        this.fontRendererObj.drawString(this.tileEntity.ENERGY_USED + "RF/t",
             155,
             138,
             4210752
@@ -143,7 +131,7 @@ public class GRadarTower extends GuiBase {
             color = "§2";
             status = "Radar On!";
         } else {
-            status = "No Electricity!";
+            status = "Insufficient RF!";
         }
 
         this.fontRendererObj.drawString(color + status, 155, 150, 4210752);

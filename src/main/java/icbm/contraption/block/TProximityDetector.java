@@ -5,6 +5,7 @@ import java.util.List;
 import calclavia.lib.TileEntityUniversalRunnable;
 import icbm.contraption.ItemSignalDisruptor;
 import icbm.contraption.ProximityDetectorModePacket;
+import icbm.core.di.TileElectricICBM;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -19,7 +20,10 @@ import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IRedstoneProvider;
 
 public class TProximityDetector
-    extends TileEntityUniversalRunnable implements IRedstoneProvider {
+    extends TileElectricICBM implements IRedstoneProvider {
+
+    public static final int ENERGY_USED = 5;
+
     public short frequency;
     public boolean isDetect;
     public Vector3 minCoord;
@@ -29,6 +33,7 @@ public class TProximityDetector
     public double wattsForDisplay;
 
     public TProximityDetector() {
+        super(32000, Integer.MAX_VALUE, Integer.MAX_VALUE);
         this.frequency = 0;
         this.isDetect = false;
         this.minCoord = new Vector3(9.0, 9.0, 9.0);
@@ -51,13 +56,12 @@ public class TProximityDetector
         super.updateEntity();
 
         if (!this.worldObj.isRemote && super.ticks % 20L == 0L) {
-            this.wattsForDisplay = super.wattsReceived;
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 
             if (!this.isDisabled()) {
                 boolean isDetectThisCheck = false;
 
-                if (super.wattsReceived >= this.getRequest().getWatts()) {
+                if (super.energyStorage.getEnergyStored() >= ENERGY_USED) {
                     final AxisAlignedBB bounds = AxisAlignedBB.getBoundingBox(
                         this.xCoord - this.minCoord.x,
                         this.yCoord - this.minCoord.y,
@@ -110,7 +114,7 @@ public class TProximityDetector
                     }
 
                     if (!this.worldObj.isRemote) {
-                        super.wattsReceived = 0.0;
+                        energyStorage.extractEnergy(ENERGY_USED,false);
                     }
                 }
 
@@ -135,8 +139,7 @@ public class TProximityDetector
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
 
-        nbt.setDouble("wattsForDisplay", this.wattsForDisplay);
-        nbt.setDouble("wattsReceived", super.wattsReceived);
+        energyStorage.writeToNBT(nbt);
         nbt.setShort("frequency", this.frequency);
         nbt.setByte("mode", this.mode);
         nbt.setBoolean("isInverted", this.isInverted);
@@ -152,8 +155,7 @@ public class TProximityDetector
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound nbt = pkt.func_148857_g();
 
-        this.wattsForDisplay = nbt.getDouble("wattsForDisplay");
-        super.wattsReceived = nbt.getDouble("wattsReceived");
+        energyStorage.readFromNBT(nbt);
         this.frequency = nbt.getShort("frequency");
         this.mode = nbt.getByte("mode");
         this.isInverted = nbt.getBoolean("isInverted");
@@ -191,8 +193,4 @@ public class TProximityDetector
         return this.isDetect;
     }
 
-    @Override
-    public ElectricityPack getRequest() {
-        return new ElectricityPack(8.0 / this.getVoltage(), this.getVoltage());
-    }
 }

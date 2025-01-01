@@ -17,8 +17,8 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class RFeiBlock extends Render {
-    public RFeiBlock() {
+public class RenderGravityBlock extends Render {
+    public RenderGravityBlock() {
         super.shadowSize = 0.5f;
     }
 

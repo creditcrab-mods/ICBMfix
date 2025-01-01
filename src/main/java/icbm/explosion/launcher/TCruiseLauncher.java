@@ -45,6 +45,7 @@ public class TCruiseLauncher extends TLauncherController
         this.containingItems = new ItemStack[2];
         this.isPowered = false;
         super.target = new Vector3();
+        energyStorage.setCapacity(320000);
     }
 
     @Override
@@ -176,7 +177,7 @@ public class TCruiseLauncher extends TLauncherController
     @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
-
+    //TODO:Change instances of "rf" to "Energy"
         nbt.setInteger("rf", this.energyStorage.getEnergyStored());
         nbt.setInteger("frequency", super.frequency);
         nbt.setInteger("disabledTicks", super.disabledTicks);
@@ -343,10 +344,6 @@ public class TCruiseLauncher extends TLauncherController
         this.isPowered = false;
     }
 
-    @Override
-    public double getMaxJoules() {
-        return 800000.0;
-    }
 
     @Override
     public boolean onActivated(final EntityPlayer entityPlayer) {
@@ -374,10 +371,7 @@ public class TCruiseLauncher extends TLauncherController
         return LauncherType.CRUISE;
     }
 
-    @Override
-    public boolean canConnect(final ForgeDirection direction) {
-        return true;
-    }
+
 
     @Override
     public boolean hasCustomInventoryName() {

@@ -3,7 +3,6 @@ package icbm.explosion.launcher;
 import calclavia.lib.TileEntityUniversalStorable;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyReceiver;
-import cofh.core.util.energy.EnergyStorageAdv;
 import dan200.computercraft.api.lua.ILuaContext;
 import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
@@ -13,9 +12,10 @@ import icbm.core.IICBMPeripheral;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import universalelectricity.core.vector.Vector3;
+import universalelectricity.prefab.tile.TileEntityDisableable;
 
 public abstract class TLauncherController
-    extends TileEntityUniversalStorable implements ILauncherController, IICBMPeripheral, IEnergyReceiver {
+    extends TileEntityDisableable implements ILauncherController, IICBMPeripheral, IEnergyReceiver {
     protected Vector3 target;
     protected int frequency;
     public EnergyStorage energyStorage = new EnergyStorage(320000, Integer.MAX_VALUE,Integer.MAX_VALUE);
@@ -26,10 +26,6 @@ public abstract class TLauncherController
         LauncherManager.addLauncher(this);
     }
 
-    @Override
-    public boolean canConnect(final ForgeDirection direction) {
-        return true;
-    }
 
     @Override
     public Vector3 getTarget() {
@@ -59,7 +55,6 @@ public abstract class TLauncherController
         this.frequency = frequency;
     }
 
-    //TODO: Change to RF
 
     @Override
     public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b) {

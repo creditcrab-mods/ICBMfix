@@ -19,8 +19,7 @@ import universalelectricity.prefab.implement.IRotatable;
 import universalelectricity.prefab.implement.ITier;
 import universalelectricity.prefab.multiblock.IBlockActivate;
 
-public class TLauncherControlPanel
-    extends TLauncherController implements IBlockActivate, ITier, IRotatable {
+public class TLauncherControlPanel extends TLauncherController implements IBlockActivate, ITier, IRotatable {
     private boolean isPowered;
     private byte direction;
     private int tier;
@@ -33,6 +32,7 @@ public class TLauncherControlPanel
         this.tier = 0;
         this.launcherPlatform = null;
         this.height = 3;
+
     }
 
     @Override
@@ -135,7 +135,7 @@ public class TLauncherControlPanel
             status = "Disabled";
         } else if (this.launcherPlatform == null) {
             status = "Not connected!";
-        } else if (this.energyStorage.getMaxEnergyStored() < this.energyStorage.getMaxEnergyStored()) {
+        } else if (this.energyStorage.getEnergyStored() < this.energyStorage.getMaxEnergyStored()) {
             status = "Insufficient RF!";
         } else if (this.launcherPlatform.daoDan == null) {
             status = "Missile silo is empty!";
@@ -157,6 +157,7 @@ public class TLauncherControlPanel
     public void readFromNBT(final NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.tier = nbt.getInteger("tier");
+        energyStorage.setCapacity(getCapacity());
         this.direction = nbt.getByte("facingDirection");
         this.height = nbt.getShort("height");
     }
@@ -169,22 +170,6 @@ public class TLauncherControlPanel
         nbt.setShort("height", this.height);
     }
 
-    @Override
-    public double getVoltage() {
-        switch (this.getTier()) {
-            default: {
-                return 120.0;
-            }
-
-            case 1: {
-                return 240.0;
-            }
-
-            case 2: {
-                return 480.0;
-            }
-        }
-    }
 
     @Override
     public void onPowerOn() {
@@ -223,19 +208,19 @@ public class TLauncherControlPanel
         this.direction = (byte) facingDirection.ordinal();
     }
 
-    @Override
-    public double getMaxJoules() {
+
+    public int getCapacity() {
         switch (this.getTier()) {
             case 0: {
-                return 400000.0;
+                return 160000;
             }
 
             case 1: {
-                return 60000.0;
+                return 240000;
             }
 
             default: {
-                return 800000.0;
+                return 320000;
             }
         }
     }

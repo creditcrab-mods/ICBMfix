@@ -29,7 +29,7 @@ import icbm.explosion.render.REExplosives;
 import icbm.explosion.render.REmpTower;
 import icbm.explosion.render.RFaSheDi;
 import icbm.explosion.render.RFaSheJia;
-import icbm.explosion.render.RFeiBlock;
+import icbm.explosion.render.RenderGravityBlock;
 import icbm.explosion.render.RGuangBang;
 import icbm.explosion.render.RHJiQi;
 import icbm.explosion.render.RHZhaPin;
@@ -97,7 +97,7 @@ public class ClientProxy extends CommonProxy {
             EntityExplosion.class, (Render) new RZhaPin()
         );
         RenderingRegistry.registerEntityRenderingHandler(
-            EGravityBlock.class, (Render) new RFeiBlock()
+            EGravityBlock.class, (Render) new RenderGravityBlock()
         );
         RenderingRegistry.registerEntityRenderingHandler(
             ELightBeam.class, (Render) new RGuangBang()

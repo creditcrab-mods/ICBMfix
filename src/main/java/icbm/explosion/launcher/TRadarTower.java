@@ -13,6 +13,7 @@ import icbm.api.IItemFrequency;
 import icbm.api.RadarRegistry;
 import icbm.core.IICBMPeripheral;
 import icbm.core.MainBase;
+import icbm.core.di.TileElectricICBM;
 import icbm.explosion.ICBMExplosion;
 import icbm.explosion.missile.EMissile;
 import net.minecraft.entity.Entity;
@@ -36,9 +37,10 @@ import universalelectricity.prefab.block.BlockAdvanced;
 import universalelectricity.prefab.implement.IRedstoneProvider;
 import universalelectricity.prefab.multiblock.IMultiBlock;
 
-public class TRadarTower extends TileEntityUniversalRunnable
+public class TRadarTower extends TileElectricICBM
     implements IRedstoneProvider, IMultiBlock, IICBMPeripheral {
-    public static final int MAX_BIAN_JING = 500;
+    public static final int RADIUS = 500;
+    public static final int ENERGY_USED = 20;
     public float rotation;
     public int alarmRadius;
     public int safetyRadius;
@@ -50,6 +52,7 @@ public class TRadarTower extends TileEntityUniversalRunnable
     public double wattsForDisplay;
 
     public TRadarTower() {
+        super(32000, Integer.MAX_VALUE,Integer.MAX_VALUE);
         this.rotation = 0.0f;
         this.alarmRadius = 100;
         this.safetyRadius = 50;
@@ -94,7 +97,7 @@ public class TRadarTower extends TileEntityUniversalRunnable
 
         try {
             if (!this.worldObj.isRemote) {
-                this.wattsForDisplay = super.wattsReceived;
+                //this.wattsForDisplay = super.wattsReceived;
                 if (super.ticks % 40L == 0L) {
                     this.worldObj.markBlockForUpdate(
                         this.xCoord, this.yCoord, this.zCoord
@@ -111,9 +114,8 @@ public class TRadarTower extends TileEntityUniversalRunnable
                     }
 
                     if (!this.worldObj.isRemote) {
-                        super.wattsReceived = Math.max(
-                            super.wattsReceived - this.getRequest().getWatts(), 0.0
-                        );
+                        energyStorage.extractEnergy(ENERGY_USED,false);
+                        markDirty();
                     }
 
                     final int prevShuMu = this.entitiesInRange.size();
@@ -213,7 +215,7 @@ public class TRadarTower extends TileEntityUniversalRunnable
              )) {
             if (jiQi instanceof TRadarTower) {
                 if (((TRadarTower) jiQi).isDisabled()
-                    || ((TRadarTower) jiQi).prevWatts <= 0.0) {
+                    || ((TRadarTower) jiQi).energyStorage.getEnergyStored() <= 0.0) {
                     continue;
                 }
 
@@ -240,8 +242,9 @@ public class TRadarTower extends TileEntityUniversalRunnable
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
 
-        nbt.setDouble("wattsReceived", super.wattsReceived);
-        nbt.setDouble("wattsForDisplay", this.wattsForDisplay);
+        energyStorage.writeToNBT(nbt);
+        //nbt.setDouble("wattsReceived", super.wattsReceived);
+        //nbt.setDouble("wattsForDisplay", this.wattsForDisplay);
         nbt.setInteger("disabledTicks", this.disabledTicks);
         nbt.setInteger("safetyRadius", this.safetyRadius);
         nbt.setInteger("alarmRadius", this.alarmRadius);
@@ -255,8 +258,9 @@ public class TRadarTower extends TileEntityUniversalRunnable
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound nbt = pkt.func_148857_g();
 
-        super.wattsReceived = nbt.getDouble("wattsReceived");
-        this.wattsForDisplay = nbt.getDouble("wattsForDisplay");
+        energyStorage.readFromNBT(nbt);
+        //super.wattsReceived = nbt.getDouble("wattsReceived");
+        //this.wattsForDisplay = nbt.getDouble("wattsForDisplay");
         this.disabledTicks = nbt.getInteger("disabledTicks");
         this.safetyRadius = nbt.getInteger("safetyRadius");
         this.alarmRadius = nbt.getInteger("alarmRadius");
@@ -264,7 +268,7 @@ public class TRadarTower extends TileEntityUniversalRunnable
 
     @Override
     public boolean isPoweringTo(final ForgeDirection side) {
-        if ((super.prevWatts > 0.0 || super.wattsReceived > 0.0)
+        if ((energyStorage.getEnergyStored() > 0)
             && this.missilesInRange.size() > 0) {
             if (this.emitAll) {
                 return true;
@@ -436,11 +440,7 @@ public class TRadarTower extends TileEntityUniversalRunnable
     }
 
     public boolean canRun() {
-        if (this.worldObj.isRemote) {
-            return this.wattsForDisplay >= this.getRequest().getWatts();
-        } else {
-            return super.wattsReceived >= this.getRequest().getWatts();
-        }
+        return this.energyStorage.getEnergyStored() >= ENERGY_USED;
     }
 
     @Override
@@ -460,7 +460,7 @@ public class TRadarTower extends TileEntityUniversalRunnable
         final int method,
         final Object[] arguments
     ) throws LuaException {
-        if (super.wattsReceived < this.getRequest().getWatts()) {
+        if (super.energyStorage.getEnergyStored() < ENERGY_USED) {
             throw new LuaException("Radar has insufficient electricity!");
         }
 
@@ -517,10 +517,13 @@ public class TRadarTower extends TileEntityUniversalRunnable
     @Override
     public void detach(final IComputerAccess computer) {}
 
+    /*
     @Override
     public ElectricityPack getRequest() {
         return new ElectricityPack(15.0 / this.getVoltage(), this.getVoltage());
     }
+     */
+
 
     @Override
     public AxisAlignedBB getRenderBoundingBox() {

@@ -192,22 +192,18 @@ public class GProximityDetector extends GuiBase {
 
         if (this.tileEntity.isDisabled()) {
             status = "Disabled";
-        } else if (this.tileEntity.wattsForDisplay < this.tileEntity.getRequest().getWatts()) {
-            status = "Insufficient electricity!";
+        } else if (this.tileEntity.energyStorage.getEnergyStored() < this.tileEntity.ENERGY_USED) {
+            status = "Insufficient RF!";
         } else {
             color = "§2";
             status = "On";
         }
 
         this.fontRendererObj.drawString(color + "Status: " + status, 12, 138, 4210752);
-        this.fontRendererObj.drawString(
-            UnitDisplay.getDisplay(
-                this.tileEntity.getRequest().getWatts() * 20.0,
-                UnitDisplay.Unit.WATT
-            ) + " "
-                + UnitDisplay.getDisplay(
-                    this.tileEntity.getVoltage(), UnitDisplay.Unit.VOLTAGE
-                ),
+        this.fontRendererObj.drawString(this.tileEntity.ENERGY_USED + " RF/t",
+
+
+
             12,
             150,
             4210752

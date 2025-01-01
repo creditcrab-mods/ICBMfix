@@ -1,5 +1,6 @@
 package icbm.contraption;
 
+import cofh.lib.util.helpers.EnergyHelper;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.SidedProxy;
@@ -188,7 +189,7 @@ public class ICBMContraption extends MainBase {
                            'S',
                            "ingotSteel",
                            '?',
-                           ElectricItemHelper.getUncharged(ICBMContraption.itTracker) }
+                    EnergyHelper.setDefaultEnergyTag(new ItemStack(itTracker),0) }
         ));
         GameRegistry.addRecipe((IRecipe) new ShapedOreRecipe(
             (Item) ICBMContraption.itSignalDisrupter,

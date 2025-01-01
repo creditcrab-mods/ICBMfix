@@ -55,9 +55,14 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     public void updateEntity() {
         super.updateEntity();
 
-        if (prevRF != energyStorage.getEnergyStored()) {
+
+        if (!this.worldObj.isRemote && super.ticks % 3L == 0L) {
+            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             this.markDirty();
+
         }
+
+
 
         if (!this.worldObj.isRemote) {
             for (int i = 0; i < 12; ++i) {
@@ -389,7 +394,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
         return slotID < 12 && itemStack.getItem() instanceof IAmmunition;
     }
 
-    //TODO: Save RF stored on world load
     @Override
     public void markDirty() {
         super.markDirty();

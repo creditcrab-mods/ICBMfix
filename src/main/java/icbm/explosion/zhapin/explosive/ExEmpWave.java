@@ -1,5 +1,7 @@
 package icbm.explosion.zhapin.explosive;
 
+import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyStorage;
 import icbm.api.explosion.IEMPBlock;
 import icbm.explosion.zhapin.ZhaPin;
 import mffs.api.IForceFieldBlock;

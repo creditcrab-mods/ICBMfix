@@ -3,6 +3,7 @@ package icbm.explosion;
 import java.util.List;
 
 import basiccomponents.common.BasicComponents;
+import cofh.lib.util.helpers.EnergyHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.ModMetadata;
@@ -350,11 +351,11 @@ public class ICBMExplosion extends MainBase {
                            " ? ",
                            "  @",
                            '@',
-                           ElectricItemHelper.getUncharged(ICBMExplosion.itemRemoteDetonator),
+                            EnergyHelper.setDefaultEnergyTag(new ItemStack(itemRemoteDetonator),0),
                            '?',
                            "circuitElite",
                            '!',
-                           ElectricItemHelper.getUncharged(ICBMExplosion.itemRadarGun) }
+                            EnergyHelper.setDefaultEnergyTag(new ItemStack(itemRadarGun),0) }
         ));
         GameRegistry.addRecipe((IRecipe) new ShapedOreRecipe(
             new ItemStack((Item) ICBMExplosion.itemDefuser),
@@ -467,7 +468,7 @@ public class ICBMExplosion extends MainBase {
                            " ! ",
                            "!#!",
                            '@',
-                           ElectricItemHelper.getUncharged(ICBMExplosion.itemRadarGun),
+                            EnergyHelper.setDefaultEnergyTag(new ItemStack(itemRadarGun),0),
                            '!',
                            "plateSteel",
                            '#',

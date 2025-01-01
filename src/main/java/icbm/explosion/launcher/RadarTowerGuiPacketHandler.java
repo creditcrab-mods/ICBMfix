@@ -19,6 +19,7 @@ public class RadarTowerGuiPacketHandler
 
             rt.alarmRadius = message.alarmRadius;
             rt.safetyRadius = message.safetyRadius;
+            rt.markDirty();
         }
 
         return null;
