@@ -168,7 +168,7 @@ public class TCruiseLauncher extends TLauncherController
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound nbt = pkt.func_148857_g();
 
-        this.energyStorage.setEnergyStored(nbt.getInteger("rf"));
+        this.energyStorage.readFromNBT(nbt);
         super.frequency = nbt.getInteger("frequency");
         super.disabledTicks = nbt.getInteger("disabledTicks");
         super.target = Vector3.readFromNBT(nbt.getCompoundTag("target"));
@@ -177,8 +177,7 @@ public class TCruiseLauncher extends TLauncherController
     @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
-    //TODO:Change instances of "rf" to "Energy"
-        nbt.setInteger("rf", this.energyStorage.getEnergyStored());
+        energyStorage.writeToNBT(nbt);
         nbt.setInteger("frequency", super.frequency);
         nbt.setInteger("disabledTicks", super.disabledTicks);
         nbt.setTag("target", super.target.writeToNBT(new NBTTagCompound()));

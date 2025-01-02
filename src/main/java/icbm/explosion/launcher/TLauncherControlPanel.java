@@ -76,7 +76,7 @@ public class TLauncherControlPanel extends TLauncherController implements IBlock
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
 
-        nbt.setInteger("rf", energyStorage.getEnergyStored());
+        energyStorage.writeToNBT(nbt);
         nbt.setByte("direction", this.direction);
         nbt.setInteger("tier", this.tier);
         nbt.setInteger("frequency", this.getFrequency());
@@ -101,7 +101,7 @@ public class TLauncherControlPanel extends TLauncherController implements IBlock
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound nbt = pkt.func_148857_g();
 
-        this.energyStorage.setEnergyStored(nbt.getInteger("rf"));
+        energyStorage.readFromNBT(nbt);
         this.direction = nbt.getByte("direction");
         this.tier = nbt.getInteger("tier");
         this.setFrequency(nbt.getInteger("frequency"));

@@ -35,9 +35,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     public ForgeDirection deployDirection;
     public static final int UPGRADE_START_INDEX = 12;
 
-
-    public static final int MAX_BUFFER = 8000;
-
     public int prevRF = 0;
 
 
@@ -408,8 +405,9 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
 
-        nbt.setInteger("rf",energyStorage.getEnergyStored());
+
         super.writeToNBT(nbt);
+        energyStorage.writeToNBT(nbt);
 
         return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord,
             this.getBlockMetadata(), nbt);
@@ -419,8 +417,9 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IInv
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound nbt = pkt.func_148857_g();
 
-        energyStorage.setEnergyStored(nbt.getInteger("rf"));
+
         super.readFromNBT(nbt);
+        energyStorage.readFromNBT(nbt);
     }
 
 
