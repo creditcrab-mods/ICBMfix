@@ -1,6 +1,5 @@
 package icbm.explosion.launcher;
 
-import calclavia.lib.TileEntityUniversalStorable;
 import icbm.api.RadarRegistry;
 import icbm.core.MainBase;
 import icbm.explosion.ICBMExplosion;
@@ -24,7 +23,10 @@ public class TEmpTower
     public static final int MAX_RADIUS = 150;
     public float rotation;
     private float xuanZhuanLu;
-    public byte holzOhJa;
+
+
+    public byte mode;
+
     public int radius;
 
     //TODO:Add RF support to EMP tower
@@ -32,7 +34,7 @@ public class TEmpTower
     public TEmpTower() {
         super(400000,Integer.MAX_VALUE,Integer.MAX_VALUE);
         this.rotation = 0.0f;
-        this.holzOhJa = 0;
+        this.mode = 0;
         this.radius = 60;
         RadarRegistry.register(this);
     }
@@ -82,7 +84,7 @@ public class TEmpTower
         this.energyStorage.readFromNBT(nbt);
         super.disabledTicks = nbt.getInteger("disabledTicks");
         this.radius = nbt.getInteger("radius");
-        this.holzOhJa = nbt.getByte("holzOhJa");
+        this.mode = nbt.getByte("holzOhJa");
     }
 
     @Override
@@ -92,7 +94,7 @@ public class TEmpTower
         this.energyStorage.writeToNBT(nbt);
         nbt.setInteger("disabledTicks", super.disabledTicks);
         nbt.setInteger("radius", this.radius);
-        nbt.setByte("holzOhJa", this.holzOhJa);
+        nbt.setByte("holzOhJa", this.mode);
 
         return new S35PacketUpdateTileEntity(
             this.xCoord, this.yCoord, this.zCoord, this.getBlockMetadata(), nbt
@@ -104,38 +106,62 @@ public class TEmpTower
     public void readFromNBT(final NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.radius = nbt.getInteger("radius");
-        this.holzOhJa = nbt.getByte("holzOhJa");
+        this.mode = nbt.getByte("holzOhJa");
     }
 
     @Override
     public void writeToNBT(final NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger("radius", this.radius);
-        nbt.setByte("holzOhJa", this.holzOhJa);
+        nbt.setByte("holzOhJa", this.mode);
     }
 
     @Override
     public void onPowerOn() {
         int dian = this.getEnergyCost();
         if (this.energyStorage.getEnergyStored() >= this.getEnergyCost()) {
-            if (this.holzOhJa == 0 || this.holzOhJa == 1) {
-                ZhaPin.empSignal.doExplosion(
-                    this.worldObj,
-                    new Vector3(this.xCoord, this.yCoord, this.zCoord),
-                    null,
-                    this.radius,
-                    -1
-                );
-            }
-
-            if (this.holzOhJa == 0 || this.holzOhJa == 2) {
-                ZhaPin.empWave.doExplosion(
-                    this.worldObj,
-                    new Vector3(this.xCoord, this.yCoord, this.zCoord),
-                    null,
-                    this.radius,
-                    -1
-                );
+            switch (this.mode){
+                case 0:
+                    ZhaPin.empSignal.doExplosion(
+                        this.worldObj,
+                        new Vector3(this.xCoord, this.yCoord, this.zCoord),
+                        null,
+                        this.radius,
+                        -1
+                    );
+                    ZhaPin.empWave.doExplosion(
+                        this.worldObj,
+                        new Vector3(this.xCoord, this.yCoord, this.zCoord),
+                        null,
+                        this.radius,
+                        -1
+                    );
+                    break;
+                case 1:
+                    ZhaPin.empSignal.doExplosion(
+                        this.worldObj,
+                        new Vector3(this.xCoord, this.yCoord, this.zCoord),
+                        null,
+                        this.radius,
+                        1
+                    );
+                    break;
+                case 2:
+                    ZhaPin.empWave.doExplosion(
+                        this.worldObj,
+                        new Vector3(this.xCoord, this.yCoord, this.zCoord),
+                        null,
+                        this.radius,
+                        -1
+                    );
+                    ZhaPin.empSignal.doExplosion(
+                        this.worldObj,
+                        new Vector3(this.xCoord, this.yCoord, this.zCoord),
+                        null,
+                        this.radius,
+                        0
+                    );
+                    break;
             }
 
             this.energyStorage.extractEnergy(dian,false);

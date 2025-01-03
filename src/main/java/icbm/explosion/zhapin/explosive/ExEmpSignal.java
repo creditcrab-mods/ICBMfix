@@ -24,6 +24,18 @@ public class ExEmpSignal extends ZhaPin {
         super(name, ID, tier);
     }
 
+    /**
+     * @author      creditcrab
+     <p>
+     use callCount to differentiate explosion types as it is unused by the explosive.
+    <ul>
+    <li>-1 to affect all.</li>
+    <li>0 for affecting players only.</li>
+    <li>1 for affecting missles only.</li>
+    </ul>
+
+     <p>
+     */
     @Override
     public boolean doExplosion(
         final World worldObj,
@@ -32,50 +44,56 @@ public class ExEmpSignal extends ZhaPin {
         final int radius,
         final int callCount
     ) {
-        final List<Entity> entitiesNearby
-            = RadarRegistry.getEntitiesWithinRadius(position.toVector2(), radius);
 
-        for (final Entity entity : entitiesNearby) {
-            if (entity instanceof IMissile && !entity.isEntityEqual(explosionSource)
-                && ((IMissile) entity).getTicksInAir() > -1) {
-                ((IMissile) entity).dropMissileAsItem();
+        if (callCount != 0) {
+            final List<Entity> entitiesNearby
+                = RadarRegistry.getEntitiesWithinRadius(position.toVector2(), radius);
+
+            for (final Entity entity : entitiesNearby) {
+                if (entity instanceof IMissile && !entity.isEntityEqual(explosionSource)
+                    && ((IMissile) entity).getTicksInAir() > -1) {
+                    ((IMissile) entity).dropMissileAsItem();
+                }
             }
         }
 
-        final AxisAlignedBB bounds = AxisAlignedBB.getBoundingBox(
-            position.x - radius,
-            position.y - radius,
-            position.z - radius,
-            position.x + radius,
-            position.y + radius,
-            position.z + radius
-        );
-        final List<Entity> entities
-            = worldObj.getEntitiesWithinAABB(Entity.class, bounds);
+        if(callCount != 1){
+            final AxisAlignedBB bounds = AxisAlignedBB.getBoundingBox(
+                position.x - radius,
+                position.y - radius,
+                position.z - radius,
+                position.x + radius,
+                position.y + radius,
+                position.z + radius
+            );
+            final List<Entity> entities
+                = worldObj.getEntitiesWithinAABB(Entity.class, bounds);
 
-        for (final Entity entity2 : entities) {
-            if (entity2 instanceof EntityPlayer) {
-                final IInventory inventory
-                    = ((EntityPlayer) entity2).inventory;
+            for (final Entity entity2 : entities) {
+                if (entity2 instanceof EntityPlayer) {
+                    final IInventory inventory
+                        = ((EntityPlayer) entity2).inventory;
 
-                for (int i = 0; i < inventory.getSizeInventory(); ++i) {
-                    final ItemStack itemStack = inventory.getStackInSlot(i);
+                    for (int i = 0; i < inventory.getSizeInventory(); ++i) {
+                        final ItemStack itemStack = inventory.getStackInSlot(i);
 
-                    if (itemStack != null) {
-                        if (itemStack.getItem() instanceof IEMPItem) {
-                            ((IEMPItem) itemStack.getItem())
-                                .onEMP(itemStack, entity2, ZhaPin.emp);
-                        }
-                        if (RFItemHelper.isEnergyContainerItem(itemStack)) {
-                            RFItemHelper.setDefaultEnergyTag(itemStack,0);
-                            RFItemHelper.extractEnergyFromContainer(itemStack,1,false);
+                        if (itemStack != null) {
+                            if (itemStack.getItem() instanceof IEMPItem) {
+                                ((IEMPItem) itemStack.getItem())
+                                    .onEMP(itemStack, entity2, ZhaPin.emp);
+                            }
+                            if (RFItemHelper.isEnergyContainerItem(itemStack)) {
+                                RFItemHelper.setDefaultEnergyTag(itemStack,0);
+                                RFItemHelper.extractEnergyFromContainer(itemStack,1,false);
+                            }
                         }
                     }
+                } else {
+                    if (entity2 instanceof EntityExplosive) entity2.setDead();
                 }
-            } else {
-                if (entity2 instanceof EntityExplosive) entity2.setDead();
             }
         }
+
 
         worldObj.playSoundEffect(
             position.x,

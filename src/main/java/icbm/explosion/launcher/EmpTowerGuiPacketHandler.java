@@ -16,7 +16,7 @@ public class EmpTowerGuiPacketHandler
 
         if (te instanceof TEmpTower) {
             ((TEmpTower) te).radius = message.radius;
-            ((TEmpTower) te).holzOhJa = message.holzOhJa;
+            ((TEmpTower) te).mode = message.holzOhJa;
         }
 
         return null;

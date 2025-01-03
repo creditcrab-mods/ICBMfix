@@ -214,6 +214,9 @@ public abstract class ZhaPin implements ITier, IExplosive {
     doExplosion(final World worldObj, final Vector3 position, final Entity explosionSource) {
     }
 
+    /**
+     WARNING: callCount is used for different purpose in {@link icbm.explosion.zhapin.explosive.ExEmpSignal}}
+     */
     public boolean doExplosion(
         final World worldObj,
         final Vector3 position,

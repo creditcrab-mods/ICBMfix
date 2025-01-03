@@ -8,7 +8,6 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import universalelectricity.api.energy.RFDisplay;
-import universalelectricity.api.energy.UnitDisplay;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.GuiBase;
 
@@ -44,23 +43,23 @@ public class GEmpTower extends GuiBase {
     protected void actionPerformed(final GuiButton par1GuiButton) {
         switch (par1GuiButton.id) {
             case 0: {
-                this.tileEntity.holzOhJa = 1;
+                this.tileEntity.mode = 1;
                 break;
             }
 
             case 1: {
-                this.tileEntity.holzOhJa = 2;
+                this.tileEntity.mode = 2;
                 break;
             }
 
             case 2: {
-                this.tileEntity.holzOhJa = 0;
+                this.tileEntity.mode = 0;
                 break;
             }
         }
 
         ICBMExplosion.channel.sendToServer(new EmpTowerGuiPacket(
-            new Vector3(this.tileEntity), this.tileEntity.radius, this.tileEntity.holzOhJa
+            new Vector3(this.tileEntity), this.tileEntity.radius, this.tileEntity.mode
         ));
     }
 
@@ -77,7 +76,7 @@ public class GEmpTower extends GuiBase {
             ICBMExplosion.channel.sendToServer(new EmpTowerGuiPacket(
                 new Vector3(this.tileEntity),
                 this.tileEntity.radius,
-                this.tileEntity.holzOhJa
+                this.tileEntity.mode
             ));
         } catch (final NumberFormatException ex) {}
     }
@@ -98,9 +97,9 @@ public class GEmpTower extends GuiBase {
         this.fontRendererObj.drawString("EMP Effect:", 12, 55, 4210752);
         String mode = "Debilitate Electronics";
 
-        if (this.tileEntity.holzOhJa == 1) {
+        if (this.tileEntity.mode == 1) {
             mode = "Disrupt Missiles";
-        } else if (this.tileEntity.holzOhJa == 2) {
+        } else if (this.tileEntity.mode == 2) {
             mode = "Deplete Electricity";
         }
 
