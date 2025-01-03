@@ -16,6 +16,7 @@ import universalelectricity.core.block.IElectricityStorage;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IDisableable;
 import universalelectricity.prefab.tile.TileEntityElectricityRunnable;
+import universalelectricity.prefab.tile.TileEntityRFUser;
 
 public class ExEmpWave extends ZhaPin {
     public ExEmpWave(final String name, final int ID, final int tier) {
@@ -92,10 +93,8 @@ public class ExEmpWave extends ZhaPin {
                                 // if (tileEntity instanceof IEnergyStorage) {
                                 // ((IEnergyStorage) tileEntity).setStored(0);
                                 // }
-                                if (tileEntity instanceof TileEntityElectricityRunnable) {
-                                    ((TileEntityElectricityRunnable) tileEntity)
-                                        .wattsReceived
-                                        = 0.0;
+                                if (tileEntity instanceof TileEntityRFUser rfUser) {
+                                    rfUser.setEnergyStored(0);
                                 }
                             }
                         }
