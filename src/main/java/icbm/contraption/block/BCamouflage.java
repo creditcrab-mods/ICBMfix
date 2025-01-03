@@ -49,6 +49,11 @@ public class BCamouflage extends BlockICBM implements IEMPBlock {
     }
 
     @Override
+    public void onNeighborBlockChange(World worldIn, int x, int y, int z,Block neighbor){
+
+    }
+
+    @Override
     public IIcon getIcon(
         final IBlockAccess par1IBlockAccess,
         final int x,

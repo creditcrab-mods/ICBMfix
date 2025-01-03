@@ -40,6 +40,10 @@ public class BGlassReinforced extends BlockICBM implements IAntiPoisonBlock {
         return i1 != this
             && super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
     }
+    @Override
+    public void onNeighborBlockChange(World worldIn, int x, int y, int z,Block neighbor){
+
+    }
 
     @Override
     public boolean isOpaqueCube() {

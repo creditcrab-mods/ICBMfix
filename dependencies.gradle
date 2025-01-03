@@ -39,7 +39,7 @@ dependencies {
     runtimeOnlyNonPublishable("curse.maven:endercore-231868:4671288")
     implementation files('build/libs/atomicscience.jar')
     implementation files('build/libs/universalelectricity.jar')
-    implementation files('build/libs/basiccomponents-2.0.1.jar')
+    implementation files('build/libs/basiccomponents.jar')
     implementation( deobfCurse("cofh-core-69162:2388750"))
     runtimeOnlyNonPublishable("curse.maven:thermal-foundation-222880:2388752")
     runtimeOnlyNonPublishable (deobfCurse("thermal-expansion-69163:2388758"))

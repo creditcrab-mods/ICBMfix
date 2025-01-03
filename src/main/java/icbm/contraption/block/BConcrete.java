@@ -7,6 +7,7 @@ import atomicscience.api.poison.Poison;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import icbm.core.di.BlockICBM;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -44,6 +45,11 @@ public class BConcrete extends BlockICBM implements IAntiPoisonBlock {
                 return this.blockIcon;
             }
         }
+    }
+
+    @Override
+    public void onNeighborBlockChange(World worldIn, int x, int y, int z, Block neighbor){
+
     }
 
     @Override

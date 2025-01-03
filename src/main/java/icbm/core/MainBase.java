@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
+import atomicscience.Tags;
 import atomicscience.api.poison.PotionRadiation;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -44,7 +45,7 @@ import universalelectricity.prefab.ore.OreGenBase;
 import universalelectricity.prefab.ore.OreGenerator;
 
 public class MainBase {
-    public static final String VERSION = "{VERSION}";
+    public static final String VERSION = Tags.VERSION;
     public static final MainBase INSTANCE;
     public static boolean ZAI_KUAI;
     public static Block bLiu;
