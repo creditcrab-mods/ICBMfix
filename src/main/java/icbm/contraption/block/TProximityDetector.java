@@ -18,9 +18,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IRedstoneProvider;
+import universalelectricity.prefab.tile.TileEntityRFUser;
 
 public class TProximityDetector
-    extends TileElectricICBM implements IRedstoneProvider {
+    extends TileEntityRFUser implements IRedstoneProvider {
 
     public static final int ENERGY_USED = 5;
 

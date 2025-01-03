@@ -30,12 +30,13 @@ import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.block.BlockAdvanced;
 import universalelectricity.prefab.implement.IRedstoneProvider;
 import universalelectricity.prefab.multiblock.IMultiBlock;
+import universalelectricity.prefab.tile.TileEntityRFUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TRadarTower extends TileElectricICBM
+public class TRadarTower extends TileEntityRFUser
     implements IRedstoneProvider, IMultiBlock, IICBMPeripheral {
     public static final int RADIUS = 500;
     public static final int ENERGY_USED = 20;

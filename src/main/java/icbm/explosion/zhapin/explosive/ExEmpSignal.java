@@ -13,6 +13,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import universalelectricity.api.item.ItemRF;
 import universalelectricity.core.item.IItemElectric;
 import universalelectricity.core.vector.Vector3;
 
@@ -67,14 +68,11 @@ public class ExEmpSignal extends ZhaPin {
                                 .setJoules(0.0, itemStack);
                         }
 
-                        // TODO: WTF: IC2
-                        // else if (itemStack.getItem() instanceof ICustomElectricItem) {
-                        // ((ICustomElectricItem) itemStack.getItem())
-                        // .discharge(itemStack,
-                        // ((ICustomElectricItem) itemStack.getItem())
-                        // .getMaxCharge(itemStack),
-                        // 0, true, false);
-                        // }
+
+                        else if (itemStack.getItem() instanceof ItemRF itemRF) {
+                            //TODO:Add set energy to ItemRF
+
+                        }
                     }
                 }
             } else {

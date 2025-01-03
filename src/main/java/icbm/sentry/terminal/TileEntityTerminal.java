@@ -24,9 +24,10 @@ import net.minecraftforge.common.util.ForgeDirection;
 import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.tile.TileEntityDisableable;
+import universalelectricity.prefab.tile.TileEntityRFUser;
 
 public abstract class TileEntityTerminal
-    extends TileElectricICBM implements ITerminal {
+    extends TileEntityRFUser implements ITerminal {
     protected List<String> terminalOutput;
     private final List<UserAccess> users;
     public static final int SCROLL_SIZE = 15;

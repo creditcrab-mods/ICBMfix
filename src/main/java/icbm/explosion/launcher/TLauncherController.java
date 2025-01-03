@@ -12,8 +12,9 @@ import icbm.core.IICBMPeripheral;
 import icbm.core.di.TileElectricICBM;
 import net.minecraft.nbt.NBTTagCompound;
 import universalelectricity.core.vector.Vector3;
+import universalelectricity.prefab.tile.TileEntityRFUser;
 
-public abstract class TLauncherController extends TileElectricICBM implements ILauncherController, IICBMPeripheral {
+public abstract class TLauncherController extends TileEntityRFUser implements ILauncherController, IICBMPeripheral {
     protected Vector3 target;
     protected int frequency;
 

@@ -89,10 +89,8 @@ public class ExEmpWave extends ZhaPin {
                                         );
                                 }
 
-                                // TODO: WTF: IC2
-                                // if (tileEntity instanceof IEnergyStorage) {
-                                // ((IEnergyStorage) tileEntity).setStored(0);
-                                // }
+                                // TODO: Use reflection to add compatibility with major tech mods
+
                                 if (tileEntity instanceof TileEntityRFUser rfUser) {
                                     rfUser.setEnergyStored(0);
                                 }

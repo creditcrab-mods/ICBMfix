@@ -25,6 +25,8 @@ public class TEmpTower
     public byte holzOhJa;
     public int radius;
 
+    //TODO:Add RF support to EMP tower
+
     public TEmpTower() {
         this.rotation = 0.0f;
         this.holzOhJa = 0;
