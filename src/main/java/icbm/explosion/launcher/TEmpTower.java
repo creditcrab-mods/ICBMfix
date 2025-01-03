@@ -16,9 +16,11 @@ import net.minecraft.util.AxisAlignedBB;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.implement.IRedstoneReceptor;
 import universalelectricity.prefab.multiblock.IMultiBlock;
+import universalelectricity.prefab.tile.TileEntityRFUser;
 
 public class TEmpTower
-    extends TileEntityUniversalStorable implements IMultiBlock, IRedstoneReceptor {
+    extends TileEntityRFUser implements IMultiBlock, IRedstoneReceptor {
+
     public static final int MAX_RADIUS = 150;
     public float rotation;
     private float xuanZhuanLu;
@@ -28,6 +30,7 @@ public class TEmpTower
     //TODO:Add RF support to EMP tower
 
     public TEmpTower() {
+        super(400000,Integer.MAX_VALUE,Integer.MAX_VALUE);
         this.rotation = 0.0f;
         this.holzOhJa = 0;
         this.radius = 60;
@@ -45,19 +48,19 @@ public class TEmpTower
         super.updateEntity();
 
         if (!this.isDisabled()) {
-            if (super.ticks % 20L == 0L && this.getJoules() > 0.0) {
+            if (super.ticks % 20L == 0L && this.energyStorage.getEnergyStored() > 0) {
                 this.worldObj.playSoundEffect(
                     (double) this.xCoord,
                     (double) this.yCoord,
                     (double) this.zCoord,
                     "icbm:machinehum",
                     0.5f,
-                    (float) (0.8500000238418579 * this.getJoules() / this.getMaxJoules())
+                    (float) (0.8500000238418579 * this.energyStorage.getEnergyStored() / this.energyStorage.getMaxEnergyStored())
                 );
             }
 
             this.xuanZhuanLu
-                = (float) (Math.pow(this.getJoules() / this.getMaxJoules(), 2.0) * 0.5);
+                = (float) (Math.pow((float)this.energyStorage.getEnergyStored() / (float) this.energyStorage.getMaxEnergyStored(), 2.0) * 0.5);
             this.rotation += this.xuanZhuanLu;
 
             if (this.rotation > 360.0f) {
@@ -76,7 +79,7 @@ public class TEmpTower
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound nbt = pkt.func_148857_g();
 
-        this.setJoules(nbt.getDouble("joules"));
+        this.energyStorage.readFromNBT(nbt);
         super.disabledTicks = nbt.getInteger("disabledTicks");
         this.radius = nbt.getInteger("radius");
         this.holzOhJa = nbt.getByte("holzOhJa");
@@ -86,7 +89,7 @@ public class TEmpTower
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
 
-        nbt.setDouble("joules", this.getJoules());
+        this.energyStorage.writeToNBT(nbt);
         nbt.setInteger("disabledTicks", super.disabledTicks);
         nbt.setInteger("radius", this.radius);
         nbt.setByte("holzOhJa", this.holzOhJa);
@@ -96,10 +99,6 @@ public class TEmpTower
         );
     }
 
-    @Override
-    public double getVoltage() {
-        return 240.0;
-    }
 
     @Override
     public void readFromNBT(final NBTTagCompound nbt) {
@@ -117,7 +116,8 @@ public class TEmpTower
 
     @Override
     public void onPowerOn() {
-        if (this.getJoules() >= this.getMaxJoules()) {
+        int dian = this.getEnergyCost();
+        if (this.energyStorage.getEnergyStored() >= this.getEnergyCost()) {
             if (this.holzOhJa == 0 || this.holzOhJa == 1) {
                 ZhaPin.empSignal.doExplosion(
                     this.worldObj,
@@ -138,7 +138,7 @@ public class TEmpTower
                 );
             }
 
-            this.setJoules(0.0);
+            this.energyStorage.extractEnergy(dian,false);
         }
     }
 
@@ -175,9 +175,15 @@ public class TEmpTower
         );
     }
 
+    /*
     @Override
     public double getMaxJoules() {
         return Math.max(2000000.0f * (this.radius / 150.0f), 1000000.0f);
+    }
+     */
+
+    public int getEnergyCost(){
+        return (int)( 400000.0f * (this.radius / 150.0f));
     }
 
     @Override

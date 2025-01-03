@@ -3,6 +3,7 @@ package icbm.explosion.zhapin.explosive;
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.IEnergyStorage;
 import icbm.api.explosion.IEMPBlock;
+import icbm.explosion.launcher.TEmpTower;
 import icbm.explosion.zhapin.ZhaPin;
 import mffs.api.IForceFieldBlock;
 import mffs.api.fortron.IFortronStorage;
@@ -71,10 +72,9 @@ public class ExEmpWave extends ZhaPin {
                                 ((IEMPBlock) block)
                                     .onEMP(worldObj, searchPosition, ZhaPin.emp);
                             } else if (tileEntity != null) {
-                                if (tileEntity instanceof IElectricityStorage) {
-                                    ((IElectricityStorage) tileEntity).setJoules(0.0);
+                                if(tileEntity instanceof TEmpTower){
+                                    continue;
                                 }
-
                                 if (tileEntity instanceof IDisableable) {
                                     ((IDisableable) tileEntity).onDisable(400);
                                 }

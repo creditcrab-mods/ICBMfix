@@ -13,8 +13,10 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.config.Property;
 import universalelectricity.api.item.ItemRF;
 import universalelectricity.core.item.IItemElectric;
+import universalelectricity.core.item.RFItemHelper;
 import universalelectricity.core.vector.Vector3;
 
 public class ExEmpSignal extends ZhaPin {
@@ -54,7 +56,7 @@ public class ExEmpSignal extends ZhaPin {
         for (final Entity entity2 : entities) {
             if (entity2 instanceof EntityPlayer) {
                 final IInventory inventory
-                    = (IInventory) ((EntityPlayer) entity2).inventory;
+                    = ((EntityPlayer) entity2).inventory;
 
                 for (int i = 0; i < inventory.getSizeInventory(); ++i) {
                     final ItemStack itemStack = inventory.getStackInSlot(i);
@@ -63,24 +65,15 @@ public class ExEmpSignal extends ZhaPin {
                         if (itemStack.getItem() instanceof IEMPItem) {
                             ((IEMPItem) itemStack.getItem())
                                 .onEMP(itemStack, entity2, ZhaPin.emp);
-                        } else if (itemStack.getItem() instanceof IItemElectric) {
-                            ((IItemElectric) itemStack.getItem())
-                                .setJoules(0.0, itemStack);
                         }
-
-
-                        else if (itemStack.getItem() instanceof ItemRF itemRF) {
-                            //TODO:Add set energy to ItemRF
-
+                        if (RFItemHelper.isEnergyContainerItem(itemStack)) {
+                            RFItemHelper.setDefaultEnergyTag(itemStack,0);
+                            RFItemHelper.extractEnergyFromContainer(itemStack,1,false);
                         }
                     }
                 }
             } else {
-                if (!(entity2 instanceof EntityExplosive)) {
-                    continue;
-                }
-
-                entity2.setDead();
+                if (entity2 instanceof EntityExplosive) entity2.setDead();
             }
         }
 

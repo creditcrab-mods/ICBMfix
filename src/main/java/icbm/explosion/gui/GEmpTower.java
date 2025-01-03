@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import universalelectricity.api.energy.RFDisplay;
 import universalelectricity.api.energy.UnitDisplay;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.GuiBase;
@@ -107,9 +108,12 @@ public class GEmpTower extends GuiBase {
         String color = "§4";
         String status = "Idle";
 
+        int cost = this.tileEntity.getEnergyCost();
+        int stored = this.tileEntity.energyStorage.getEnergyStored();
+
         if (this.tileEntity.isDisabled()) {
             status = "Disabled";
-        } else if (this.tileEntity.getJoules() < this.tileEntity.getMaxJoules()) {
+        } else if (stored < cost) {
             status = "Insufficient electricity!";
         } else {
             color = "§2";
@@ -118,15 +122,12 @@ public class GEmpTower extends GuiBase {
 
         this.fontRendererObj.drawString(color + "Status: " + status, 12, 120, 4210752);
         this.fontRendererObj.drawString(
-            "Voltage: " + this.tileEntity.getVoltage() + "v", 12, 135, 4210752
+            "Energy Cost " + RFDisplay.displayRF(cost), 12, 135, 4210752
         );
         this.fontRendererObj.drawString(
-            UnitDisplay.getDisplayShort(
-                this.tileEntity.getJoules(), UnitDisplay.Unit.JOULES
-            ) + "/"
-                + UnitDisplay.getDisplayShort(
-                    this.tileEntity.getMaxJoules(), UnitDisplay.Unit.JOULES
-                ),
+            RFDisplay.displayRF(stored)
+             + "/"
+                + RFDisplay.displayRF(this.tileEntity.energyStorage.getMaxEnergyStored()),
             12,
             150,
             4210752
