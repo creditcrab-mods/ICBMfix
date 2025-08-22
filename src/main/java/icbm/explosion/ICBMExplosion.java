@@ -613,34 +613,34 @@ public class ICBMExplosion extends MainBase {
             }
         }
 
-        EntityRegistry.registerGlobalEntityID(
-            EntityExplosive.class, "ICBMExplosive", EntityRegistry.findGlobalUniqueEntityId()
-        );
-        EntityRegistry.registerGlobalEntityID(
-            EMissile.class, "ICBMMissile", EntityRegistry.findGlobalUniqueEntityId()
-        );
-        EntityRegistry.registerGlobalEntityID(
-            EntityExplosion.class,
-            "ICBMProceduralExplosion",
-            EntityRegistry.findGlobalUniqueEntityId()
-        );
-        EntityRegistry.registerGlobalEntityID(
-            EGravityBlock.class,
-            "ICBMGravityBlock",
-            EntityRegistry.findGlobalUniqueEntityId()
-        );
-        EntityRegistry.registerGlobalEntityID(
-            ELightBeam.class, "ICBMLightBeam", EntityRegistry.findGlobalUniqueEntityId()
-        );
-        EntityRegistry.registerGlobalEntityID(
-            ESuiPian.class, "ICBMFragment", EntityRegistry.findGlobalUniqueEntityId()
-        );
-        EntityRegistry.registerGlobalEntityID(
-            EntityGrenade.class, "ICBMGrenade", EntityRegistry.findGlobalUniqueEntityId()
-        );
-        EntityRegistry.registerGlobalEntityID(
-            EntityCart.class, "ICBMChe", EntityRegistry.findGlobalUniqueEntityId()
-        );
+//        EntityRegistry.registerGlobalEntityID(
+//            EntityExplosive.class, "ICBMExplosive", EntityRegistry.findGlobalUniqueEntityId()
+//        );
+//        EntityRegistry.registerGlobalEntityID(
+//            EMissile.class, "ICBMMissile", EntityRegistry.findGlobalUniqueEntityId()
+//        );
+//        EntityRegistry.registerGlobalEntityID(
+//            EntityExplosion.class,
+//            "ICBMProceduralExplosion",
+//            EntityRegistry.findGlobalUniqueEntityId()
+//        );
+//        EntityRegistry.registerGlobalEntityID(
+//            EGravityBlock.class,
+//            "ICBMGravityBlock",
+//            EntityRegistry.findGlobalUniqueEntityId()
+//        );
+//        EntityRegistry.registerGlobalEntityID(
+//            ELightBeam.class, "ICBMLightBeam", EntityRegistry.findGlobalUniqueEntityId()
+//        );
+//        EntityRegistry.registerGlobalEntityID(
+//            ESuiPian.class, "ICBMFragment", EntityRegistry.findGlobalUniqueEntityId()
+//        );
+//        EntityRegistry.registerGlobalEntityID(
+//            EntityGrenade.class, "ICBMGrenade", EntityRegistry.findGlobalUniqueEntityId()
+//        );
+//        EntityRegistry.registerGlobalEntityID(
+//            EntityCart.class, "ICBMChe", EntityRegistry.findGlobalUniqueEntityId()
+//        );
         EntityRegistry.registerModEntity(
             EntityExplosive.class, "ICBMExplosive", 50, (Object) this, 50, 5, true
         );
