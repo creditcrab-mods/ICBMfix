@@ -105,17 +105,17 @@ public class ICBMSentry extends MainBase {
             ICBMSentry.blockTurret, ItemBlockTurret.class, "ICBMTurret"
         );
         GameRegistry.registerBlock(ICBMSentry.blockPlatform, "ICBMPlatform");
-        EntityRegistry.registerGlobalEntityID(
-            ESeat.class, "ICBMFake", EntityRegistry.findGlobalUniqueEntityId()
-        );
+//        EntityRegistry.registerGlobalEntityID(
+//            ESeat.class, "ICBMFake", EntityRegistry.findGlobalUniqueEntityId()
+//        );
         EntityRegistry.registerModEntity(
-            ESeat.class, "ICBMFake", 57, (Object) this, 50, 5, true
-        );
-        EntityRegistry.registerGlobalEntityID(
-            EntityTileDamagable.class,
-            "ICBMFakeTile",
-            EntityRegistry.findGlobalUniqueEntityId()
-        );
+            ESeat.class, "ICBMFake", 57, (Object) this, 50, 5, true);
+//        EntityRegistry.registerGlobalEntityID(
+//            EntityTileDamagable.class,
+//            "ICBMFakeTile",
+//            EntityRegistry.findGlobalUniqueEntityId()
+//        );
+
         EntityRegistry.registerModEntity(
             EntityTileDamagable.class, "ICBMFakeTile", 58, (Object) this, 50, 5, true
         );
