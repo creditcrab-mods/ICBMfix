@@ -6,7 +6,9 @@ import icbm.explosion.launcher.TLauncherControlPanel;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import universalelectricity.api.energy.RFDisplay;
 import universalelectricity.api.energy.UnitDisplay;
+import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.GuiBase;
 
@@ -160,10 +162,10 @@ public class GMissileLauncher extends GuiBase {
         );
         this.fontRendererObj.drawString(
 
-                this.tileEntity.energyStorage.getEnergyStored()
-            + "/" +
+            RFDisplay.displayRF(this.tileEntity.energyStorage.getEnergyStored())
 
-                    this.tileEntity.energyStorage.getMaxEnergyStored() + "RF"
+            + "/" +
+                    RFDisplay.displayRF(this.tileEntity.energyStorage.getMaxEnergyStored())
                 ,
             12,
             150,
